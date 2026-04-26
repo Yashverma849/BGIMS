@@ -1,0 +1,10 @@
+const id = "06-budget-panel";
+const collection = "events";
+const data = {id:"budget-panel-2024",title:"Panel Discussion on the Union Budget 2024.",category:"industry",categoryLabel:"Industry · Panel",date:"2024-03-14",excerpt:"A 100-minute conversation between four senior practitioners — banking, taxation, capital markets, and macroeconomic policy — moderated by our Director.",featured:false,visualTone:"maroon",iconPath:"\u003Cpath d='M30 70V40l20-15 20 15v30M40 70V55h20v15' fill='none' stroke='currentColor' stroke-width='1.5'/>",order:6};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/events/06-budget-panel.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };

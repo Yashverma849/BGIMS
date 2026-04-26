@@ -1,0 +1,10 @@
+const id = "sandeep-kulkarni";
+const collection = "faculty";
+const data = {id:"sandeep-kulkarni",name:"Prof. Sandeep Kulkarni",initials:"SK",role:"Assistant Professor, Operations & Supply Chain",department:"Operations",bio:"Decade at Mahindra Logistics designing port-warehouse linkages along the Western Coast. Teaches Operations Strategy and Lean Manufacturing.",credentials:"M.Tech (IIT Bombay) · Six Sigma Black Belt",type:"core",portraitTone:"maroon-deep",order:30};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/faculty/sandeep-kulkarni.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };

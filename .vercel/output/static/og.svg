@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3D0E10"/>
+      <stop offset="50%" stop-color="#722325"/>
+      <stop offset="100%" stop-color="#0F0C0A"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="0.5" fill="#B8965A" opacity="0.25"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g transform="translate(120, 100)">
+    <text font-family="Cormorant Garamond, serif" font-size="34" letter-spacing="0.18em" fill="#B8965A" font-weight="500">EST. 2002 · MUMBAI</text>
+    <text y="160" font-family="Cormorant Garamond, serif" font-size="120" letter-spacing="-0.025em" fill="#FAF6EE" font-weight="300">Where heritage</text>
+    <text y="290" font-family="Cormorant Garamond, serif" font-size="120" letter-spacing="-0.025em" fill="#FAF6EE" font-weight="300">meets <tspan font-family="Italiana, serif" fill="#D4B47C">tomorrow's</tspan></text>
+    <text y="420" font-family="Cormorant Garamond, serif" font-size="120" letter-spacing="-0.025em" fill="#FAF6EE" font-weight="300">leaders.</text>
+    <line x1="0" y1="470" x2="200" y2="470" stroke="#B8965A" stroke-width="1"/>
+    <text y="500" font-family="Cormorant Garamond, serif" font-size="22" font-style="italic" fill="#E5CFA3">Maratha Mandir's Babasaheb Gawde Institute of Management Studies</text>
+  </g>
+  <g transform="translate(960, 100)">
+    <rect width="120" height="120" fill="#0F0C0A" stroke="#B8965A" stroke-width="2"/>
+    <text x="60" y="92" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#B8965A">B</text>
+  </g>
+</svg>

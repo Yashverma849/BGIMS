@@ -1,0 +1,10 @@
+const id = "12-garba-jalsa";
+const collection = "events";
+const data = {id:"garba-jalsa-2023",title:"Garba Jalsa — Navratri on the campus quadrangle.",category:"cultural",categoryLabel:"Cultural",date:"2023-11-17",excerpt:"A 4,000-person evening, our largest yet, supported by the alumni association.",featured:false,visualTone:"ink",iconPath:"\u003Cpath d='M50 20l8 24h25l-20 16 8 24-21-15-21 15 8-24-20-16h25z' fill='none' stroke='currentColor' stroke-width='1.5'/>",order:12};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/events/12-garba-jalsa.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };

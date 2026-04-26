@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "MM BGIMS — Heritage Reimagined. Astro + TypeScript institutional website.",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
     "start": "node ./server.mjs",
@@ -52,7 +55,6 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "argon2",
-      "better-sqlite3",
       "esbuild",
       "sharp"
     ]

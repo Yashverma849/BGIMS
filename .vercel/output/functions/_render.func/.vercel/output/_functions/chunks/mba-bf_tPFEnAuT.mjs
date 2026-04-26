@@ -1,0 +1,10 @@
+const id = "mba-bf";
+const collection = "programmes";
+const data = {id:"MBA-BF",numeral:"I",eyebrow:"Flagship Programme",title:"MBA in Banking & Finance",shortName:"MBA · Banking & Finance",duration:"2 Years",type:"Full-Time",affiliation:"AICTE",seats:60,tuitionPerYear:482000,applicationFee:1500,blurb:"The flagship — built for those who will lead the desks of tomorrow's banks, funds, and treasuries. Curriculum aligned with CFA Institute body of knowledge.",lead:"The Banking & Finance MBA is the institute's flagship — designed for those who will lead the desks of tomorrow's investment banks, asset managers, treasuries, and central banks. The programme integrates rigorous quantitative finance with the practitioner's view of markets, regulation, and risk.",body:"The curriculum is mapped to the CFA Institute's body of knowledge. Students sit for CFA Level I during the second year. The faculty includes serving partners from Edelweiss, JM Financial, and HDFC Asset Management.",eligibility:"Bachelor's with 50%+ aggregate · MAH-CET / CAT / CMAT / GMAT",intake:"60 seats · cohort kept deliberately small",tuitionLine:"₹4,82,000 per year (subject to FRA approval 2026—27)",specialisations:"Investment Banking · Risk Management · Wealth Management · Banking Operations · FinTech",tags:["2 Years","Full-Time","AICTE","CFA Aligned"],curriculum:[{label:"Semester I",title:"Quantitative Foundations",body:"Statistics, time-value of money, accounting, micro & macroeconomics, business communications."},{label:"Semester II",title:"Financial Markets",body:"Securities, fixed income, derivatives, banking systems, financial reporting & analysis."},{label:"Semester III",title:"Risk & Strategy",body:"Corporate finance, risk modelling, mergers & acquisitions, regulation, behavioural finance."},{label:"Semester IV",title:"Capstone & Specialisation",body:"Dissertation, summer internship synthesis, advanced specialisation electives, CFA preparation."}],order:1};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/programmes/mba-bf.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };

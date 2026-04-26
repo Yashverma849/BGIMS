@@ -1,0 +1,10 @@
+const id = "04-earth-day";
+const collection = "events";
+const data = {id:"earth-day-2024",title:"Earth Day 2024 — a campus-wide observance.",category:"civic",categoryLabel:"Civic",date:"2024-04-30",excerpt:"Tree planting at Mahalaxmi Race Course, in partnership with the Bombay Natural History Society. A short film by the BMS first-years was screened in the auditorium.",featured:false,visualTone:"cream",iconPath:"\u003Ccircle cx='50' cy='50' r='35' fill='none' stroke='currentColor' stroke-width='1.5'/>\u003Cpath d='M50 25v50M25 50h50M30 30l40 40M70 30L30 70' fill='none' stroke='currentColor' stroke-width='1'/>",order:4};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/events/04-earth-day.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };

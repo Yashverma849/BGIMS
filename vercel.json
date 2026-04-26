@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm db:migrate || true && pnpm build",
+  "buildCommand": "pnpm build",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "astro",
   "trailingSlash": false,

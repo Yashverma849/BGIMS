@@ -1,0 +1,10 @@
+const id = "bms";
+const collection = "programmes";
+const data = {id:"BMS",numeral:"III",eyebrow:"Undergraduate",title:"BMS — Bachelor of Management Studies",shortName:"BMS",duration:"3 Years",type:"Undergraduate",affiliation:"Mumbai University",seats:120,tuitionPerYear:112000,applicationFee:1000,blurb:"A foundation in business literacy designed for the determined eighteen-year-old. We build managers from the ground up — quantitative, communicative, ethical.",lead:"Designed for the determined eighteen-year-old. The BMS is a three-year undergraduate programme that builds business literacy from the ground up — quantitative, communicative, ethical.",body:"Students complete a mandatory summer internship at the end of the second year, with placements arranged through the institute's corporate-relations cell at firms ranging from boutique merchant banks to consumer-goods majors.",eligibility:"HSC (10+2) with 45%+ aggregate",intake:"120 seats per cohort",tuitionLine:"₹1,12,000 per year",tags:["3 Years","UG","Mumbai University"],order:3};
+const _internal = {
+	type: 'data',
+	filePath: "/Users/tida/Documents/Cursor Projects/MMBGIMS-Website/src/content/programmes/bms.json",
+	rawData: "",
+};
+
+export { _internal, collection, data, id };
