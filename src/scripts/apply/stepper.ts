@@ -8,9 +8,11 @@
  * target step index.
  */
 
-const form = document.getElementById('applyForm') as HTMLFormElement | null;
-if (form) {
-  const steps = Array.from(form.querySelectorAll<HTMLElement>('.apply-step'));
+export {}; // mark as module so module-scoped names don't collide with payment.ts
+
+const stepperForm = document.getElementById('applyForm') as HTMLFormElement | null;
+if (stepperForm) {
+  const steps = Array.from(stepperForm.querySelectorAll<HTMLElement>('.apply-step'));
   const stepperItems = Array.from(
     document.querySelectorAll<HTMLElement>('.stepper__item'),
   );

@@ -1,15 +1,13 @@
 /**
- * Apply form payment + submission flow.
+ * Apply form payment + submission flow (placeholder mode).
  *
- * 1. Recomputes fee + 18% GST live as the applicant picks a programme.
- * 2. On Pay click, gathers form values into an Application, validates with
- *    the shared zod ApplicationSchema, then triggers the payment gateway
- *    (currently the mocked Razorpay implementation).
- * 3. On gateway success, persists via `cms.saveApplication` and renders the
- *    receipt panel inside the modal.
+ * Backend is currently disabled. The 5-step form, validation, mocked
+ * Razorpay handshake and success modal all work — but the application is
+ * NOT persisted server-side. The receipt is rendered client-side from the
+ * mock payment result. Re-enable persistence per the comment block in
+ * astro.config.mjs.
  */
 
-import { cms } from '~lib/cms';
 import { razorpayMock, PAYMENT_METHOD_LABEL, PROGRAMME_LABEL } from '~lib/payments/razorpay-mock';
 import {
   ApplicationSchema,
@@ -154,13 +152,8 @@ if (form) {
       },
     };
 
-    try {
-      await Promise.resolve(cms.saveApplication(application));
-    } catch (err) {
-      console.error('saveApplication failed', err);
-      if (procMsg) procMsg.textContent = 'Submission failed — please contact admissions@mmbgims.com';
-      return;
-    }
+    // Backend is disabled — skip the cms.saveApplication call. The receipt
+    // shown to the user reflects the mock payment locally.
     track({
       name: 'payment_captured',
       programme: programmeRaw,

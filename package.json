@@ -9,9 +9,9 @@
   },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "start": "node ./server.mjs",
+    "start": "astro preview --host 127.0.0.1 --port 4321",
     "build": "astro build",
-    "preview": "node ./server.mjs",
+    "preview": "astro preview --host 127.0.0.1 --port 4321",
     "check": "astro check",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.astro,.js --max-warnings 0",

@@ -15,5 +15,5 @@
     "types": ["astro/client"]
   },
   "include": ["src", ".astro/types.d.ts", "astro.config.mjs"],
-  "exclude": ["dist", "node_modules", "_reference"]
+  "exclude": ["dist", "node_modules", "_reference", "src/_disabled"]
 }

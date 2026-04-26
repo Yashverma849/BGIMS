@@ -62,7 +62,9 @@ export const site = {
       { href: '/admissions', label: 'Admissions' },
       { href: '/contact', label: 'Contact' },
       { href: '/apply', label: 'Apply' },
-      { href: '/admin/login', label: 'CMS Login' },
+      // CMS Login intentionally hidden while auth is disabled. Re-add when
+      // re-enabling per the comment block in astro.config.mjs.
+      // { href: '/admin/login', label: 'CMS Login' },
     ],
     legal: [
       { href: '#', label: 'Privacy' },

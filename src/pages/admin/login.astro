@@ -1,20 +1,16 @@
 ---
+/**
+ * Static placeholder. Auth is currently disabled; the form below shows the
+ * design but does not authenticate. Re-enable per the comment block in
+ * astro.config.mjs.
+ */
 import AdminLayout from '~layouts/AdminLayout.astro';
 import { site } from '~lib/site';
-import { readSession } from '~lib/auth/session';
 
-export const prerender = false;
-
-// If already signed in, jump straight to the dashboard.
-const session = await readSession(Astro.cookies);
-if (session) {
-  return Astro.redirect('/admin/dashboard');
-}
-
-const showDemo = import.meta.env.PUBLIC_SHOW_DEMO_CREDS === 'true';
-const demoEmail = (import.meta.env.PUBLIC_ADMIN_DEMO_EMAIL as string) || 'director@mmbgims.com';
-const demoPwd = (import.meta.env.PUBLIC_ADMIN_DEMO_PWD as string) || 'bgims2026';
-const nextHref = Astro.url.searchParams.get('next') ?? '/admin/dashboard';
+const showDemo = false;
+const demoEmail = 'director@mmbgims.com';
+const demoPwd = 'bgims2026';
+const nextHref = '/admin/dashboard';
 ---
 
 <AdminLayout title="CMS · Sign in — MM BGIMS" bodyClass="login-body">

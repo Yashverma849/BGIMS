@@ -1,17 +1,17 @@
 ---
+/**
+ * Static placeholder dashboard. Auth + DB are currently disabled, so this
+ * page renders the layout/UI demo with empty data sections. No data is
+ * persisted; tables show "Backend not connected" empty states.
+ *
+ * Re-enable per the comment block in astro.config.mjs.
+ */
 import AdminLayout from '~layouts/AdminLayout.astro';
 import { site } from '~lib/site';
-import { currentUser } from '~lib/auth/server';
 
-export const prerender = false;
-
-// Middleware has already verified the session before we get here, but
-// fetching the user lets us prefill the sidebar on the first paint.
-// Tolerate DB outages — the page still renders and JS will retry.
-const user = await currentUser(Astro.cookies).catch(() => null);
-const initial = (user?.email ?? 'D').charAt(0).toUpperCase();
-const role = user?.role ?? 'Director';
-const email = user?.email ?? 'director@mmbgims.com';
+const initial = 'D';
+const role = 'Director';
+const email = 'director@mmbgims.com';
 ---
 
 <AdminLayout title="CMS · Dashboard — MM BGIMS" bodyClass="cms-body">
