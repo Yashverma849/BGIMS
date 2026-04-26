@@ -7,7 +7,8 @@ export const prerender = false;
 
 // Middleware has already verified the session before we get here, but
 // fetching the user lets us prefill the sidebar on the first paint.
-const user = await currentUser(Astro.cookies);
+// Tolerate DB outages — the page still renders and JS will retry.
+const user = await currentUser(Astro.cookies).catch(() => null);
 const initial = (user?.email ?? 'D').charAt(0).toUpperCase();
 const role = user?.role ?? 'Director';
 const email = user?.email ?? 'director@mmbgims.com';

@@ -1,58 +1,111 @@
 /**
- * Singleton database client.
+ * Database client — libSQL.
  *
- * Lives module-scoped so the same connection is reused across requests in
- * the long-lived Node server. The file lives at DATABASE_URL (or .data/
- * by default) and is created on first access.
+ * One driver, three homes:
+ *   - Local / self-hosted Node:  DATABASE_URL=file:./.data/mmbgims.db (default)
+ *   - Vercel / Netlify with Turso:
+ *       DATABASE_URL=libsql://<your-db>.turso.io
+ *       DATABASE_AUTH_TOKEN=<turso token>
+ *   - Vercel without Turso (auto-fallback): :memory: per cold start so the
+ *     site stays up; data does NOT persist between requests/instances. The
+ *     console warns once so it's not a silent footgun.
  *
- * For Postgres, swap better-sqlite3 → pg + drizzle-orm/node-postgres. The
- * schema and the rest of the codebase stay identical.
+ * Migrations are applied lazily on connection for file:// and :memory: so
+ * `pnpm start` and the Vercel fallback both work out of the box. For
+ * hosted Turso, run `pnpm db:migrate` once after deploy (see README).
  */
 
-import Database from 'better-sqlite3';
-import { drizzle } from 'drizzle-orm/better-sqlite3';
-import { migrate as runMigrations } from 'drizzle-orm/better-sqlite3/migrator';
+import { createClient, type Client } from '@libsql/client';
+import { drizzle } from 'drizzle-orm/libsql';
+import { migrate as runMigrations } from 'drizzle-orm/libsql/migrator';
 import { mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as schema from './schema';
 
-const DEFAULT_DB_FILE = './.data/mmbgims.db';
+const DEFAULT_LOCAL_FILE = './.data/mmbgims.db';
 
-function dbPath(): string {
-  return resolve(process.cwd(), process.env.DATABASE_URL ?? DEFAULT_DB_FILE);
+interface ResolvedUrl {
+  url: string;
+  kind: 'file' | 'memory' | 'remote';
+}
+
+let _warned = false;
+
+function resolveUrl(): ResolvedUrl {
+  const raw = process.env.DATABASE_URL;
+  const onServerless =
+    process.env.VERCEL === '1' || !!process.env.VERCEL_ENV || !!process.env.NETLIFY;
+
+  if (raw && (raw.startsWith('libsql://') || raw.startsWith('https://'))) {
+    return { url: raw, kind: 'remote' };
+  }
+
+  if (raw && raw.startsWith('file:')) {
+    const path = raw.slice('file:'.length);
+    const absolute = resolve(process.cwd(), path);
+    try {
+      mkdirSync(dirname(absolute), { recursive: true });
+      return { url: `file:${absolute}`, kind: 'file' };
+    } catch {
+      // Read-only filesystem — fall through to memory below.
+    }
+  }
+
+  if (onServerless) {
+    if (!_warned) {
+      console.warn(
+        '[db] DATABASE_URL not set on serverless host — using in-memory libSQL. ' +
+          'Data will NOT persist between requests/instances. Set DATABASE_URL=libsql://… ' +
+          'and DATABASE_AUTH_TOKEN to point at a Turso DB.',
+      );
+      _warned = true;
+    }
+    return { url: ':memory:', kind: 'memory' };
+  }
+
+  const absolute = resolve(process.cwd(), DEFAULT_LOCAL_FILE);
+  mkdirSync(dirname(absolute), { recursive: true });
+  return { url: `file:${absolute}`, kind: 'file' };
 }
 
 let _db: ReturnType<typeof drizzle<typeof schema>> | null = null;
-let _sqlite: Database.Database | null = null;
+let _client: Client | null = null;
+let _migrationsApplied = false;
 
 export function getDb() {
   if (_db) return _db;
-  const file = dbPath();
-  mkdirSync(dirname(file), { recursive: true });
-  _sqlite = new Database(file);
-  _sqlite.pragma('journal_mode = WAL');
-  _sqlite.pragma('foreign_keys = ON');
-  _sqlite.pragma('busy_timeout = 5000');
-  _db = drizzle(_sqlite, { schema });
+  const { url, kind } = resolveUrl();
+  _client = createClient({
+    url,
+    authToken: process.env.DATABASE_AUTH_TOKEN,
+  });
+  _db = drizzle(_client, { schema });
 
-  // Auto-migrate on first connection so deployments don't need a separate
-  // migration step. drizzle-kit's __drizzle_migrations table makes this
-  // idempotent.
-  const migrationsFolder = resolve(
-    fileURLToPath(new URL('./migrations', import.meta.url)),
-  );
-  if (existsSync(migrationsFolder)) {
-    runMigrations(_db, { migrationsFolder });
+  // Auto-migrate on file:// and :memory: — for hosted Turso, migrations
+  // should be applied out-of-band via `pnpm db:migrate` so we don't pay a
+  // roundtrip per cold start.
+  if (!_migrationsApplied && (kind === 'file' || kind === 'memory')) {
+    const migrationsFolder = resolve(fileURLToPath(new URL('./migrations', import.meta.url)));
+    if (existsSync(migrationsFolder)) {
+      void runMigrations(_db, { migrationsFolder })
+        .then(() => {
+          _migrationsApplied = true;
+        })
+        .catch((err) => {
+          console.error('[db] auto-migrate failed', err);
+        });
+    }
   }
 
   return _db;
 }
 
 export function closeDb(): void {
-  _sqlite?.close();
+  _client?.close();
   _db = null;
-  _sqlite = null;
+  _client = null;
+  _migrationsApplied = false;
 }
 
 export { schema };

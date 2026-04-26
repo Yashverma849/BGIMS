@@ -2,18 +2,28 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
+import vercel from '@astrojs/vercel/serverless';
 
-// Swap `node` for `@astrojs/vercel`, `@astrojs/netlify`, or
-// `@astrojs/cloudflare` when deploying to those platforms — no other
-// changes needed.
+/**
+ * Adapter is auto-selected based on the environment:
+ *   - VERCEL=1   → @astrojs/vercel  (set by Vercel during build)
+ *   - default    → @astrojs/node    (self-hosted Node via server.mjs)
+ *
+ * Add Netlify / Cloudflare here the same way if you switch hosts.
+ */
+const isVercel = process.env.VERCEL === '1' || process.env.VERCEL_ENV;
+
 export default defineConfig({
-  site: 'https://mmbgims.com',
+  site: process.env.SITE_URL ?? 'https://mmbgims.com',
   output: 'hybrid',
   trailingSlash: 'ignore',
-  // 'middleware' mode exports a request handler without auto-starting a
-  // server. Our `server.mjs` wrapper composes the handler with global
-  // security headers + cache-control for /_astro assets.
-  adapter: node({ mode: 'middleware' }),
+  adapter: isVercel
+    ? vercel({
+        webAnalytics: { enabled: false },
+        maxDuration: 10,
+        imageService: false,
+      })
+    : node({ mode: 'middleware' }),
   compressHTML: true,
   prefetch: {
     prefetchAll: true,

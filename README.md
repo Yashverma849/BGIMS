@@ -217,21 +217,49 @@ Required env (see `.env.example`):
 
 ### Vercel · Netlify · Cloudflare
 
+### Vercel (one-click)
+
+The adapter switches automatically when Vercel sets `VERCEL=1` during build — no code change needed. Connect the repo on Vercel and it will:
+
+1. `pnpm install --frozen-lockfile`
+2. `pnpm build` → `@astrojs/vercel/serverless` writes `.vercel/output/`
+3. Static pages → CDN edge; `/api/*` + SSR routes → serverless functions
+
+**Required env vars** on the Vercel project (Settings → Environment Variables):
+
+| Var | Value |
+|---|---|
+| `SESSION_SECRET` | `openssl rand -hex 32` (32+ chars; required for cookie auth) |
+| `DATABASE_URL` | `libsql://<your-db>.turso.io` (see Turso step below; optional — falls back to in-memory) |
+| `DATABASE_AUTH_TOKEN` | from `turso db tokens create <db>` (required if `DATABASE_URL` is set) |
+| `ADMIN_PASSWORD` | strong password for the seeded Director user |
+
+**Turso (the production DB):**
+
 ```bash
-# Pick one:
-pnpm add @astrojs/vercel
-pnpm add @astrojs/netlify
-pnpm add @astrojs/cloudflare
+# One-time, locally:
+brew install tursodatabase/tap/turso          # or: curl -sSfL https://get.tur.so/install.sh | bash
+turso auth signup
+turso db create mmbgims
+turso db show mmbgims --url                   # → libsql://… (set as DATABASE_URL on Vercel)
+turso db tokens create mmbgims                # → set as DATABASE_AUTH_TOKEN
+
+# Apply migrations + seed the Director user against Turso:
+DATABASE_URL=libsql://… DATABASE_AUTH_TOKEN=… pnpm db:migrate
+DATABASE_URL=libsql://… DATABASE_AUTH_TOKEN=… ADMIN_PASSWORD=… pnpm db:seed
 ```
 
-Then change one line in [astro.config.mjs](astro.config.mjs):
+If you skip Turso, the Vercel functions fall back to **in-memory libSQL** — the site stays up but applications/enquiries don't persist across cold starts. Useful for previewing the design; not for actual launch.
 
-```js
-import vercel from '@astrojs/vercel/serverless';
-adapter: vercel(),
+### Netlify · Cloudflare
+
+```bash
+pnpm add @astrojs/netlify       # or @astrojs/cloudflare
 ```
 
-Static pages stay prerendered; the `/api/*` routes become serverless functions. The provided [vercel.json](vercel.json) and [netlify.toml](netlify.toml) configure security headers + asset cache-control + legacy `.html` → clean URL redirects so launch-day URLs from the old site don't 404.
+Add the matching auto-select branch to [astro.config.mjs](astro.config.mjs) alongside the existing Vercel one. The DB story is the same — point `DATABASE_URL` at Turso (or Cloudflare D1 with a small driver swap).
+
+The provided [vercel.json](vercel.json) and [netlify.toml](netlify.toml) configure security headers + asset cache-control + legacy `.html` → clean URL redirects so launch-day URLs from the old site don't 404.
 
 ---
 
