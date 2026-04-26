@@ -1,0 +1,21 @@
+{
+  "id": "PHD",
+  "numeral": "IV",
+  "eyebrow": "Doctoral Fellowship",
+  "title": "Ph.D. in Management",
+  "shortName": "Ph.D.",
+  "duration": "Research",
+  "type": "Doctoral",
+  "affiliation": "Affiliated",
+  "seats": 8,
+  "tuitionPerYear": 85000,
+  "applicationFee": 2500,
+  "blurb": "For the scholar-practitioner. Our doctoral fellows publish in peer-reviewed journals and shape policy at India's central institutions. Cohorts deliberately small.",
+  "lead": "Our doctoral programme is, by design, small. Each fellow is admitted only after a defended research proposal and an interview with the doctoral committee. Areas of guidance include strategic management, financial economics, marketing, organizational behaviour, and operations research.",
+  "body": "Doctoral fellows are expected to publish in peer-reviewed journals during their candidature. The institute provides full library access, conference travel funding, and a teaching fellowship that includes a stipend and tutorial responsibilities.",
+  "eligibility": "Postgraduate degree with 55%+ · UGC NET / SET / equivalent",
+  "intake": "Eight fellows per academic year",
+  "tuitionLine": "Stipend available for full-time fellows; details on enquiry",
+  "tags": ["Research", "Affiliated", "Limited Cohort"],
+  "order": 4
+}

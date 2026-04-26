@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  person: CollectionEntry<'faculty'>;
+  delay?: number;
+}
+const { person, delay } = Astro.props;
+const p = person.data;
+---
+
+<article class="person reveal" data-delay={delay}>
+  <div class="person__img">
+    <div class="person__img-inner">{p.initials}</div>
+  </div>
+  <span class="person__role">{p.role}</span>
+  <h4 class="person__name">{p.name}</h4>
+  <span class="person__expertise">{p.bio}</span>
+</article>

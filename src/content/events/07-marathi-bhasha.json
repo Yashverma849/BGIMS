@@ -1,0 +1,12 @@
+{
+  "id": "marathi-bhasha-divas-2024",
+  "title": "Marathi Bhasha Divas — celebrating the language of the city.",
+  "category": "cultural",
+  "categoryLabel": "Cultural",
+  "date": "2024-03-15",
+  "excerpt": "An evening of Marathi poetry, song, and the unveiling of a new wall installation in the lobby gifted by our 2002 graduating class.",
+  "featured": false,
+  "visualTone": "brass",
+  "iconPath": "<path d='M30 30L70 70M70 30L30 70' stroke='currentColor' stroke-width='1.5'/><circle cx='50' cy='50' r='20' fill='none' stroke='currentColor' stroke-width='1.5'/>",
+  "order": 7
+}

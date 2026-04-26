@@ -1,0 +1,15 @@
+{
+  "id": "director-vidya-hattangadi",
+  "name": "Dr. Vidya Hattangadi",
+  "initials": "VH",
+  "role": "Director · Strategy",
+  "department": "Strategy",
+  "bio": "Author, columnist for Financial Express. Brand strategy, organizational behaviour.",
+  "type": "director",
+  "portraitTone": "maroon-dark",
+  "education": "Ph.D., Mumbai · MMS, JBIMS · BSc, Mumbai University",
+  "research": "Behavioural strategy, organisational ethics, Indian management thought",
+  "publications": "Three books, 80+ columns, Business Review India",
+  "teaches": "Strategic Management · Business Ethics · Indian Knowledge Systems",
+  "order": 1
+}

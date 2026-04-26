@@ -1,0 +1,23 @@
+---
+/**
+ * The standard public chrome: BaseLayout + Nav + Footer. Page content goes
+ * in the default slot.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Nav from '~components/nav/Nav.astro';
+import Footer from '~components/nav/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  contactEmail?: string;
+  hideNewsletter?: boolean;
+}
+const { title, description, contactEmail, hideNewsletter } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Nav />
+  <slot />
+  <Footer contactEmail={contactEmail} hideNewsletter={hideNewsletter} />
+</BaseLayout>

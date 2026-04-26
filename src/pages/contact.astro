@@ -1,0 +1,150 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import { CONTACT_DESKS, FAQ, GETTING_HERE } from '~lib/data/contact';
+---
+
+<PublicLayout
+  title="Contact — MM BGIMS"
+  description="Reach the MM BGIMS admissions, placement and general offices. Visit us at Mumbai Central."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Contact</span>
+      <h1 class="reveal" data-delay="100">Write to us. <em class="italic-accent">We answer.</em></h1>
+      <p class="page-hero__lede reveal" data-delay="200">
+        Three offices, one address. Choose the right desk and you'll have an answer the same week — usually the same day.
+      </p>
+    </div>
+    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
+      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
+    </svg>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-desks">
+        {CONTACT_DESKS.map((d, i) => (
+          <div class="contact-desk reveal" data-delay={i * 100}>
+            <span class="eyebrow">{d.numeral}</span>
+            <h3>{d.title}</h3>
+            <p>{d.blurb}</p>
+            <div class="contact-desk__lines">
+              <a href={`mailto:${d.email}`}>{d.email}</a>
+              <a href={`tel:${d.phoneTel}`}>{d.phoneDisplay}</a>
+              <small>{d.hours}</small>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container">
+      <div class="contact-split">
+        <div class="contact-split__form reveal">
+          <span class="eyebrow">— Enquire</span>
+          <h2>Send a <em class="italic-accent">note</em>.</h2>
+          <p>Fill the form below; the right desk will receive it. Replies, generally, the same working day.</p>
+
+          <form class="enquiry-form" data-form="enquiry">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="enq-name">Full name</label>
+                <input type="text" id="enq-name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="enq-email">Email</label>
+                <input type="email" id="enq-email" name="email" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="enq-phone">Mobile</label>
+                <input type="tel" id="enq-phone" name="phone" placeholder="+91 " />
+              </div>
+              <div class="form-group">
+                <label for="enq-prog">Programme of interest</label>
+                <select id="enq-prog" name="programme">
+                  <option value="">Select…</option>
+                  <option>MBA · Banking &amp; Finance</option>
+                  <option>MMS</option>
+                  <option>BMS</option>
+                  <option>Ph.D.</option>
+                  <option>General enquiry</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="enq-msg">Message</label>
+              <textarea id="enq-msg" name="message" rows="5" placeholder="A few lines about what you are looking for…" required></textarea>
+            </div>
+            <div class="form-group form-group--check">
+              <input type="checkbox" id="enq-consent" name="consent" required />
+              <label for="enq-consent">I consent to be contacted by MM BGIMS regarding this enquiry.</label>
+            </div>
+            <button type="submit" class="btn btn--dark btn--large" data-magnetic>Send Enquiry <span class="arrow">→</span></button>
+            <p class="form-success" data-form-success>Thank you. Your enquiry has been received. We'll respond within one working day.</p>
+          </form>
+        </div>
+
+        <div class="contact-split__map reveal" data-delay="100">
+          <div class="map-frame">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=72.8190%2C18.9670%2C72.8290%2C18.9750&amp;layer=mapnik&amp;marker=18.9710%2C72.8240"
+              style="border:0;width:100%;height:100%;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="MM BGIMS, Mumbai Central"></iframe>
+            <div class="map-overlay">
+              <span class="eyebrow">— Visit</span>
+              <h4>The Mumbai Central campus</h4>
+              <p>
+                Maratha Mandir Annexe<br>
+                Dr. A. B. Nair Road<br>
+                Mumbai Central, Mumbai 400 008<br>
+                Maharashtra, India
+              </p>
+              <a href="https://maps.google.com/?q=Maratha+Mandir+Annexe+Mumbai+Central" target="_blank" rel="noopener" class="map-link">
+                Open in Maps <span class="arrow">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-getting-there">
+            <h5>Getting here</h5>
+            <ul>
+              {GETTING_HERE.map((g) => (
+                <li><strong>{g.mode} ·</strong> {g.body}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Frequently asked</span>
+        <h2 class="reveal" data-delay="100">A few <em class="italic-accent">common questions</em>.</h2>
+      </div>
+
+      <div class="faq-list">
+        {FAQ.map((f, i) => (
+          <details class="faq-item reveal" data-delay={i * 50}>
+            <summary>{f.q}<span class="faq-item__icon">+</span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</PublicLayout>
+
+<script>
+  import '~scripts/enquiry-form';
+</script>

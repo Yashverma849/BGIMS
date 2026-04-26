@@ -1,0 +1,76 @@
+---
+/**
+ * Footer with brand + newsletter, programme links, institute links, and the
+ * primary visit/contact block. The contact email defaults to the admissions
+ * desk; pages can pass `contactEmail` to override (placements/alumni pages).
+ */
+import { site } from '~lib/site';
+
+interface Props {
+  contactEmail?: string;
+  /** Hide the newsletter signup (apply.html / programs.html in the original
+   *  reference omitted it). Defaults to false. */
+  hideNewsletter?: boolean;
+}
+
+const { contactEmail = site.emails.admissions, hideNewsletter = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <h4>{site.name}</h4>
+        <p>
+          {site.fullName}. Cultivating principled leadership in the spirit of Mumbai's mercantile
+          imagination since {site.established}.
+        </p>
+        {!hideNewsletter && (
+          <form class="footer__newsletter" action="/api/enquiries" method="post" onsubmit="return false">
+            <input type="email" placeholder="Subscribe to dispatches" name="newsletter" />
+            <button type="submit">Send</button>
+          </form>
+        )}
+      </div>
+
+      <div>
+        <h5>Programs</h5>
+        <ul>
+          {site.footer.programs.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h5>Institute</h5>
+        <ul>
+          {site.footer.institute.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__contact">
+        <h5>Visit</h5>
+        <p>
+          {site.address.line1}<br />
+          {site.address.line2}<br />
+          {site.address.line3}<br /><br />
+          <a href={`tel:${site.phones.primary.tel}`}>{site.phones.primary.display}</a><br />
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© {year} {site.fullName}. All rights reserved.</span>
+      <div class="footer__bottom-links">
+        {site.footer.legal.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

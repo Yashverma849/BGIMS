@@ -1,0 +1,145 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import FacultyCard from '~components/people/FacultyCard.astro';
+import CtaBanner from '~components/layout/CtaBanner.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('faculty');
+const director = all.find((f) => f.data.type === 'director');
+const core = all
+  .filter((f) => f.data.type === 'core')
+  .sort((a, b) => a.data.order - b.data.order);
+const visiting = all
+  .filter((f) => f.data.type === 'visiting')
+  .sort((a, b) => a.data.order - b.data.order);
+const advisory = all
+  .filter((f) => f.data.type === 'advisory')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<PublicLayout
+  title="Faculty — MM BGIMS"
+  description="Meet the scholars, practitioners and visiting authorities who shape the BGIMS classroom."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Faculty</span>
+      <h1 class="reveal" data-delay="100">
+        Scholars, practitioners, <em class="italic-accent">and the occasional contrarian</em>.
+      </h1>
+      <p class="page-hero__lede reveal" data-delay="200">
+        Our classroom is a quiet rebellion against received wisdom. Every faculty member here has either built something, broken something, or written something that mattered — usually all three.
+      </p>
+    </div>
+    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
+      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
+    </svg>
+  </section>
+
+  {director && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow reveal">— Director</span>
+          <h2 class="reveal" data-delay="100">A scholar at the helm.</h2>
+        </div>
+
+        <div class="director-feature reveal">
+          <div class="director-feature__portrait">
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="500" fill="#3D0E10"/>
+              <circle cx="200" cy="200" r="80" fill="#B8965A" opacity=".3"/>
+              <circle cx="200" cy="200" r="80" stroke="#E5CFA3" stroke-width="1" fill="none"/>
+              <text x="200" y="215" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#E5CFA3" font-style="italic">{director.data.initials}</text>
+              <line x1="100" y1="350" x2="300" y2="350" stroke="#B8965A" stroke-width=".5"/>
+              <text x="200" y="380" text-anchor="middle" font-family="Italiana, serif" font-size="14" fill="#E5CFA3" letter-spacing="4">DIRECTOR</text>
+              <text x="200" y="410" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="22" fill="#FAF6EE" font-style="italic">{director.data.name}</text>
+            </svg>
+          </div>
+          <div class="director-feature__copy">
+            <span class="eyebrow">{director.data.name}</span>
+            <h3>Director &amp; Professor of Strategic Management</h3>
+            <p class="lede">
+              Author, columnist for the Financial Express, and a thirty-year veteran of management education. Dr. Hattangadi reads <em>Mahabharat</em> for strategy and <em>The Economist</em> for tactics — in that order.
+            </p>
+            <ul class="director-feature__credentials">
+              <li><span>Education</span> {director.data.education}</li>
+              <li><span>Research</span> {director.data.research}</li>
+              <li><span>Publications</span> {director.data.publications}</li>
+              <li><span>Teaches</span> {director.data.teaches}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Core faculty</span>
+        <h2 class="reveal" data-delay="100">The standing <em class="italic-accent">company</em>.</h2>
+      </div>
+
+      <div class="faculty-grid">
+        {core.map((p, i) => <FacultyCard faculty={p} delay={i * 100} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow reveal">— Visiting authorities</span>
+        <h2 class="reveal" data-delay="100">Practitioners who <em class="italic-accent">stop by</em>.</h2>
+        <p class="section-head__lede reveal" data-delay="200">
+          A rotating cast of bankers, founders, regulators and writers. Available not as guest speakers, but as semester-long faculty.
+        </p>
+      </div>
+
+      <div class="visiting-grid">
+        {visiting.map((v, i) => (
+          <div class="visiting-card reveal" data-delay={i * 50}>
+            <h4>{v.data.name}</h4>
+            <p>{v.data.bio}</p>
+            <small>Teaches: {v.data.teaches}</small>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Advisory</span>
+        <h2 class="reveal" data-delay="100">Industry advisory <em class="italic-accent">board</em>.</h2>
+        <p class="section-head__lede reveal" data-delay="200">
+          A panel that meets thrice a year to keep our curriculum honest, our placements ambitious, and our research relevant.
+        </p>
+      </div>
+
+      <div class="advisory-grid">
+        {advisory.map((a, i) => (
+          <div class="advisory-card reveal" data-delay={i * 100}>
+            <p class="advisory-card__quote">"{a.data.quote}"</p>
+            <div class="advisory-card__author">
+              <strong>{a.data.name}</strong>
+              <span>{a.data.role}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    eyebrow="— Visit"
+    title={`Sit in on <em class="italic-accent">a class</em>.`}
+    body="Prospective students may attend a Saturday lecture by appointment. Write to us a fortnight in advance."
+    primaryHref="/contact"
+    primaryLabel="Request a Visit"
+  />
+</PublicLayout>

@@ -1,0 +1,98 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import EventCard from '~components/events/EventCard.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '~lib/format';
+
+const events = (await getCollection('events')).sort((a, b) => a.data.order - b.data.order);
+const featured = events.find((e) => e.data.featured);
+const sideCards = events
+  .filter((e) => !e.data.featured)
+  .filter((e) => ['research-methodology-workshop-2024', 'versova-cleanup-2024'].includes(e.data.id));
+---
+
+<PublicLayout
+  title="Events & News — MM BGIMS"
+  description="Events, lectures, conferences and field visits at Maratha Mandir's Babasaheb Gawde Institute of Management Studies."
+>
+  <section class="ev-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Events &amp; News</span>
+      <h1 class="reveal" data-delay="1">The institute, <em>in motion</em>.</h1>
+      <p class="reveal" data-delay="2">
+        A chronicle of conferences, guest lectures, civic outreach, festivals, panels, and the small ceremonies that make a campus a campus. We host roughly two-hundred events each academic year — these are the recent ones.
+      </p>
+    </div>
+  </section>
+
+  <section class="ev-filters">
+    <div class="container">
+      <div class="ev-filter-row">
+        <strong>Filter</strong>
+        <button class="ev-chip is-active" data-filter="all">All</button>
+        <button class="ev-chip" data-filter="academic">Academic</button>
+        <button class="ev-chip" data-filter="industry">Industry</button>
+        <button class="ev-chip" data-filter="cultural">Cultural</button>
+        <button class="ev-chip" data-filter="civic">Civic</button>
+        <button class="ev-chip" data-filter="placement">Placement</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ev-featured">
+    <div class="container">
+      <div class="ev-featured__grid">
+        {featured && (
+          <article class="ev-feat-main reveal">
+            <div class="ev-feat-meta">
+              <span>Conference</span>
+              <span>{formatDate(featured.data.date, { day: 'numeric', month: 'long' })}</span>
+              <span>Annual</span>
+            </div>
+            <h2>MAGMA — the institute's <em>annual</em> management conference.</h2>
+            <p>{featured.data.excerpt}</p>
+            <a href="#" class="btn btn--gold" data-magnetic>Read the report <span class="arrow">→</span></a>
+          </article>
+        )}
+
+        <div class="ev-feat-side">
+          {sideCards.map((c, i) => (
+            <article class="ev-feat-card reveal" data-delay={i + 1}>
+              <div>
+                <span class="ev-feat-card__cat">{c.data.categoryLabel}</span>
+                <h3>{c.data.title}</h3>
+              </div>
+              <span class="ev-feat-card__date">— {formatDate(c.data.date, { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ev-all">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— The full archive</span>
+          <h2 style="margin-top: 1rem;">Recent <em class="italic-accent" style="color: var(--accent);">accounts</em>.</h2>
+        </div>
+        <span style="font-family: var(--font-serif); color: var(--muted);">Showing <strong style="color: var(--ink-900);">{events.length}</strong> of 240</span>
+      </div>
+
+      <div class="ev-grid" id="evGrid">
+        {events.map((e, i) => (
+          <EventCard event={e} index={i} delay={i % 3} />
+        ))}
+      </div>
+
+      <div class="ev-pager">
+        <a href="#">Load earlier accounts →</a>
+      </div>
+    </div>
+  </section>
+</PublicLayout>
+
+<script>
+  import '~scripts/filter-chips';
+</script>

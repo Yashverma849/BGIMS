@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS · Dashboard — MM BGIMS</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Italiana&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230F0C0A'/><text y='.9em' font-size='90' x='50%' text-anchor='middle' font-family='Cormorant Garamond, serif' fill='%23B8965A'>B</text></svg>">
+</head>
+<body class="cms-body">
+
+<!-- CMS Layout -->
+<div class="cms">
+
+  <!-- Sidebar -->
+  <aside class="cms-sidebar">
+    <a href="../index.html" class="cms-sidebar__logo">
+      <span class="nav__logo-mark">B</span>
+      <span class="nav__logo-text">
+        <span>MM BGIMS</span>
+        <small>Content Management</small>
+      </span>
+    </a>
+
+    <nav class="cms-nav">
+      <span class="cms-nav__group">Workspace</span>
+      <a href="#dashboard" class="cms-nav__link is-active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.4"/><rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.4"/><rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Overview</span>
+      </a>
+      <a href="#applications" class="cms-nav__link" data-tab="applications">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 2h6l5 5v13a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2h2z" stroke="currentColor" stroke-width="1.4"/><path d="M14 2v6h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Applications</span>
+        <span class="cms-nav__badge" id="appCountBadge">0</span>
+      </a>
+      <a href="#enquiries" class="cms-nav__link" data-tab="enquiries">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Enquiries</span>
+        <span class="cms-nav__badge" id="enqCountBadge">0</span>
+      </a>
+      <a href="#students" class="cms-nav__link" data-tab="students">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.4"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Students</span>
+      </a>
+
+      <span class="cms-nav__group">Content</span>
+      <a href="#pages" class="cms-nav__link" data-tab="pages">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="1.4"/><line x1="4" y1="9" x2="20" y2="9" stroke="currentColor" stroke-width="1.4"/><line x1="9" y1="9" x2="9" y2="20" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Pages</span>
+      </a>
+      <a href="#programs" class="cms-nav__link" data-tab="programs">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" stroke="currentColor" stroke-width="1.4"/><path d="M6 12v5c3 3 9 3 12 0v-5" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Programmes</span>
+      </a>
+      <a href="#faculty" class="cms-nav__link" data-tab="faculty">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M4 21v-1a8 8 0 0116 0v1" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Faculty</span>
+      </a>
+      <a href="#events" class="cms-nav__link" data-tab="events">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" stroke="currentColor" stroke-width="1.4"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.4"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="1.4"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Events</span>
+      </a>
+      <a href="#testimonials" class="cms-nav__link" data-tab="testimonials">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Testimonials</span>
+      </a>
+
+      <span class="cms-nav__group">Finance</span>
+      <a href="#payments" class="cms-nav__link" data-tab="payments">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.4"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Payments</span>
+      </a>
+
+      <span class="cms-nav__group">System</span>
+      <a href="#settings" class="cms-nav__link" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="cms-sidebar__user">
+      <div class="cms-user">
+        <div class="cms-user__avatar" id="userAvatar">D</div>
+        <div class="cms-user__info">
+          <strong id="userName">Director</strong>
+          <small id="userEmail">director@mmbgims.com</small>
+        </div>
+      </div>
+      <button class="cms-user__signout" id="signOut">Sign out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="cms-main">
+
+    <!-- Top bar -->
+    <header class="cms-topbar">
+      <div>
+        <span class="eyebrow">— CMS</span>
+        <h1 id="cmsTitle">Overview</h1>
+      </div>
+      <div class="cms-topbar__actions">
+        <div class="cms-search">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.4"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="1.4"/></svg>
+          <input type="search" placeholder="Search applications, students, pages…">
+          <kbd>⌘K</kbd>
+        </div>
+        <a href="../index.html" target="_blank" class="cms-topbar__view">View site ↗</a>
+      </div>
+    </header>
+
+    <!-- Tab: Overview -->
+    <section class="cms-tab is-active" data-tab="dashboard">
+      <!-- KPI cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-card__head">
+            <span class="eyebrow">— Applications</span>
+            <span class="kpi-card__delta kpi-card__delta--up">+12%</span>
+          </div>
+          <strong class="kpi-card__num" id="kpiApps">0</strong>
+          <p class="kpi-card__sub">received this admissions cycle</p>
+          <svg class="kpi-card__sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline points="0,22 12,18 25,20 38,12 50,15 62,8 75,10 88,5 100,7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__head">
+            <span class="eyebrow">— Enquiries</span>
+            <span class="kpi-card__delta kpi-card__delta--up">+24%</span>
+          </div>
+          <strong class="kpi-card__num" id="kpiEnq">0</strong>
+          <p class="kpi-card__sub">across desks · last 30 days</p>
+          <svg class="kpi-card__sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline points="0,18 12,22 25,15 38,18 50,10 62,12 75,7 88,9 100,4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__head">
+            <span class="eyebrow">— Revenue</span>
+            <span class="kpi-card__delta kpi-card__delta--up">+8%</span>
+          </div>
+          <strong class="kpi-card__num" id="kpiRevenue">₹0</strong>
+          <p class="kpi-card__sub">application fees · YTD</p>
+          <svg class="kpi-card__sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline points="0,25 12,22 25,18 38,20 50,15 62,12 75,9 88,11 100,6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__head">
+            <span class="eyebrow">— Conversion</span>
+            <span class="kpi-card__delta kpi-card__delta--down">−2%</span>
+          </div>
+          <strong class="kpi-card__num">42%</strong>
+          <p class="kpi-card__sub">enquiry → application</p>
+          <svg class="kpi-card__sparkline" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <polyline points="0,12 12,15 25,18 38,14 50,16 62,18 75,15 88,18 100,16" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="cms-grid-split">
+        <div class="cms-panel">
+          <header class="cms-panel__head">
+            <h3>Applications by programme</h3>
+            <small>2026 cohort</small>
+          </header>
+          <div class="prog-bars" id="progBars">
+            <!-- generated by JS -->
+          </div>
+        </div>
+
+        <div class="cms-panel">
+          <header class="cms-panel__head">
+            <h3>Recent applications</h3>
+            <a href="#applications" class="cms-panel__link" data-tab-link="applications">View all →</a>
+          </header>
+          <ul class="recent-list" id="recentApps">
+            <li class="recent-list__empty">No applications yet. Encourage someone to apply.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cms-panel">
+        <header class="cms-panel__head">
+          <h3>Activity</h3>
+          <small>Last 24 hours</small>
+        </header>
+        <ul class="activity-list">
+          <li><time>09:42</time><span>New application received — <strong>MBA Banking &amp; Finance</strong> · payment completed via UPI</span></li>
+          <li><time>09:14</time><span>Enquiry from a Class XII candidate — interested in BMS programme</span></li>
+          <li><time>08:55</time><span>Director updated the <em>About</em> page — new chapter on 23rd cohort</span></li>
+          <li><time>Yesterday</time><span>Three new testimonials approved &amp; published</span></li>
+          <li><time>Yesterday</time><span>Faculty record updated — Dr. Aparna Shrotriya · publication added</span></li>
+          <li><time>Yesterday</time><span>Razorpay daily settlement reconciled — ₹1,17,180</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Tab: Applications -->
+    <section class="cms-tab" data-tab="applications">
+      <div class="cms-table-toolbar">
+        <div class="cms-filter">
+          <select id="filterProg">
+            <option value="">All programmes</option>
+            <option value="MBA-BF">MBA · Banking &amp; Finance</option>
+            <option value="MMS">MMS</option>
+            <option value="BMS">BMS</option>
+            <option value="PHD">Ph.D.</option>
+          </select>
+          <select id="filterStatus">
+            <option value="">All status</option>
+            <option value="submitted">Submitted</option>
+            <option value="shortlisted">Shortlisted</option>
+            <option value="interviewed">Interviewed</option>
+            <option value="offered">Offered</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div class="cms-table-toolbar__right">
+          <button class="btn btn--ghost btn--small" id="seedDemo">Seed demo data</button>
+          <button class="btn btn--dark btn--small" id="exportCsv">Export CSV</button>
+        </div>
+      </div>
+
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Applicant</th>
+              <th>Programme</th>
+              <th>Submitted</th>
+              <th>Fee</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="appsTable">
+            <tr><td colspan="7" class="cms-empty">No applications yet. Click <em>Seed demo data</em> to populate sample records, or submit an application from the public site.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Enquiries -->
+    <section class="cms-tab" data-tab="enquiries">
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Programme</th>
+              <th>Message</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="enqTable">
+            <tr><td colspan="6" class="cms-empty">No enquiries yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Students -->
+    <section class="cms-tab" data-tab="students">
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead>
+            <tr>
+              <th>Roll</th>
+              <th>Name</th>
+              <th>Programme</th>
+              <th>Cohort</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>BG2024-MBA-001</td><td>Aanya Iyer</td><td>MBA · B&amp;F</td><td>2024–26</td><td>aanya.i@student.mmbgims.com</td><td><span class="status-pill status-pill--enrolled">Enrolled</span></td></tr>
+            <tr><td>BG2024-MBA-002</td><td>Karan Kothari</td><td>MBA · B&amp;F</td><td>2024–26</td><td>karan.k@student.mmbgims.com</td><td><span class="status-pill status-pill--enrolled">Enrolled</span></td></tr>
+            <tr><td>BG2024-MMS-014</td><td>Riya Bhatt</td><td>MMS</td><td>2024–26</td><td>riya.b@student.mmbgims.com</td><td><span class="status-pill status-pill--enrolled">Enrolled</span></td></tr>
+            <tr><td>BG2023-MBA-008</td><td>Aniket Patil</td><td>MBA · B&amp;F</td><td>2023–25</td><td>aniket.p@student.mmbgims.com</td><td><span class="status-pill status-pill--placed">Placed</span></td></tr>
+            <tr><td>BG2023-BMS-021</td><td>Tanvi Shah</td><td>BMS</td><td>2023–26</td><td>tanvi.s@student.mmbgims.com</td><td><span class="status-pill status-pill--enrolled">Enrolled</span></td></tr>
+            <tr><td>BG2022-MBA-003</td><td>Kabir Joshi</td><td>MBA · B&amp;F</td><td>2022–24</td><td>kabir.j@alumni.mmbgims.com</td><td><span class="status-pill status-pill--alumni">Alumnus</span></td></tr>
+            <tr><td>BG2022-MMS-019</td><td>Sneha Gupta</td><td>MMS</td><td>2022–24</td><td>sneha.g@alumni.mmbgims.com</td><td><span class="status-pill status-pill--alumni">Alumna</span></td></tr>
+            <tr><td>BG2021-PHD-002</td><td>Dr. Vikram Mehra</td><td>Ph.D.</td><td>2021–25</td><td>vikram.m@research.mmbgims.com</td><td><span class="status-pill status-pill--enrolled">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Pages -->
+    <section class="cms-tab" data-tab="pages">
+      <div class="cms-content-grid">
+        <div class="content-card">
+          <span class="eyebrow">Public · /</span>
+          <h4>Home</h4>
+          <p>Last edited 2 days ago by Director</p>
+          <div class="content-card__actions">
+            <a href="../index.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Public · /about</span>
+          <h4>About</h4>
+          <p>Last edited yesterday by Director</p>
+          <div class="content-card__actions">
+            <a href="../about.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Public · /programs</span>
+          <h4>Programs</h4>
+          <p>Last edited 5 days ago by Programme Office</p>
+          <div class="content-card__actions">
+            <a href="../programs.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Public · /admissions</span>
+          <h4>Admissions</h4>
+          <p>Last edited 3 days ago by Admissions Office</p>
+          <div class="content-card__actions">
+            <a href="../admissions.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Public · /faculty</span>
+          <h4>Faculty</h4>
+          <p>Last edited 1 week ago</p>
+          <div class="content-card__actions">
+            <a href="../faculty.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Public · /contact</span>
+          <h4>Contact</h4>
+          <p>Last edited 2 weeks ago</p>
+          <div class="content-card__actions">
+            <a href="../contact.html" target="_blank" class="btn btn--ghost btn--small">View ↗</a>
+            <button class="btn btn--dark btn--small">Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cms-panel">
+        <header class="cms-panel__head">
+          <h3>Edit Hero — Home page</h3>
+          <small>Live changes appear on the public website</small>
+        </header>
+        <div class="cms-edit-form">
+          <div class="form-group">
+            <label>Eyebrow</label>
+            <input type="text" id="edit-eyebrow" value="— Est. 2002 · Mumbai Central">
+          </div>
+          <div class="form-group">
+            <label>Headline</label>
+            <input type="text" id="edit-h1" value="Where heritage meets tomorrow's leaders.">
+          </div>
+          <div class="form-group">
+            <label>Lede</label>
+            <textarea id="edit-lede" rows="3">Twenty-three years of cultivating principled, market-ready managers in the heart of Mumbai's mercantile imagination.</textarea>
+          </div>
+          <div class="cms-edit-form__actions">
+            <button class="btn btn--ghost">Discard</button>
+            <button class="btn btn--dark" id="saveContent">Save changes</button>
+            <span class="cms-save-msg" id="saveMsg" hidden>✓ Saved · changes will reflect on next page load</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Programmes -->
+    <section class="cms-tab" data-tab="programs">
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead><tr><th>Programme</th><th>Duration</th><th>Tuition</th><th>Seats</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>MBA · Banking &amp; Finance</td><td>2 years</td><td>₹4,82,000</td><td>60</td><td><span class="status-pill status-pill--enrolled">Active</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>MMS</td><td>2 years</td><td>₹2,84,000</td><td>120</td><td><span class="status-pill status-pill--enrolled">Active</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>BMS</td><td>3 years</td><td>₹1,12,000</td><td>120</td><td><span class="status-pill status-pill--enrolled">Active</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Ph.D.</td><td>3–5 years</td><td>₹85,000</td><td>8</td><td><span class="status-pill status-pill--enrolled">Active</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Faculty -->
+    <section class="cms-tab" data-tab="faculty">
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead><tr><th>Name</th><th>Designation</th><th>Department</th><th>Type</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Dr. Vidya Hattangadi</td><td>Director · Professor</td><td>Strategy</td><td>Core</td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Prof. Ratheesh Nair</td><td>Associate Professor</td><td>Finance</td><td>Core</td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Dr. Aparna Shrotriya</td><td>Associate Professor</td><td>Marketing</td><td>Core</td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Prof. Sandeep Kulkarni</td><td>Assistant Professor</td><td>Operations</td><td>Core</td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Mr. Uday Kotak</td><td>Convocation Guest</td><td>—</td><td>Visiting</td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Events -->
+    <section class="cms-tab" data-tab="events">
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead><tr><th>Event</th><th>Date</th><th>Type</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>International Yoga Day</td><td>21 Jun 2026</td><td>Wellness</td><td><span class="status-pill status-pill--enrolled">Scheduled</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Research Methodology Workshop</td><td>14 Jul 2026</td><td>Academic</td><td><span class="status-pill status-pill--enrolled">Scheduled</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+            <tr><td>Versova Beach Clean-up Drive</td><td>5 Aug 2026</td><td>CSR</td><td><span class="status-pill status-pill--enrolled">Scheduled</span></td><td><button class="btn btn--ghost btn--small">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab: Testimonials -->
+    <section class="cms-tab" data-tab="testimonials">
+      <div class="cms-content-grid">
+        <div class="content-card">
+          <span class="eyebrow">Approved</span>
+          <h4>Abhinay Patil — MMS '24</h4>
+          <p>"BGIMS prepared me not for an interview, but for an industry."</p>
+          <div class="content-card__actions">
+            <button class="btn btn--ghost btn--small">Edit</button>
+            <button class="btn btn--ghost btn--small">Unpublish</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Approved</span>
+          <h4>Tushar Shetty — MBA '23</h4>
+          <p>"The Banking &amp; Finance programme isn't taught here — it's lived."</p>
+          <div class="content-card__actions">
+            <button class="btn btn--ghost btn--small">Edit</button>
+            <button class="btn btn--ghost btn--small">Unpublish</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <span class="eyebrow">Pending</span>
+          <h4>Kamika Chitre — MMS '22</h4>
+          <p>"Three years on, I still teach the way Dr. Hattangadi taught us to think."</p>
+          <div class="content-card__actions">
+            <button class="btn btn--dark btn--small">Approve</button>
+            <button class="btn btn--ghost btn--small">Reject</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Payments -->
+    <section class="cms-tab" data-tab="payments">
+      <div class="kpi-grid kpi-grid--3">
+        <div class="kpi-card">
+          <div class="kpi-card__head"><span class="eyebrow">— Today</span></div>
+          <strong class="kpi-card__num" id="payToday">₹0</strong>
+          <p class="kpi-card__sub">across all methods</p>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__head"><span class="eyebrow">— This month</span></div>
+          <strong class="kpi-card__num" id="payMonth">₹0</strong>
+          <p class="kpi-card__sub">application fees collected</p>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card__head"><span class="eyebrow">— Pending</span></div>
+          <strong class="kpi-card__num">₹0</strong>
+          <p class="kpi-card__sub">unsettled with Razorpay</p>
+        </div>
+      </div>
+
+      <div class="cms-table-wrap">
+        <table class="cms-table">
+          <thead><tr><th>Payment ID</th><th>Application</th><th>Method</th><th>Amount</th><th>Status</th><th>When</th></tr></thead>
+          <tbody id="payTable">
+            <tr><td colspan="6" class="cms-empty">No payments yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cms-panel cms-panel--note">
+        <h4>Razorpay integration</h4>
+        <p>This dashboard reads from <code>localStorage</code> for the demo. In production, payment data is synced via Razorpay's webhooks (<code>payment.captured</code>, <code>payment.failed</code>, <code>refund.processed</code>) into the institute's database. See <code>README.md</code> for integration steps.</p>
+      </div>
+    </section>
+
+    <!-- Tab: Settings -->
+    <section class="cms-tab" data-tab="settings">
+      <div class="cms-grid-split">
+        <div class="cms-panel">
+          <header class="cms-panel__head"><h3>Institute details</h3></header>
+          <div class="cms-edit-form">
+            <div class="form-group">
+              <label>Institute name</label>
+              <input type="text" value="Maratha Mandir's Babasaheb Gawde Institute of Management Studies">
+            </div>
+            <div class="form-group">
+              <label>Short name</label>
+              <input type="text" value="MM BGIMS">
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea rows="3">Maratha Mandir Annexe, Dr. A. B. Nair Road, Mumbai Central, Mumbai 400 008</textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Phone</label><input type="tel" value="+91 96195 10513"></div>
+              <div class="form-group"><label>Email</label><input type="email" value="admissions@mmbgims.com"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cms-panel">
+          <header class="cms-panel__head"><h3>Razorpay credentials</h3></header>
+          <div class="cms-edit-form">
+            <div class="form-group">
+              <label>Mode</label>
+              <select><option>Test</option><option>Live</option></select>
+            </div>
+            <div class="form-group">
+              <label>Key ID</label>
+              <input type="text" value="rzp_test_••••••••••••" readonly>
+            </div>
+            <div class="form-group">
+              <label>Key Secret</label>
+              <input type="password" value="••••••••••••••••" readonly>
+            </div>
+            <div class="form-group">
+              <label>Webhook URL</label>
+              <input type="url" value="https://mmbgims.com/api/razorpay/webhook" readonly>
+            </div>
+            <p class="cms-help-note">Credentials are managed in your hosting provider's environment variables. Edit them there to rotate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ============== TAB SWITCHING ==============
+const tabs = document.querySelectorAll('.cms-tab');
+const links = document.querySelectorAll('[data-tab]');
+const titles = {
+  dashboard: 'Overview', applications: 'Applications', enquiries: 'Enquiries',
+  students: 'Students', pages: 'Pages', programs: 'Programmes',
+  faculty: 'Faculty', events: 'Events', testimonials: 'Testimonials',
+  payments: 'Payments', settings: 'Settings'
+};
+function setTab(name) {
+  tabs.forEach(t => t.classList.toggle('is-active', t.dataset.tab === name));
+  links.forEach(l => l.classList.toggle('is-active', l.dataset.tab === name));
+  document.getElementById('cmsTitle').textContent = titles[name] || 'Overview';
+  if (history.replaceState) history.replaceState(null, '', '#' + name);
+}
+links.forEach(l => l.addEventListener('click', e => { e.preventDefault(); setTab(l.dataset.tab); }));
+document.querySelectorAll('[data-tab-link]').forEach(l => l.addEventListener('click', e => { e.preventDefault(); setTab(l.dataset.tabLink); }));
+if (location.hash && titles[location.hash.slice(1)]) setTab(location.hash.slice(1));
+
+// ============== AUTH GATE ==============
+const session = JSON.parse(localStorage.getItem('mmbgims_session') || 'null');
+if (!session) {
+  window.location.href = 'login.html';
+} else {
+  const initial = session.email.charAt(0).toUpperCase();
+  document.getElementById('userAvatar').textContent = initial;
+  document.getElementById('userName').textContent = session.role || 'Staff';
+  document.getElementById('userEmail').textContent = session.email;
+}
+document.getElementById('signOut').addEventListener('click', () => {
+  localStorage.removeItem('mmbgims_session');
+  window.location.href = 'login.html';
+});
+
+// ============== DEMO DATA ==============
+const PROG_LABELS = { 'MBA-BF': 'MBA · B&F', 'MMS': 'MMS', 'BMS': 'BMS', 'PHD': 'Ph.D.' };
+const STATUS_PILL = {
+  submitted: 'status-pill--pending',
+  shortlisted: 'status-pill--shortlisted',
+  interviewed: 'status-pill--interviewed',
+  offered: 'status-pill--offered',
+  rejected: 'status-pill--rejected'
+};
+
+function seedDemo() {
+  const sample = [
+    { firstName: 'Aanya', lastName: 'Iyer', email: 'aanya.iyer@gmail.com', programme: 'MBA-BF', status: 'shortlisted' },
+    { firstName: 'Karan', lastName: 'Kothari', email: 'karan.k@outlook.com', programme: 'MBA-BF', status: 'interviewed' },
+    { firstName: 'Riya', lastName: 'Bhatt', email: 'riya.b@yahoo.com', programme: 'MMS', status: 'submitted' },
+    { firstName: 'Aniket', lastName: 'Patil', email: 'aniket.p@gmail.com', programme: 'BMS', status: 'offered' },
+    { firstName: 'Tanvi', lastName: 'Shah', email: 'tanvi.shah@gmail.com', programme: 'MMS', status: 'shortlisted' },
+    { firstName: 'Kabir', lastName: 'Joshi', email: 'kabir.j@protonmail.com', programme: 'MBA-BF', status: 'submitted' },
+    { firstName: 'Sneha', lastName: 'Gupta', email: 'sneha.gupta@gmail.com', programme: 'BMS', status: 'submitted' },
+    { firstName: 'Vikram', lastName: 'Mehra', email: 'vikram.m@outlook.com', programme: 'PHD', status: 'interviewed' },
+    { firstName: 'Pooja', lastName: 'Reddy', email: 'pooja.r@gmail.com', programme: 'MMS', status: 'submitted' },
+    { firstName: 'Arjun', lastName: 'Nair', email: 'arjun.n@yahoo.com', programme: 'MBA-BF', status: 'rejected' },
+    { firstName: 'Meera', lastName: 'Desai', email: 'meera.d@gmail.com', programme: 'MMS', status: 'shortlisted' },
+    { firstName: 'Rohan', lastName: 'Saxena', email: 'rohan.s@gmail.com', programme: 'BMS', status: 'submitted' }
+  ];
+  const fees = { 'MBA-BF': 1770, 'MMS': 1770, 'BMS': 1180, 'PHD': 2950 };
+  const methods = ['upi', 'card', 'netbanking', 'wallet'];
+  const apps = sample.map((s, i) => ({
+    id: 'BGIMS-' + (Date.now() - i * 86400000).toString(36).toUpperCase().slice(-6),
+    submittedAt: new Date(Date.now() - i * 86400000).toISOString(),
+    personal: { firstName: s.firstName, lastName: s.lastName, email: s.email, phone: '+91 9' + Math.floor(100000000 + Math.random() * 900000000), city: 'Mumbai' },
+    programme: s.programme,
+    status: s.status,
+    payMethod: methods[i % methods.length],
+    amount: '₹' + fees[s.programme].toLocaleString('en-IN') + '.00',
+    payment: {
+      id: 'pay_' + Math.random().toString(36).slice(2, 14),
+      method: methods[i % methods.length],
+      amount: '₹' + fees[s.programme].toLocaleString('en-IN') + '.00',
+      capturedAt: new Date(Date.now() - i * 86400000).toISOString()
+    }
+  }));
+  localStorage.setItem('mmbgims_applications', JSON.stringify(apps));
+
+  const enqs = [
+    { name: 'Aditi Kale', email: 'aditi.k@gmail.com', programme: 'MBA · Banking & Finance', message: 'Looking for early decision details and scholarship opportunities.', date: new Date().toISOString() },
+    { name: 'Arnav Singh', email: 'arnav.s@outlook.com', programme: 'BMS', message: 'Class XII candidate. Could you share the prospectus?', date: new Date(Date.now() - 86400000).toISOString() },
+    { name: 'Neha Pillai', email: 'n.pillai@gmail.com', programme: 'MMS', message: 'Working professional, two years experience. Eligibility query.', date: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { name: 'Rishi Kapur', email: 'rishi.k@gmail.com', programme: 'Ph.D.', message: 'Research interest in behavioural finance. May I speak with the doctoral committee?', date: new Date(Date.now() - 86400000 * 3).toISOString() }
+  ];
+  localStorage.setItem('mmbgims_enquiries', JSON.stringify(enqs));
+  render();
+}
+document.getElementById('seedDemo').addEventListener('click', seedDemo);
+
+// ============== RENDER ==============
+function render() {
+  const apps = JSON.parse(localStorage.getItem('mmbgims_applications') || '[]');
+  const enqs = JSON.parse(localStorage.getItem('mmbgims_enquiries') || '[]');
+
+  // KPIs
+  document.getElementById('kpiApps').textContent = apps.length;
+  document.getElementById('kpiEnq').textContent = enqs.length;
+  document.getElementById('appCountBadge').textContent = apps.length;
+  document.getElementById('enqCountBadge').textContent = enqs.length;
+  const revenue = apps.reduce((s, a) => s + parseInt((a.amount || '0').replace(/[^0-9]/g, '')) || 0, 0);
+  document.getElementById('kpiRevenue').textContent = '₹' + revenue.toLocaleString('en-IN');
+
+  // Programme bars
+  const counts = { 'MBA-BF': 0, 'MMS': 0, 'BMS': 0, 'PHD': 0 };
+  apps.forEach(a => counts[a.programme] = (counts[a.programme] || 0) + 1);
+  const max = Math.max(...Object.values(counts), 1);
+  document.getElementById('progBars').innerHTML = Object.entries(counts).map(([k, v]) => `
+    <div class="prog-bar">
+      <div class="prog-bar__label"><span>${PROG_LABELS[k]}</span><strong>${v}</strong></div>
+      <div class="prog-bar__track"><div class="prog-bar__fill" style="width:${(v / max) * 100}%"></div></div>
+    </div>`).join('');
+
+  // Recent apps
+  const recent = apps.slice(-5).reverse();
+  document.getElementById('recentApps').innerHTML = recent.length === 0
+    ? '<li class="recent-list__empty">No applications yet.</li>'
+    : recent.map(a => `
+      <li class="recent-list__item">
+        <div>
+          <strong>${a.personal.firstName} ${a.personal.lastName}</strong>
+          <small>${PROG_LABELS[a.programme] || a.programme} · ${a.personal.email}</small>
+        </div>
+        <time>${new Date(a.submittedAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</time>
+      </li>`).join('');
+
+  // Applications table
+  const fProg = document.getElementById('filterProg').value;
+  const fStat = document.getElementById('filterStatus').value;
+  const filtered = apps.filter(a => (!fProg || a.programme === fProg) && (!fStat || a.status === fStat));
+  document.getElementById('appsTable').innerHTML = filtered.length === 0
+    ? '<tr><td colspan="7" class="cms-empty">No applications match the current filter.</td></tr>'
+    : filtered.map(a => `
+      <tr>
+        <td><code>${a.id}</code></td>
+        <td><strong>${a.personal.firstName} ${a.personal.lastName}</strong><br><small>${a.personal.email}</small></td>
+        <td>${PROG_LABELS[a.programme] || a.programme}</td>
+        <td>${new Date(a.submittedAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+        <td>${a.amount}</td>
+        <td><span class="status-pill ${STATUS_PILL[a.status] || ''}">${a.status}</span></td>
+        <td><button class="btn btn--ghost btn--small">View</button></td>
+      </tr>`).join('');
+
+  // Enquiries table
+  document.getElementById('enqTable').innerHTML = enqs.length === 0
+    ? '<tr><td colspan="6" class="cms-empty">No enquiries yet.</td></tr>'
+    : enqs.map(e => `
+      <tr>
+        <td>${new Date(e.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</td>
+        <td>${e.name}</td>
+        <td>${e.email}</td>
+        <td>${e.programme}</td>
+        <td><small>${(e.message || '').slice(0, 80)}${(e.message || '').length > 80 ? '…' : ''}</small></td>
+        <td><button class="btn btn--ghost btn--small">Reply</button></td>
+      </tr>`).join('');
+
+  // Payments
+  const today = new Date().toDateString();
+  const todayTotal = apps.filter(a => new Date(a.submittedAt).toDateString() === today)
+    .reduce((s, a) => s + (parseInt((a.amount || '0').replace(/[^0-9]/g, '')) || 0), 0);
+  document.getElementById('payToday').textContent = '₹' + todayTotal.toLocaleString('en-IN');
+  document.getElementById('payMonth').textContent = '₹' + revenue.toLocaleString('en-IN');
+
+  document.getElementById('payTable').innerHTML = apps.length === 0
+    ? '<tr><td colspan="6" class="cms-empty">No payments yet.</td></tr>'
+    : apps.slice().reverse().map(a => `
+      <tr>
+        <td><code>${a.payment ? a.payment.id : '—'}</code></td>
+        <td>${a.id}</td>
+        <td>${({ upi: 'UPI', card: 'Card', netbanking: 'Net banking', wallet: 'Wallet' })[a.payMethod] || a.payMethod}</td>
+        <td>${a.amount}</td>
+        <td><span class="status-pill status-pill--enrolled">Captured</span></td>
+        <td>${new Date(a.submittedAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+      </tr>`).join('');
+}
+['filterProg', 'filterStatus'].forEach(id => document.getElementById(id).addEventListener('change', render));
+
+// CSV export
+document.getElementById('exportCsv').addEventListener('click', () => {
+  const apps = JSON.parse(localStorage.getItem('mmbgims_applications') || '[]');
+  if (!apps.length) return alert('No applications to export.');
+  const rows = [['ID', 'First name', 'Last name', 'Email', 'Phone', 'Programme', 'Status', 'Amount', 'Submitted at']];
+  apps.forEach(a => rows.push([a.id, a.personal.firstName, a.personal.lastName, a.personal.email, a.personal.phone, PROG_LABELS[a.programme], a.status, a.amount, a.submittedAt]));
+  const csv = rows.map(r => r.map(c => `"${(c || '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mmbgims-applications-' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+});
+
+// Save content (mock)
+document.getElementById('saveContent').addEventListener('click', () => {
+  const data = {
+    eyebrow: document.getElementById('edit-eyebrow').value,
+    h1: document.getElementById('edit-h1').value,
+    lede: document.getElementById('edit-lede').value
+  };
+  localStorage.setItem('mmbgims_content_home', JSON.stringify(data));
+  const msg = document.getElementById('saveMsg');
+  msg.hidden = false;
+  setTimeout(() => msg.hidden = true, 3500);
+});
+
+render();
+</script>
+</body>
+</html>

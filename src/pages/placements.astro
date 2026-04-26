@@ -1,0 +1,170 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import {
+  PLACEMENT_KPIS,
+  TOP_PLACEMENTS_2024,
+  SECTOR_DISTRIBUTION_2024,
+  YEAR_ON_YEAR,
+} from '~lib/data/placements';
+import { MOSAIC_RECRUITERS } from '~lib/data/recruiters';
+---
+
+<PublicLayout
+  title="Placements — MM BGIMS"
+  description="The placement record of Maratha Mandir's Babasaheb Gawde Institute of Management Studies — recruiters, packages, and the city's open doors."
+  contactEmail="placements@mmbgims.com"
+>
+  <section class="placement-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— The Placement Record</span>
+      <h1 class="reveal" data-delay="1">
+        Twenty-three<br>cohorts.<br>
+        <em>One open door</em><br>after another.
+      </h1>
+      <p class="reveal" data-delay="2">
+        For more than two decades MM BGIMS has placed its graduates at the centre of Indian commerce — at trading desks, in treasury halls, on shop floors, and across the consulting circuits of South Mumbai. The numbers below describe the latest cohort, but the pattern is older.
+      </p>
+    </div>
+  </section>
+
+  <section class="pp-stats">
+    <div class="container-wide">
+      <div class="pp-stats__grid">
+        {PLACEMENT_KPIS.map((k) => (
+          <div class="pp-stat">
+            <div class="pp-stat__num">
+              {k.prefix}<span data-count={k.count}>0</span>{k.suffix && (k.suffix.startsWith('.') ? <sub>{k.suffix}</sub> : <sup>{k.suffix}</sup>)}
+            </div>
+            <div class="pp-stat__label">{k.label}</div>
+            <div class="pp-stat__detail">{k.detail}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="top-list">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— Class of 2024</span>
+          <h2 style="margin-top: 1rem;">A few of <em class="italic-accent" style="color: var(--accent);">the most spoken-of</em> placements.</h2>
+        </div>
+        <a href="/apply" class="link-underline">Begin your application <span>→</span></a>
+      </div>
+
+      <div style="overflow-x: auto; margin-top: 3rem;">
+        <table>
+          <thead>
+            <tr>
+              <th>Graduate</th>
+              <th>Role</th>
+              <th>Firm</th>
+              <th style="text-align:right;">Package</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TOP_PLACEMENTS_2024.map((row, i) => (
+              <tr class="reveal" data-delay={i}>
+                <td>
+                  <div class="name">{row.name}</div>
+                  <div class="program">{row.programme}</div>
+                </td>
+                <td class="role">{row.role}</td>
+                <td class="firm">{row.firm}</td>
+                <td class="ctc">{row.ctcLabel}{row.ctcNote && <small>{row.ctcNote}</small>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectors">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— Sector Distribution</span>
+          <h2 style="margin-top: 1rem;">Where the <em class="italic-accent" style="color: var(--accent);">Class of 2024</em> went.</h2>
+        </div>
+      </div>
+      <div class="sector-grid reveal">
+        {SECTOR_DISTRIBUTION_2024.map((s) => (
+          <div class="sector">
+            <div class="sector__num">{s.pct}<small>%</small></div>
+            <div class="sector__label" set:html={s.label.replace(/&/g, '&amp;')} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ladder">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— Year on Year</span>
+          <h2 style="margin-top: 1rem;">A line that <em class="italic-accent" style="color: var(--accent);">trends well</em>.</h2>
+        </div>
+        <p style="font-family: var(--font-serif); color: var(--muted); max-width: 36ch; margin: 0;">
+          Average package growth across the past five graduating cohorts.
+        </p>
+      </div>
+
+      <div class="ladder__rows">
+        {YEAR_ON_YEAR.map((row, i) => (
+          <div class="ladder__row reveal" data-delay={i}>
+            <div class="ladder__year">{row.year}</div>
+            <div class="ladder__bar">
+              <div class="ladder__bar-fill" style={`width: ${row.barWidthPct}%; animation-delay: ${0.1 + i * 0.1}s;`}></div>
+            </div>
+            <div class="ladder__placed"><strong>{row.placed}</strong> placed</div>
+            <div class="ladder__avg">₹{row.averageLakhs.toFixed(1)} L</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="rec-mosaic">
+    <div class="container">
+      <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+        <span class="eyebrow" style="color: var(--brass-400);">— Recruiters</span>
+        <h2 style="margin-top: 1rem; color: var(--cream-100);">Firms that <em class="italic-accent" style="color: var(--brass-400);">return</em>, year on year.</h2>
+        <p style="font-family: var(--font-serif); color: var(--cream-300); max-width: 60ch; margin: 1rem auto 0;">
+          A non-exhaustive list of organisations that have hired our graduates in the past five years.
+        </p>
+      </div>
+
+      <div class="rec-grid reveal">
+        {MOSAIC_RECRUITERS.map((r) => (
+          <div class="rec-cell">{r.prefix} <em>{r.em}</em></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 7rem 0; background: var(--cream-200); border-top: 1px solid var(--line);">
+    <div class="container-tight">
+      <div class="reveal" style="text-align: center;">
+        <span class="eyebrow">— For Hiring Partners</span>
+        <h2 style="margin: 1rem 0 1.5rem; max-width: 22ch; margin-inline: auto;">
+          Looking to <em class="italic-accent" style="color: var(--accent);">hire</em> from the
+          <em class="italic-accent" style="color: var(--accent);">2026</em> cohort?
+        </h2>
+        <p style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--ink-700); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.6;">
+          Our placement office invites firms to participate in summer internships, live projects, and final placement drives. The Director of Placements responds within one business day.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/contact" class="btn btn--accent" data-magnetic>Connect with our office <span class="arrow">→</span></a>
+          <a href="#" class="btn btn--ghost">Download brochure</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>
+
+<script>
+  import '~scripts/counters';
+</script>

@@ -1,0 +1,127 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import AlumniCard from '~components/people/AlumniCard.astro';
+import { getCollection } from 'astro:content';
+import { ALUMNI_GLOBE, ALUMNI_PERKS } from '~lib/data/contact';
+
+const all = (await getCollection('alumni')).sort((a, b) => a.data.order - b.data.order);
+const spotlight = all.find((a) => a.data.spotlight);
+const cards = all.filter((a) => !a.data.spotlight).slice(0, 6);
+---
+
+<PublicLayout
+  title="Alumni — MM BGIMS"
+  description="The MM BGIMS alumni network — two thousand graduates across six continents."
+  contactEmail="alumni@mmbgims.com"
+>
+  <section class="al-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Alumni Network</span>
+      <h1 class="reveal" data-delay="1">
+        Two thousand <em>graduates</em>.<br>
+        Six continents.<br>
+        One <em>uncommon</em> common ground.
+      </h1>
+      <p class="reveal" data-delay="2">
+        The MM BGIMS alumni network is small enough that you will be remembered, and large enough that you will be heard. Our graduates lead departments at HDFC and Kotak, build start-ups in Bandra-Kurla, lecture at universities from Pune to Pittsburgh, and run family enterprises that quietly hold up small Indian towns.
+      </p>
+
+      <div class="al-globe reveal" data-delay="3">
+        {ALUMNI_GLOBE.map((g) => (
+          <div class="al-globe__col">
+            <div class="al-globe__num">
+              <span data-count={g.count}>0</span>
+              {g.suffix && <sup>{g.suffix}</sup>}
+            </div>
+            <div class="al-globe__label">{g.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="al-feat">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— Notable graduates</span>
+          <h2 style="margin-top: 1rem;">A few of our <em class="italic-accent" style="color: var(--accent);">most-asked-after</em> alumni.</h2>
+        </div>
+        <a href="#" class="link-underline">Browse the full directory <span>→</span></a>
+      </div>
+
+      <div class="al-grid">
+        {cards.map((a, i) => <AlumniCard alumnus={a} delay={i % 3} />)}
+      </div>
+    </div>
+  </section>
+
+  {spotlight && (
+    <section class="al-spot">
+      <div class="container">
+        <div class="al-spot__inner">
+          <div class="al-spot__visual reveal">
+            <span class="al-spot__visual-mark">{spotlight.data.initials.split('').join(' ')}</span>
+          </div>
+          <div class="reveal" data-delay="1">
+            <span class="eyebrow" style="color: var(--brass-400);">— Alumni Spotlight</span>
+            <h3 style="margin-top: 1rem;">From the second row of <em>2008</em> to the corner office at HDFC <em>Asset Management</em>.</h3>
+            <p>{spotlight.data.spotlightBody}</p>
+            <blockquote>
+              "{spotlight.data.spotlightQuote}"
+              <cite>— {spotlight.data.name}, {spotlight.data.cohort}, {spotlight.data.role}, {spotlight.data.company.split(' · ')[0]}</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="al-perks">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">— What we offer</span>
+          <h2 style="margin-top: 1rem;">Membership <em class="italic-accent" style="color: var(--accent);">privileges</em>.</h2>
+        </div>
+        <p style="font-family: var(--font-serif); color: var(--muted); max-width: 36ch; margin: 0;">
+          All graduates of MM BGIMS are members for life. No subscription fee. No renewal required.
+        </p>
+      </div>
+
+      <div class="al-perk-grid">
+        {ALUMNI_PERKS.map((p, i) => (
+          <div class="al-perk reveal" data-delay={i}>
+            <svg class="al-perk__icon" viewBox="0 0 48 48" fill="none">
+              <path d="M24 4l4 12h12l-10 8 4 12-10-8-10 8 4-12-10-8h12z" stroke="currentColor" stroke-width="1.4"/>
+            </svg>
+            <h4>{p.title}</h4>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="al-cta">
+    <div class="container-tight">
+      <div class="reveal" style="text-align: center;">
+        <span class="eyebrow">— Update your details</span>
+        <h2 style="margin: 1rem 0 1.5rem; max-width: 22ch; margin-inline: auto;">
+          Lost touch? Let us <em class="italic-accent" style="color: var(--accent);">find you</em>.
+        </h2>
+        <p style="font-family: var(--font-serif); color: var(--muted); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.6;">
+          We send four printed dispatches a year and a digital quarterly. To re-join the list, send us your year, programme, and current address.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/contact" class="btn btn--accent" data-magnetic>Submit your update <span class="arrow">→</span></a>
+          <a href="/events" class="btn btn--ghost">Upcoming alumni events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>
+
+<script>
+  import '~scripts/counters';
+</script>

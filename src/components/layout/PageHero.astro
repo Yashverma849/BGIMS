@@ -1,0 +1,66 @@
+---
+/**
+ * Compact interior page header. Two layout variants:
+ *  - default: breadcrumb + grid (eyebrow/title left, lead right)
+ *  - simple: stacked eyebrow / h1 / lead with optional ornament
+ */
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  breadcrumb?: { href: string; label: string }[];
+  variant?: 'split' | 'simple';
+  ornament?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  lead,
+  breadcrumb,
+  variant = 'split',
+  ornament = false,
+} = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="container">
+    {breadcrumb && (
+      <div class="breadcrumb reveal">
+        {breadcrumb.map((b, i) => (
+          <>
+            {i > 0 && <span class="sep">/</span>}
+            {i < breadcrumb.length - 1 ? (
+              <a href={b.href}>{b.label}</a>
+            ) : (
+              <span>{b.label}</span>
+            )}
+          </>
+        ))}
+      </div>
+    )}
+
+    {variant === 'split' ? (
+      <div class="page-hero__inner">
+        <div>
+          <span class="eyebrow reveal">{eyebrow}</span>
+          <h1 class="page-hero__title reveal" data-delay="1" set:html={title} />
+        </div>
+        {lead && <p class="page-hero__lead reveal" data-delay="2">{lead}</p>}
+      </div>
+    ) : (
+      <>
+        <span class="eyebrow reveal">{eyebrow}</span>
+        <h1 class="reveal" data-delay="100" set:html={title} />
+        {lead && <p class="page-hero__lede reveal" data-delay="200">{lead}</p>}
+      </>
+    )}
+  </div>
+  {ornament && (
+    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
+      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
+    </svg>
+  )}
+</section>

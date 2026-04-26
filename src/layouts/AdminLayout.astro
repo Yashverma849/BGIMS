@@ -1,0 +1,17 @@
+---
+/**
+ * Admin chrome — a minimal shell wrapping BaseLayout. No nav/footer; admin
+ * pages own their sidebar (dashboard) or art-split (login). Always noindex.
+ */
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  bodyClass?: string;
+}
+const { title, bodyClass = 'cms-body' } = Astro.props;
+---
+
+<BaseLayout title={title} noindex bare bodyClass={bodyClass}>
+  <slot />
+</BaseLayout>

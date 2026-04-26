@@ -1,0 +1,144 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import CtaBanner from '~components/layout/CtaBanner.astro';
+import {
+  PROCESS_STEPS,
+  ELIGIBILITY,
+  IMPORTANT_DATES,
+  FEE_COLUMNS,
+  FEE_ROWS,
+  SCHOLARSHIPS,
+} from '~lib/data/admissions';
+---
+
+<PublicLayout
+  title="Admissions — MM BGIMS"
+  description="Admissions process, eligibility, important dates and fee structure for MBA, MMS, BMS and Ph.D. programmes at MM BGIMS, Mumbai."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Admissions · 2026–27</span>
+      <h1 class="reveal" data-delay="100">A measured path to becoming <em class="italic-accent">a BGIMS graduate</em>.</h1>
+      <p class="page-hero__lede reveal" data-delay="200">
+        We seek candidates of intellect, integrity and ambition. The admissions calendar is precise; the welcome that follows, considered.
+      </p>
+    </div>
+    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
+      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
+    </svg>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Process</span>
+        <h2 class="reveal" data-delay="100">Five steps. <em class="italic-accent">No shortcuts.</em></h2>
+      </div>
+
+      <div class="process-grid">
+        {PROCESS_STEPS.map((s, i) => (
+          <div class="process-step reveal" data-delay={i * 100}>
+            <span class="process-step__num">{s.numeral}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Eligibility</span>
+        <h2 class="reveal" data-delay="100">Who we <em class="italic-accent">consider</em>.</h2>
+      </div>
+
+      <div class="eligibility-grid">
+        {ELIGIBILITY.map((e, i) => (
+          <div class="eligibility-card reveal" data-delay={i * 100}>
+            <div class="eligibility-card__head">
+              <span>{e.programmeNumeral}</span>
+              <h3>{e.programmeName}</h3>
+            </div>
+            <ul>
+              {e.rules.map((r) => <li>{r}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow reveal">— Calendar</span>
+        <h2 class="reveal" data-delay="100">Important dates · <em class="italic-accent">2026–27</em></h2>
+      </div>
+
+      <div class="dates-grid">
+        {IMPORTANT_DATES.map((d, i) => (
+          <div class="date-card reveal" data-delay={i * 100}>
+            <span class="date-card__month">{d.monthLabel}</span>
+            <h4>{d.title}</h4>
+            <p>{d.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow reveal">— Tuition</span>
+        <h2 class="reveal" data-delay="100">Fee structure, <em class="italic-accent">disclosed in full</em>.</h2>
+      </div>
+
+      <div class="fee-table-wrap reveal">
+        <table class="fee-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              {FEE_COLUMNS.map((c) => <th>{c.programme}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {FEE_ROWS.map((row) => (
+              <tr class={row.isTotal ? 'fee-table__total' : ''}>
+                <td>{row.component}</td>
+                {row.values.map((v) => <td>{v}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="fee-note reveal" data-delay="100">
+        <em>Note ·</em> Fees may be revised by the Fee Regulating Authority of Maharashtra. The application fee of ₹1,500 is non-refundable. Hostel accommodation is not provided by the institute; an approved list of paying-guest residences is shared upon admission.
+      </p>
+
+      <div class="scholarship-row reveal" data-delay="200">
+        {SCHOLARSHIPS.map((s) => (
+          <div class="scholarship-card">
+            <span class="eyebrow">— Scholarship</span>
+            <h4>{s.title}</h4>
+            <p set:html={s.body.replace(/(₹[\d,]+|\d+%)/, '<strong>$1</strong>')} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    eyebrow="— Begin"
+    title={`Your file, <em class="italic-accent">already overdue</em>.`}
+    body="The 2026 cohort closes when the seats are filled. Begin your application today."
+    primaryHref="/apply"
+    primaryLabel="Begin Application"
+    dark
+  />
+</PublicLayout>

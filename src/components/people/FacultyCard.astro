@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+const TONE_BG: Record<string, string> = {
+  maroon: '#722325',
+  teal: '#0F4C4C',
+  'maroon-dark': '#5C1A1B',
+  'maroon-deep': '#3D0E10',
+  'teal-mid': '#1A6B6B',
+};
+
+interface Props {
+  faculty: CollectionEntry<'faculty'>;
+  delay?: number;
+}
+const { faculty, delay } = Astro.props;
+const f = faculty.data;
+const bg = TONE_BG[f.portraitTone ?? 'maroon'] ?? '#722325';
+---
+
+<article class="faculty-card reveal" data-delay={delay}>
+  <div class="faculty-card__portrait" style={`background:${bg};`}>
+    <span>{f.initials}</span>
+  </div>
+  <div class="faculty-card__body">
+    <span class="eyebrow">{f.department}</span>
+    <h4>{f.name}</h4>
+    <p class="faculty-card__title">{f.role}</p>
+    <p>{f.bio}</p>
+    {f.credentials && <small>{f.credentials}</small>}
+  </div>
+</article>

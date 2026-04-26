@@ -1,0 +1,94 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import PageHero from '~components/layout/PageHero.astro';
+import CtaBanner from '~components/layout/CtaBanner.astro';
+import { getCollection } from 'astro:content';
+
+const programmes = (await getCollection('programmes')).sort((a, b) => a.data.order - b.data.order);
+
+const titleHtml = (s: string): string =>
+  s
+    .replace(/&/, '<em>&</em>')
+    .replace('Bachelor of Management', 'Bachelor of <em>Management</em>')
+    .replace('Master of Management Studies', 'Master of<br>Management <em>Studies</em>')
+    .replace('MBA in Banking', 'MBA<br>Banking');
+---
+
+<PublicLayout
+  title="Programs — MM BGIMS"
+  description="Four programs, each rigorous. MBA, MMS, BMS, and Ph.D. at Mumbai's distinguished MM BGIMS."
+  hideNewsletter
+>
+  <PageHero
+    eyebrow="Four Disciplines"
+    title={`Programs<br>built for<br><em>practitioners</em>.`}
+    lead="From the foundational BMS to the doctoral fellowship, our four programs are calibrated to different stages of a managerial life — but linked by a common conviction: that good education insists on the difficulty of the work."
+    breadcrumb={[{ href: '/', label: 'MM BGIMS' }, { href: '/programs', label: 'Programs' }]}
+  />
+
+  {programmes.map((p) => {
+    const d = p.data;
+    return (
+      <div class="program-detail">
+        <div class="container" style="display: contents;">
+          <div class="program-detail__sidebar reveal">
+            <span class="program-num">{d.numeral}.</span>
+            <span class="eyebrow">{d.eyebrow}</span>
+            <h2 style="margin-top: 1rem;" set:html={titleHtml(d.title)} />
+            <div style="margin-top: 1.5rem;">
+              {d.tags.map((t) => <span class="program-detail__tag">{t}</span>)}
+            </div>
+          </div>
+          <div class="reveal" data-delay="1">
+            <p class="lead" style="margin-bottom: 2rem;">{d.lead}</p>
+            <p>{d.body}</p>
+
+            <dl style="margin-top: 2.5rem;">
+              <div class="spec-row"><dt>Duration</dt><dd>{d.duration}</dd></div>
+              <div class="spec-row"><dt>Eligibility</dt><dd>{d.eligibility}</dd></div>
+              <div class="spec-row"><dt>Intake</dt><dd>{d.intake}</dd></div>
+              <div class="spec-row"><dt>Tuition</dt><dd>{d.tuitionLine}</dd></div>
+              {d.specialisations && (
+                <div class="spec-row"><dt>Specialisations</dt><dd>{d.specialisations}</dd></div>
+              )}
+            </dl>
+
+            {d.curriculum && (
+              <>
+                <h4 style="margin: 3rem 0 1rem; font-family: var(--font-display); font-weight: 500; font-size: 1.4rem;">A glimpse of the curriculum</h4>
+                <div class="curriculum-grid">
+                  {d.curriculum.map((c) => (
+                    <div class="curriculum-grid__item">
+                      <div class="label">{c.label}</div>
+                      <h5>{c.title}</h5>
+                      <p>{c.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div style="margin-top: 2.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              {d.id === 'PHD' ? (
+                <a href="/contact" class="btn btn--accent" data-magnetic>Enquire about Ph.D. <span class="arrow">→</span></a>
+              ) : (
+                <>
+                  <a href="/apply" class="btn btn--accent" data-magnetic>Apply for {d.shortName.split(' ')[0]} <span class="arrow">→</span></a>
+                  <a href="/admissions" class="btn btn--ghost">Admission Process</a>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+
+  <CtaBanner
+    title={`Find the<br>programme that<br><em>fits you</em>.`}
+    primaryHref="/admissions"
+    primaryLabel="How to Apply"
+    secondaryHref="/contact"
+    secondaryLabel="Speak to Admissions"
+  />
+</PublicLayout>

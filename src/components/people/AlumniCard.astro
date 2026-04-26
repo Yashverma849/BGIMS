@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  alumnus: CollectionEntry<'alumni'>;
+  delay?: number;
+}
+const { alumnus, delay } = Astro.props;
+const a = alumnus.data;
+const tone = a.avatarTone ?? 'accent';
+---
+
+<article class="al-card reveal" data-delay={delay}>
+  <div class="al-card__top">
+    <div class={`al-card__pic tone-${tone}`}>{a.initials}</div>
+    <div>
+      <div class="al-card__name">{a.name}</div>
+      <div class="al-card__year">{a.programme} · {a.cohort}</div>
+    </div>
+  </div>
+  <div class="al-card__role">
+    <strong>{a.role}</strong>
+    {a.company}
+  </div>
+  <p class="al-card__quote">&ldquo;{a.quote}&rdquo;</p>
+</article>

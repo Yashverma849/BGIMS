@@ -1,0 +1,9 @@
+dist/
+.astro/
+node_modules/
+_reference/
+public/
+playwright-report/
+test-results/
+coverage/
+.data/

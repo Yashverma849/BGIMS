@@ -1,0 +1,9 @@
+dist/
+.astro/
+node_modules/
+_reference/
+pnpm-lock.yaml
+.data/
+playwright-report/
+test-results/
+coverage/

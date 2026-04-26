@@ -1,0 +1,99 @@
+/* ─── Design Tokens ───
+   Heritage palette, typography stack, spacing, radius, shadows, motion.
+   Mirrors :root in main.css; importable separately if you ever fork themes. */
+:root {
+  /* Heritage Palette */
+  --maroon-900: #2A0809;
+  --maroon-800: #3D0E10;
+  --maroon-700: #4F1416;
+  --maroon-600: #5C1A1B;
+  --maroon-500: #722325;
+  --maroon-100: #F4E5E5;
+
+  /* Brass Gold */
+  --brass-900: #6B5320;
+  --brass-700: #8B6F2F;
+  --brass-500: #B8965A;
+  --brass-400: #D4B47C;
+  --brass-300: #E5CFA3;
+  --brass-100: #F5EAD3;
+
+  /* Tertiary — Peacock Teal (personality) */
+  --teal-900: #082626;
+  --teal-700: #0F4C4C;
+  --teal-500: #1A6B6B;
+  --teal-300: #4A9999;
+  --teal-100: #D6E8E8;
+
+  /* Neutrals */
+  --ink-900: #0F0C0A;
+  --ink-800: #1A1614;
+  --ink-700: #2B2522;
+  --ink-500: #5A4F48;
+  --ink-300: #8A8077;
+  --ink-100: #BFB7AB;
+
+  --cream-100: #FAF6EE;
+  --cream-200: #F5EFE3;
+  --cream-300: #EDE5D2;
+  --cream-400: #DCD2BC;
+  --paper:     #FFFCF7;
+
+  /* Semantic */
+  --bg:        var(--cream-200);
+  --bg-alt:    var(--paper);
+  --bg-dark:   var(--ink-900);
+  --fg:        var(--ink-800);
+  --muted:     var(--ink-500);
+  --accent:    var(--maroon-700);
+  --gold:      var(--brass-500);
+  --teal:      var(--teal-700);
+  --line:      rgba(26, 22, 20, 0.12);
+  --line-strong: rgba(26, 22, 20, 0.22);
+
+  /* Type Scale */
+  --font-display: 'Cormorant Garamond', 'Garamond', serif;
+  --font-serif:   'Fraunces', 'Georgia', serif;
+  --font-body:    'Manrope', system-ui, sans-serif;
+  --font-italic:  'Italiana', 'Cormorant Garamond', serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --t-hero:     clamp(3.2rem, 9vw, 8rem);
+  --t-display:  clamp(2.5rem, 6vw, 5rem);
+  --t-h1:       clamp(2rem, 4.5vw, 3.5rem);
+  --t-h2:       clamp(1.6rem, 3vw, 2.4rem);
+  --t-h3:       clamp(1.25rem, 2vw, 1.6rem);
+  --t-body:     1rem;
+  --t-small:    0.875rem;
+  --t-micro:    0.75rem;
+
+  /* Spacing — based on 8 */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-6:  1.5rem;
+  --s-8:  2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-24: 6rem;
+  --s-32: 8rem;
+
+  /* Radius */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 8px;
+  --r-xl: 16px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(15, 12, 10, 0.04), 0 1px 1px rgba(15, 12, 10, 0.02);
+  --shadow-md: 0 4px 16px rgba(15, 12, 10, 0.06), 0 2px 4px rgba(15, 12, 10, 0.04);
+  --shadow-lg: 0 24px 48px rgba(15, 12, 10, 0.08), 0 8px 16px rgba(15, 12, 10, 0.04);
+  --shadow-xl: 0 40px 80px rgba(15, 12, 10, 0.12), 0 16px 32px rgba(15, 12, 10, 0.06);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-elegant: cubic-bezier(0.16, 1, 0.3, 1);
+}

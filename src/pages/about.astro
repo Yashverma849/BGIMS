@@ -1,0 +1,133 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import PageHero from '~components/layout/PageHero.astro';
+import CtaBanner from '~components/layout/CtaBanner.astro';
+import { GOVERNING_BODY, MILESTONES, COMPASS, CAMPUS_FEATURES } from '~lib/data/about';
+---
+
+<PublicLayout
+  title="About — MM BGIMS"
+  description="A heritage of Indian management excellence — the story of Maratha Mandir's Babasaheb Gawde Institute of Management Studies."
+>
+  <PageHero
+    eyebrow="Our Heritage"
+    title={`Twenty-three years<br>of <em>quiet</em><br>excellence.`}
+    lead="At MM BGIMS, we measure ourselves not by rankings or rhetoric, but by the trajectories of the women and men who have walked through our halls — and by the seriousness with which we hold ourselves to the work of management education."
+    breadcrumb={[{ href: '/', label: 'MM BGIMS' }, { href: '/about', label: 'About' }]}
+  />
+
+  <section>
+    <div class="container-tight">
+      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 6rem;">
+        <span class="eyebrow" style="display: block;">Chapter 01<br>The Beginning</span>
+        <div>
+          <h2 style="margin-bottom: 2rem;">Founded in 2002 under the Maratha Mandir Trust — an institution itself older than the Republic.</h2>
+          <p class="lead">When the institute opened its doors in the corridors of the Maratha Mandir Annexe at Mumbai Central, the country was still finding its post-liberalisation feet. India needed managers — but more than that, it needed a generation of practitioners who understood the marriage of tradition and ambition that defines our commerce.</p>
+          <p>The vision was singular: to build a school close enough to the markets to be useful, distant enough from fashion to be wise. From a single MMS programme, we have grown to four flagship offerings — but the founding instinct has not changed.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 6rem;">
+        <span class="eyebrow" style="display: block;">Chapter 02<br>The Discipline</span>
+        <div>
+          <h2 style="margin-bottom: 2rem;">A philosophy of teaching that is <em class="italic-accent" style="color: var(--accent);">classical</em> in its rigour and <em class="italic-accent" style="color: var(--accent);">contemporary</em> in its concerns.</h2>
+          <p class="lead">We believe management education is not a vocational programme. It is a humanistic enterprise — concerned, finally, with the question of how we live and work together. Our curricula are deliberately structured: hard quantitative foundations, then case-driven application, then the slow reckoning with ethics and ambiguity that distinguishes a manager from a calculator.</p>
+          <p>Our faculty teach with the temperament of practitioners. Our visiting faculty arrive from the boardrooms of Reliance, the trading desks of HDFC, and the law offices of Cyril Amarchand. The classroom is our laboratory — and the laboratory takes itself seriously.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 4rem;">
+        <span class="eyebrow" style="display: block;">Chapter 03<br>The Tomorrow</span>
+        <div>
+          <h2 style="margin-bottom: 2rem;">Looking forward — to a campus, a curriculum, and a community equal to the next two decades of Indian commerce.</h2>
+          <p class="lead">As India approaches its centenary as a republic, the demands placed on our managers will only grow more complex. We are responding — with a renewed Banking & Finance MBA, a doctoral programme that publishes in the world's leading journals, and partnerships with universities in Singapore, London, and Boston.</p>
+          <p>But the ambition is constant: to graduate men and women who, when their hour comes, are equipped to meet it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="governing-body" style="background: var(--cream-100); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">Leadership</span>
+          <h2 style="margin-top: 1rem;">The stewards of <em class="italic-accent" style="color: var(--accent);">our</em> institution.</h2>
+        </div>
+      </div>
+      <div class="people-grid">
+        {GOVERNING_BODY.map((p, i) => (
+          <article class="person reveal" data-delay={i}>
+            <div class="person__img"><div class="person__img-inner">{p.initials}</div></div>
+            <span class="person__role">{p.role}</span>
+            <h4 class="person__name">{p.name}</h4>
+            <span class="person__expertise">{p.bio}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+        <span class="eyebrow">Our Compass</span>
+        <h2 style="margin-top: 1rem; max-width: 22ch; margin-left: auto; margin-right: auto;">The principles that <em class="italic-accent" style="color: var(--accent);">orient</em> our work.</h2>
+      </div>
+      <div class="vision-grid">
+        {COMPASS.map((c, i) => (
+          <div class="card reveal" data-delay={i}>
+            <span class="numeral" style="font-size: 3rem; line-height: 1;">{c.numeral}</span>
+            <h4 style="margin: 1rem 0;">{c.title}</h4>
+            <p style="font-family: var(--font-serif); font-size: 1rem; color: var(--ink-700);">{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--ink-900); color: var(--cream-100);">
+    <div class="container">
+      <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+        <span class="eyebrow" style="color: var(--brass-400);">A Brief Chronology</span>
+        <h2 style="margin-top: 1rem; color: var(--cream-100);">Twenty-three years, in <em class="italic-accent" style="color: var(--brass-400);">milestones</em>.</h2>
+      </div>
+      <div class="timeline">
+        {MILESTONES.map((m, i) => (
+          <div class="timeline__item reveal" data-delay={i}>
+            <div class="timeline__year">{m.year}</div>
+            <h4 style="color: var(--cream-100);" set:html={m.title} />
+            <p style="color: var(--cream-300); font-family: var(--font-serif);">{m.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">The Campus</span>
+          <h2 style="margin-top: 1rem;">An <em class="italic-accent" style="color: var(--accent);">unhurried</em> place to study,<br>in the heart of an unhurriable city.</h2>
+        </div>
+      </div>
+      <div class="campus-grid">
+        {CAMPUS_FEATURES.map((f, i) => (
+          <div class="card reveal" data-delay={i}>
+            <h4 style="font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; margin-bottom: 0.5rem;">{f.name}</h4>
+            <p style="font-family: var(--font-serif); color: var(--ink-700);">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    title={`Come and<br><em>see for yourself</em>.`}
+    primaryHref="/contact"
+    primaryLabel="Visit the Campus"
+    secondaryHref="/apply"
+    secondaryLabel="Begin Application"
+  />
+</PublicLayout>

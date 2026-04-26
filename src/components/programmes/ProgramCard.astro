@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  programme: CollectionEntry<'programmes'>;
+  delay?: number;
+}
+const { programme, delay } = Astro.props;
+const p = programme.data;
+const titleHtml = p.title.replace(/&/, '<em>&</em>').replace('Bachelor of Management', 'Bachelor of <em>Management</em>');
+---
+
+<article class="program-card reveal" data-delay={delay}>
+  <div class="program-card__num">№ {p.numeral}</div>
+  <h3 class="program-card__title" set:html={titleHtml} />
+  <div class="program-card__meta">
+    <span>{p.duration}</span>
+    <span>{p.type}</span>
+    <span>{p.affiliation}</span>
+  </div>
+  <p class="program-card__desc">{p.blurb}</p>
+  <span class="program-card__arrow">↗</span>
+</article>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply — MM BGIMS</title>
+  <meta name="description" content="Begin your application to MM BGIMS — MBA Banking & Finance, MMS, BMS and Ph.D. programmes. Mumbai Central campus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Italiana&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230F0C0A'/><text y='.9em' font-size='90' x='50%' text-anchor='middle' font-family='Cormorant Garamond, serif' fill='%23B8965A'>B</text></svg>">
+</head>
+<body>
+
+<div class="page-loader">
+  <div class="page-loader__mark"><em>BG</em>IMS</div>
+</div>
+<div class="scroll-progress"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">
+    <span class="nav__logo-mark">B</span>
+    <span class="nav__logo-text">
+      <span>MM BGIMS</span>
+      <small>Est. 2002 · Mumbai</small>
+    </span>
+  </a>
+  <ul class="nav__menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs.html">Programs</a></li>
+    <li><a href="placements.html">Placements</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav__cta">
+    <a href="apply.html" class="btn btn--accent active" data-magnetic>Apply <span class="arrow">→</span></a>
+    <button class="nav__hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- APPLY HERO -->
+<section class="apply-hero">
+  <div class="container">
+    <span class="eyebrow reveal">— Application · 2026 cohort</span>
+    <h1 class="reveal" data-delay="100">Begin <em class="italic-accent">your file</em>.</h1>
+    <p class="apply-hero__lede reveal" data-delay="200">Five steps. About fifteen minutes. The application fee is ₹1,500 — paid securely through Razorpay at the end.</p>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section class="apply-section">
+  <div class="container">
+    <div class="apply-wrap">
+
+      <!-- Stepper -->
+      <ol class="stepper" id="stepper">
+        <li class="stepper__item is-active" data-step="1">
+          <span class="stepper__num">1</span>
+          <span class="stepper__label">Personal</span>
+        </li>
+        <li class="stepper__item" data-step="2">
+          <span class="stepper__num">2</span>
+          <span class="stepper__label">Academic</span>
+        </li>
+        <li class="stepper__item" data-step="3">
+          <span class="stepper__num">3</span>
+          <span class="stepper__label">Programme</span>
+        </li>
+        <li class="stepper__item" data-step="4">
+          <span class="stepper__num">4</span>
+          <span class="stepper__label">Documents</span>
+        </li>
+        <li class="stepper__item" data-step="5">
+          <span class="stepper__num">5</span>
+          <span class="stepper__label">Payment</span>
+        </li>
+      </ol>
+
+      <form class="apply-form" id="applyForm" novalidate>
+
+        <!-- Step 1: Personal -->
+        <div class="apply-step is-active" data-step="1">
+          <header class="apply-step__head">
+            <span class="eyebrow">Step I</span>
+            <h2>Personal <em class="italic-accent">details</em></h2>
+            <p>Tell us who you are. We'll use these to address you, and only these.</p>
+          </header>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-fname">First name *</label>
+              <input type="text" id="f-fname" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="f-lname">Last name *</label>
+              <input type="text" id="f-lname" name="lastName" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-email">Email *</label>
+              <input type="email" id="f-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="f-phone">Mobile *</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="+91 " required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-dob">Date of birth *</label>
+              <input type="date" id="f-dob" name="dob" required>
+            </div>
+            <div class="form-group">
+              <label for="f-gender">Gender *</label>
+              <select id="f-gender" name="gender" required>
+                <option value="">Select…</option>
+                <option>Female</option>
+                <option>Male</option>
+                <option>Non-binary</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-addr">Address *</label>
+            <textarea id="f-addr" name="address" rows="3" required></textarea>
+          </div>
+          <div class="form-row form-row--3">
+            <div class="form-group">
+              <label for="f-city">City *</label>
+              <input type="text" id="f-city" name="city" required>
+            </div>
+            <div class="form-group">
+              <label for="f-state">State *</label>
+              <input type="text" id="f-state" name="state" required>
+            </div>
+            <div class="form-group">
+              <label for="f-pin">PIN code *</label>
+              <input type="text" id="f-pin" name="pin" maxlength="6" required>
+            </div>
+          </div>
+
+          <div class="apply-step__nav">
+            <span></span>
+            <button type="button" class="btn btn--dark btn--large" data-next="2">Continue <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 2: Academic -->
+        <div class="apply-step" data-step="2">
+          <header class="apply-step__head">
+            <span class="eyebrow">Step II</span>
+            <h2>Academic <em class="italic-accent">history</em></h2>
+            <p>Tenth, twelfth, graduation. Most recent first.</p>
+          </header>
+
+          <h4 class="form-heading">Class X (SSC)</h4>
+          <div class="form-row form-row--3">
+            <div class="form-group">
+              <label>Board *</label>
+              <input type="text" name="x_board" placeholder="e.g. Maharashtra State Board" required>
+            </div>
+            <div class="form-group">
+              <label>Year *</label>
+              <input type="number" name="x_year" min="1990" max="2025" required>
+            </div>
+            <div class="form-group">
+              <label>Percentage / CGPA *</label>
+              <input type="text" name="x_score" placeholder="e.g. 89%" required>
+            </div>
+          </div>
+
+          <h4 class="form-heading">Class XII (HSC)</h4>
+          <div class="form-row form-row--3">
+            <div class="form-group">
+              <label>Board *</label>
+              <input type="text" name="xii_board" placeholder="e.g. CBSE / ISC / HSC" required>
+            </div>
+            <div class="form-group">
+              <label>Year *</label>
+              <input type="number" name="xii_year" min="1992" max="2026" required>
+            </div>
+            <div class="form-group">
+              <label>Percentage / CGPA *</label>
+              <input type="text" name="xii_score" required>
+            </div>
+          </div>
+
+          <h4 class="form-heading">Graduation</h4>
+          <div class="form-row form-row--3">
+            <div class="form-group">
+              <label>University</label>
+              <input type="text" name="ug_university">
+            </div>
+            <div class="form-group">
+              <label>Programme</label>
+              <input type="text" name="ug_programme" placeholder="e.g. B.Com / B.E. / B.A.">
+            </div>
+            <div class="form-group">
+              <label>Score</label>
+              <input type="text" name="ug_score">
+            </div>
+          </div>
+
+          <h4 class="form-heading">Entrance test</h4>
+          <div class="form-row form-row--3">
+            <div class="form-group">
+              <label>Test taken</label>
+              <select name="entrance_test">
+                <option value="">Select…</option>
+                <option>CAT</option>
+                <option>XAT</option>
+                <option>CMAT</option>
+                <option>MAH-MBA-CET</option>
+                <option>MAH-MMS-CET</option>
+                <option>ATMA</option>
+                <option>MAT</option>
+                <option>Not yet taken</option>
+                <option>Not applicable (BMS)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="number" name="entrance_year" min="2024" max="2026">
+            </div>
+            <div class="form-group">
+              <label>Percentile / score</label>
+              <input type="text" name="entrance_score">
+            </div>
+          </div>
+
+          <div class="apply-step__nav">
+            <button type="button" class="btn btn--ghost" data-prev="1">← Back</button>
+            <button type="button" class="btn btn--dark btn--large" data-next="3">Continue <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 3: Programme -->
+        <div class="apply-step" data-step="3">
+          <header class="apply-step__head">
+            <span class="eyebrow">Step III</span>
+            <h2>Programme <em class="italic-accent">choice</em></h2>
+            <p>One programme per application. You may submit a fresh application for a second choice.</p>
+          </header>
+
+          <div class="programme-picker">
+            <label class="programme-choice">
+              <input type="radio" name="programme" value="MBA-BF" data-fee="1500" required>
+              <div class="programme-choice__card">
+                <span class="eyebrow">Programme · I</span>
+                <h4>MBA · Banking &amp; Finance</h4>
+                <p>2 years · Full time · ₹4,82,000 / year · 60 seats</p>
+              </div>
+            </label>
+
+            <label class="programme-choice">
+              <input type="radio" name="programme" value="MMS" data-fee="1500">
+              <div class="programme-choice__card">
+                <span class="eyebrow">Programme · II</span>
+                <h4>MMS</h4>
+                <p>2 years · Full time · ₹2,84,000 / year · 120 seats</p>
+              </div>
+            </label>
+
+            <label class="programme-choice">
+              <input type="radio" name="programme" value="BMS" data-fee="1000">
+              <div class="programme-choice__card">
+                <span class="eyebrow">Programme · III</span>
+                <h4>BMS</h4>
+                <p>3 years · Full time · ₹1,12,000 / year · 120 seats</p>
+              </div>
+            </label>
+
+            <label class="programme-choice">
+              <input type="radio" name="programme" value="PHD" data-fee="2500">
+              <div class="programme-choice__card">
+                <span class="eyebrow">Programme · IV</span>
+                <h4>Ph.D.</h4>
+                <p>3–5 years · Doctoral · ₹85,000 / year · 8 fellows</p>
+              </div>
+            </label>
+          </div>
+
+          <h4 class="form-heading">Statement of purpose</h4>
+          <div class="form-group">
+            <label for="f-sop">Why this programme, why now? (200–300 words)</label>
+            <textarea id="f-sop" name="sop" rows="6" placeholder="Begin where you are. Tell us what you want to learn, build, or change."></textarea>
+          </div>
+
+          <div class="apply-step__nav">
+            <button type="button" class="btn btn--ghost" data-prev="2">← Back</button>
+            <button type="button" class="btn btn--dark btn--large" data-next="4">Continue <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 4: Documents -->
+        <div class="apply-step" data-step="4">
+          <header class="apply-step__head">
+            <span class="eyebrow">Step IV</span>
+            <h2>Documents &amp; <em class="italic-accent">references</em></h2>
+            <p>Upload scanned copies (PDF or image, up to 5 MB each). Official originals will be inspected on interview day.</p>
+          </header>
+
+          <div class="upload-grid">
+            <label class="upload-tile">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Class X marksheet</strong>
+              <small>PDF · JPG · PNG · 5 MB</small>
+            </label>
+            <label class="upload-tile">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Class XII marksheet</strong>
+              <small>PDF · JPG · PNG · 5 MB</small>
+            </label>
+            <label class="upload-tile">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Graduation marksheet</strong>
+              <small>If applicable</small>
+            </label>
+            <label class="upload-tile">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Entrance scorecard</strong>
+              <small>CAT / XAT / CET as applicable</small>
+            </label>
+            <label class="upload-tile">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Identity proof</strong>
+              <small>Aadhaar / Passport / PAN</small>
+            </label>
+            <label class="upload-tile">
+              <input type="file" accept=".jpg,.jpeg,.png">
+              <span class="upload-tile__icon">↑</span>
+              <strong>Recent photograph</strong>
+              <small>Passport size · JPG / PNG</small>
+            </label>
+          </div>
+
+          <h4 class="form-heading">Reference</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ref-name">Referee name</label>
+              <input type="text" id="ref-name" name="ref_name" placeholder="A teacher, manager or mentor">
+            </div>
+            <div class="form-group">
+              <label for="ref-email">Referee email</label>
+              <input type="email" id="ref-email" name="ref_email">
+            </div>
+          </div>
+
+          <div class="apply-step__nav">
+            <button type="button" class="btn btn--ghost" data-prev="3">← Back</button>
+            <button type="button" class="btn btn--dark btn--large" data-next="5">Continue to Payment <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <!-- Step 5: Payment -->
+        <div class="apply-step" data-step="5">
+          <header class="apply-step__head">
+            <span class="eyebrow">Step V</span>
+            <h2>Application <em class="italic-accent">fee</em></h2>
+            <p>A non-refundable fee secures your file. Payment is handled by Razorpay over a secure connection.</p>
+          </header>
+
+          <div class="payment-summary">
+            <div class="payment-summary__row">
+              <span>Application fee</span>
+              <strong id="pay-fee">₹1,500.00</strong>
+            </div>
+            <div class="payment-summary__row">
+              <span>GST (18%)</span>
+              <strong id="pay-gst">₹270.00</strong>
+            </div>
+            <div class="payment-summary__row payment-summary__row--total">
+              <span>Total payable</span>
+              <strong id="pay-total">₹1,770.00</strong>
+            </div>
+          </div>
+
+          <h4 class="form-heading">Choose payment method</h4>
+          <div class="payment-methods">
+            <label class="payment-method">
+              <input type="radio" name="payMethod" value="upi" checked>
+              <div class="payment-method__card">
+                <div class="payment-method__icon">
+                  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <rect x="2" y="6" width="28" height="20" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M9 16h14M16 11l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>UPI</strong>
+                  <small>GPay · PhonePe · Paytm · BHIM</small>
+                </div>
+                <span class="payment-method__check">✓</span>
+              </div>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payMethod" value="card">
+              <div class="payment-method__card">
+                <div class="payment-method__icon">
+                  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <rect x="3" y="7" width="26" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="3" y1="13" x2="29" y2="13" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="7" y1="19" x2="13" y2="19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Credit / Debit card</strong>
+                  <small>Visa · Mastercard · RuPay · Amex</small>
+                </div>
+                <span class="payment-method__check">✓</span>
+              </div>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payMethod" value="netbanking">
+              <div class="payment-method__card">
+                <div class="payment-method__icon">
+                  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path d="M16 4l13 6H3l13-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                    <line x1="6" y1="13" x2="6" y2="22" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="12" y1="13" x2="12" y2="22" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="20" y1="13" x2="20" y2="22" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="26" y1="13" x2="26" y2="22" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="3" y1="25" x2="29" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Net banking</strong>
+                  <small>All major Indian banks</small>
+                </div>
+                <span class="payment-method__check">✓</span>
+              </div>
+            </label>
+
+            <label class="payment-method">
+              <input type="radio" name="payMethod" value="wallet">
+              <div class="payment-method__card">
+                <div class="payment-method__icon">
+                  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path d="M3 10c0-1.7 1.3-3 3-3h18c1.7 0 3 1.3 3 3v12c0 1.7-1.3 3-3 3H6c-1.7 0-3-1.3-3-3V10z" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M21 16h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                    <circle cx="23" cy="16" r="1.5" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Wallets</strong>
+                  <small>Paytm · Mobikwik · Freecharge · Amazon Pay</small>
+                </div>
+                <span class="payment-method__check">✓</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="payment-secure">
+            <span class="payment-secure__lock">🔒</span>
+            Secured by <strong>Razorpay</strong> · 256-bit SSL · PCI-DSS compliant · Your information never touches our servers.
+          </div>
+
+          <div class="apply-step__nav">
+            <button type="button" class="btn btn--ghost" data-prev="4">← Back</button>
+            <button type="button" class="btn btn--accent btn--large" id="payNow" data-magnetic>
+              Pay <span id="payAmount">₹1,770</span> &amp; Submit <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- RAZORPAY MODAL (mock) -->
+<div class="rzp-modal" id="rzpModal" aria-hidden="true">
+  <div class="rzp-modal__backdrop"></div>
+  <div class="rzp-modal__panel" role="dialog" aria-modal="true" aria-labelledby="rzpTitle">
+    <header class="rzp-modal__head">
+      <div class="rzp-modal__brand">
+        <strong>Razorpay</strong>
+        <small>Secure payment · MM BGIMS</small>
+      </div>
+      <button class="rzp-modal__close" aria-label="Close" id="rzpClose">×</button>
+    </header>
+
+    <!-- Step A: Processing -->
+    <div class="rzp-state rzp-state--processing" id="rzpProcessing">
+      <div class="rzp-spinner"></div>
+      <h3>Processing your payment…</h3>
+      <p id="rzpProcessingMsg">Connecting to your bank…</p>
+      <small>Please do not close this window.</small>
+    </div>
+
+    <!-- Step B: Success -->
+    <div class="rzp-state rzp-state--success" id="rzpSuccess" hidden>
+      <div class="rzp-tick">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#0F4C4C" stroke-width="2"/>
+          <path d="M18 31l9 9 16-19" fill="none" stroke="#0F4C4C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 id="rzpTitle">Payment received.</h3>
+      <p>Your application has been submitted. A confirmation has been sent to your email.</p>
+      <div class="rzp-receipt">
+        <div><span>Application ID</span><strong id="appId">—</strong></div>
+        <div><span>Amount</span><strong id="rcptAmount">₹1,770.00</strong></div>
+        <div><span>Payment ID</span><strong id="rcptPayId">—</strong></div>
+        <div><span>Method</span><strong id="rcptMethod">UPI</strong></div>
+        <div><span>Programme</span><strong id="rcptProg">—</strong></div>
+      </div>
+      <div class="rzp-actions">
+        <button class="btn btn--dark" onclick="window.print()">Save / print receipt</button>
+        <a href="index.html" class="btn btn--ghost">Return home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <h4>MM BGIMS</h4>
+        <p>Maratha Mandir's Babasaheb Gawde Institute of Management Studies. Cultivating principled leadership in the spirit of Mumbai's mercantile imagination since 2002.</p>
+      </div>
+      <div>
+        <h5>Programs</h5>
+        <ul>
+          <li><a href="programs.html">MBA · Banking &amp; Finance</a></li>
+          <li><a href="programs.html">MMS</a></li>
+          <li><a href="programs.html">BMS</a></li>
+          <li><a href="programs.html">Ph.D. Programme</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Institute</h5>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="placements.html">Placements</a></li>
+          <li><a href="events.html">Events & News</a></li>
+          <li><a href="alumni.html">Alumni</a></li>
+          <li><a href="admin/login.html">CMS Login</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <h5>Visit</h5>
+        <p>
+          Maratha Mandir Annexe<br>
+          Dr. A. B. Nair Road, Mumbai Central<br>
+          Mumbai 400 008 · Maharashtra<br><br>
+          <a href="tel:+919619510513">+91 96195 10513</a><br>
+          <a href="mailto:admissions@mmbgims.com">admissions@mmbgims.com</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Maratha Mandir's Babasaheb Gawde Institute of Management Studies. All rights reserved.</span>
+      <div class="footer__bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Mandatory Disclosure</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // === Apply form: stepper navigation ===
+  const form = document.getElementById('applyForm');
+  const steps = form.querySelectorAll('.apply-step');
+  const stepperItems = document.querySelectorAll('.stepper__item');
+
+  function goToStep(n) {
+    steps.forEach(s => s.classList.toggle('is-active', s.dataset.step == n));
+    stepperItems.forEach(s => {
+      s.classList.toggle('is-active', s.dataset.step == n);
+      s.classList.toggle('is-done', parseInt(s.dataset.step) < parseInt(n));
+    });
+    window.scrollTo({ top: document.querySelector('.apply-section').offsetTop - 80, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => goToStep(b.dataset.next)));
+  document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', () => goToStep(b.dataset.prev)));
+
+  // === Programme choice → fee update ===
+  const feeEl = document.getElementById('pay-fee');
+  const gstEl = document.getElementById('pay-gst');
+  const totalEl = document.getElementById('pay-total');
+  const payAmountEl = document.getElementById('payAmount');
+  const rcptAmountEl = document.getElementById('rcptAmount');
+  const fmt = n => '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmtShort = n => '₹' + n.toLocaleString('en-IN');
+
+  function updateFee() {
+    const sel = document.querySelector('input[name="programme"]:checked');
+    const base = sel ? parseInt(sel.dataset.fee) : 1500;
+    const gst = Math.round(base * 0.18);
+    const total = base + gst;
+    feeEl.textContent = fmt(base);
+    gstEl.textContent = fmt(gst);
+    totalEl.textContent = fmt(total);
+    payAmountEl.textContent = fmtShort(total);
+    rcptAmountEl.textContent = fmt(total);
+  }
+  document.querySelectorAll('input[name="programme"]').forEach(r => r.addEventListener('change', updateFee));
+
+  // === Payment processing simulation ===
+  const payBtn = document.getElementById('payNow');
+  const modal = document.getElementById('rzpModal');
+  const closeBtn = document.getElementById('rzpClose');
+  const procEl = document.getElementById('rzpProcessing');
+  const succEl = document.getElementById('rzpSuccess');
+  const procMsg = document.getElementById('rzpProcessingMsg');
+
+  payBtn.addEventListener('click', () => {
+    // collect data into localStorage as a real CMS app would
+    const data = {
+      id: 'BGIMS-' + Date.now().toString(36).toUpperCase().slice(-6),
+      submittedAt: new Date().toISOString(),
+      personal: {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        dob: form.dob.value,
+        gender: form.gender.value,
+        address: form.address.value,
+        city: form.city.value,
+        state: form.state.value,
+        pin: form.pin.value
+      },
+      academic: {
+        x_board: form.x_board.value, x_year: form.x_year.value, x_score: form.x_score.value,
+        xii_board: form.xii_board.value, xii_year: form.xii_year.value, xii_score: form.xii_score.value,
+        ug_university: form.ug_university.value, ug_programme: form.ug_programme.value, ug_score: form.ug_score.value,
+        entrance_test: form.entrance_test.value, entrance_year: form.entrance_year.value, entrance_score: form.entrance_score.value
+      },
+      programme: form.programme.value,
+      sop: form.sop.value,
+      ref_name: form.ref_name.value,
+      ref_email: form.ref_email.value,
+      payMethod: form.payMethod.value,
+      amount: totalEl.textContent,
+      status: 'submitted',
+      payment: {
+        id: 'pay_' + Math.random().toString(36).slice(2, 14),
+        method: form.payMethod.value,
+        amount: totalEl.textContent,
+        capturedAt: new Date().toISOString()
+      }
+    };
+    // open modal
+    modal.classList.add('is-open');
+    procEl.hidden = false;
+    succEl.hidden = true;
+
+    // simulate processing
+    const messages = [
+      'Connecting to Razorpay…',
+      'Verifying payment method…',
+      'Authorising with your bank…',
+      'Confirming transaction…'
+    ];
+    let i = 0;
+    procMsg.textContent = messages[0];
+    const interval = setInterval(() => {
+      i++;
+      if (i < messages.length) procMsg.textContent = messages[i];
+    }, 700);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      // store and show success
+      const apps = JSON.parse(localStorage.getItem('mmbgims_applications') || '[]');
+      apps.push(data);
+      localStorage.setItem('mmbgims_applications', JSON.stringify(apps));
+
+      procEl.hidden = true;
+      succEl.hidden = false;
+      document.getElementById('appId').textContent = data.id;
+      document.getElementById('rcptPayId').textContent = data.payment.id;
+      document.getElementById('rcptMethod').textContent = ({
+        upi: 'UPI', card: 'Credit / Debit card', netbanking: 'Net banking', wallet: 'Wallet'
+      })[data.payMethod];
+      document.getElementById('rcptProg').textContent = ({
+        'MBA-BF': 'MBA · Banking & Finance', 'MMS': 'MMS', 'BMS': 'BMS', 'PHD': 'Ph.D.'
+      })[data.programme] || data.programme;
+    }, 3200);
+  });
+
+  closeBtn.addEventListener('click', () => modal.classList.remove('is-open'));
+  modal.querySelector('.rzp-modal__backdrop').addEventListener('click', () => modal.classList.remove('is-open'));
+</script>
+</body>
+</html>
