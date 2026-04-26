@@ -1,0 +1,92 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PublicLayout from '~layouts/PublicLayout.astro';
+import { formatDate } from '~lib/format';
+import EventCard from '~components/events/EventCard.astro';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((event) => ({
+    params: { id: event.data.id },
+    props: { event },
+  }));
+}
+
+interface Props { event: CollectionEntry<'events'> }
+const { event } = Astro.props;
+const e = event.data;
+
+const all = (await getCollection('events')).sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
+const related = all
+  .filter((x) => x.data.id !== e.id && x.data.category === e.category)
+  .slice(0, 3);
+---
+
+<PublicLayout title={`${e.title} — MM BGIMS`} description={e.excerpt}>
+  <article class="ev-detail">
+    <div class="container-narrow">
+      <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+        <a href="/">MM BGIMS</a>
+        <span class="sep">/</span>
+        <a href="/events">Events</a>
+        <span class="sep">/</span>
+        <span aria-current="page">{e.categoryLabel}</span>
+      </nav>
+
+      <header class="ev-detail__head reveal" data-delay="1">
+        <span class="eyebrow">{e.categoryLabel}</span>
+        <h1>{e.title}</h1>
+        <time datetime={e.date}>— {formatDate(e.date, { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+      </header>
+
+      <div class={`ev-detail__hero tone-${e.visualTone}`} aria-hidden="true">
+        <svg viewBox="0 0 100 100" set:html={e.iconPath} />
+      </div>
+
+      <div class="ev-detail__body reveal" data-delay="2">
+        <p class="lead">{e.excerpt}</p>
+        <p>
+          Full account forthcoming. The institute publishes complete write-ups for major events
+          in the week following — sign up to the dispatch list (footer) to receive them by email.
+        </p>
+      </div>
+
+      <div class="ev-detail__nav reveal">
+        <a href="/events" class="btn btn--ghost">← All events</a>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="ev-all">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">— You may also like</span>
+            <h2 style="margin-top: 1rem;">More <em class="italic-accent" style="color: var(--accent);">{e.categoryLabel.toLowerCase()}</em>.</h2>
+          </div>
+        </div>
+        <div class="ev-grid">
+          {related.map((r, i) => <EventCard event={r} index={i} delay={i} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</PublicLayout>
+
+<style>
+  .ev-detail { padding: 8rem 0 4rem; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .ev-detail__head { margin: 1.5rem 0 2rem; }
+  .ev-detail__head h1 {
+    font-family: var(--font-display); font-weight: 400; line-height: 1.05; letter-spacing: -.02em;
+    font-size: clamp(2.4rem, 5vw, 4rem); margin: 1rem 0 .5rem;
+  }
+  .ev-detail__head time { font-family: var(--font-italic); color: var(--muted); font-size: 1rem; }
+  .ev-detail__hero {
+    aspect-ratio: 16/9; display: grid; place-items: center;
+    margin: 2.5rem 0; border: 1px solid var(--line);
+  }
+  .ev-detail__hero svg { width: 30%; height: 30%; opacity: .9; }
+  .ev-detail__body { margin: 2rem 0 3rem; }
+  .ev-detail__nav { padding-top: 2rem; border-top: 1px solid var(--line); }
+</style>

@@ -18,6 +18,8 @@ const { title, description, contactEmail, hideNewsletter } = Astro.props;
 
 <BaseLayout title={title} description={description}>
   <Nav />
-  <slot />
+  <main id="main-content" tabindex="-1">
+    <slot />
+  </main>
   <Footer contactEmail={contactEmail} hideNewsletter={hideNewsletter} />
 </BaseLayout>

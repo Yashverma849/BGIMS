@@ -97,6 +97,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 <body class={bodyClass}>
   {!bare && (
     <>
+      <a href="#main-content" class="skip-link">Skip to content</a>
       <div class="page-loader"><div class="page-loader__mark"><em>BG</em>IMS</div></div>
       <div class="scroll-progress"></div>
     </>

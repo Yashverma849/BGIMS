@@ -1,44 +1,48 @@
 /**
- * HTTP-backed CMS adapter. Delegates writes to the /api/* routes; falls back
- * to localStorage for reads (the public site never reads applications cross-
- * device — admin reads stay localStorage-backed in this iteration).
- *
- * Activated when `import.meta.env.PUBLIC_USE_SERVER_API === 'true'`.
+ * HTTP-backed CMS adapter. Writes flow to the JSON API; reads are not
+ * implemented on the public side (the admin dashboard hits /api/admin/*
+ * directly). Throws on network failures so the caller can surface a real
+ * error rather than silently dropping submissions.
  */
 
-import type { CmsAdapter, Application, Enquiry, ContentDraft, Session } from './types';
-import { localStorageAdapter } from './local-storage';
+import type { CmsAdapter, Application, Enquiry } from './types';
 
-async function post<T>(url: string, body: unknown): Promise<T> {
+async function postJSON<T>(url: string, body: unknown): Promise<T> {
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
+    credentials: 'same-origin',
   });
-  if (!res.ok) throw new Error(`POST ${url} failed: ${res.status}`);
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`POST ${url} failed: ${res.status} ${text}`);
+  }
   return (await res.json()) as T;
 }
 
+const notImplemented = (op: string) => () => {
+  throw new Error(
+    `cms.${op}() is not available on the public client. Use /api/admin/* from the dashboard.`,
+  );
+};
+
 export const httpAdapter: CmsAdapter = {
-  listApplications: () => localStorageAdapter.listApplications(),
-  saveApplication(app: Application) {
-    void post<Application>('/api/applications', app).catch((err) =>
-      console.error('saveApplication HTTP failed; falling back to local-only', err),
-    );
-    return localStorageAdapter.saveApplication(app);
+  listApplications: notImplemented('listApplications') as never,
+  async saveApplication(app: Application) {
+    return postJSON<Application>('/api/applications', app);
   },
-  setApplications: (apps) => localStorageAdapter.setApplications(apps),
-  listEnquiries: () => localStorageAdapter.listEnquiries(),
-  saveEnquiry(enq: Enquiry) {
-    void post<Enquiry>('/api/enquiries', enq).catch((err) =>
-      console.error('saveEnquiry HTTP failed; falling back to local-only', err),
-    );
-    return localStorageAdapter.saveEnquiry(enq);
+  setApplications: notImplemented('setApplications') as never,
+
+  listEnquiries: notImplemented('listEnquiries') as never,
+  async saveEnquiry(enq: Enquiry) {
+    return postJSON<Enquiry>('/api/enquiries', enq);
   },
-  setEnquiries: (enqs) => localStorageAdapter.setEnquiries(enqs),
-  getContentDraft: () => localStorageAdapter.getContentDraft(),
-  setContentDraft: (d: ContentDraft) => localStorageAdapter.setContentDraft(d),
-  getSession: () => localStorageAdapter.getSession(),
-  setSession: (s: Session) => localStorageAdapter.setSession(s),
-  clearSession: () => localStorageAdapter.clearSession(),
+  setEnquiries: notImplemented('setEnquiries') as never,
+
+  getContentDraft: () => null,
+  setContentDraft: notImplemented('setContentDraft') as never,
+  getSession: () => null,
+  setSession: notImplemented('setSession') as never,
+  clearSession: () => undefined,
 };

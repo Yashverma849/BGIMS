@@ -1,8 +1,20 @@
 ---
 import AdminLayout from '~layouts/AdminLayout.astro';
 import { site } from '~lib/site';
+import { readSession } from '~lib/auth/session';
+
+export const prerender = false;
+
+// If already signed in, jump straight to the dashboard.
+const session = await readSession(Astro.cookies);
+if (session) {
+  return Astro.redirect('/admin/dashboard');
+}
+
+const showDemo = import.meta.env.PUBLIC_SHOW_DEMO_CREDS === 'true';
 const demoEmail = (import.meta.env.PUBLIC_ADMIN_DEMO_EMAIL as string) || 'director@mmbgims.com';
 const demoPwd = (import.meta.env.PUBLIC_ADMIN_DEMO_PWD as string) || 'bgims2026';
+const nextHref = Astro.url.searchParams.get('next') ?? '/admin/dashboard';
 ---
 
 <AdminLayout title="CMS · Sign in — MM BGIMS" bodyClass="login-body">
@@ -48,14 +60,14 @@ const demoPwd = (import.meta.env.PUBLIC_ADMIN_DEMO_PWD as string) || 'bgims2026'
         <h2>Welcome back, <em class="italic-accent">colleague</em>.</h2>
         <p class="login__sub">Use your institute credentials. SSO with Google Workspace coming in the autumn release.</p>
 
-        <form class="login__form" id="loginForm">
+        <form class="login__form" id="loginForm" data-next={nextHref}>
           <div class="form-group">
             <label for="login-email">Email</label>
-            <input type="email" id="login-email" placeholder="firstname.lastname@mmbgims.com" required value={demoEmail} />
+            <input type="email" id="login-email" name="email" autocomplete="email" placeholder="firstname.lastname@mmbgims.com" required value={showDemo ? demoEmail : ''} />
           </div>
           <div class="form-group">
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" placeholder="Enter password" required value={demoPwd} />
+            <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Enter password" required value={showDemo ? demoPwd : ''} minlength="6" />
             <button type="button" class="login__pwd-toggle" aria-label="Show password" id="pwdToggle">show</button>
           </div>
           <div class="login__row">
@@ -67,14 +79,16 @@ const demoPwd = (import.meta.env.PUBLIC_ADMIN_DEMO_PWD as string) || 'bgims2026'
           </button>
 
           <p class="login__error" id="loginError" hidden>
-            Those credentials don't match anything on record. Try <code>{demoEmail}</code> / <code>{demoPwd}</code>.
+            Those credentials don't match anything on record.
           </p>
         </form>
 
-        <div class="login__demo">
-          <strong>Demo credentials</strong>
-          <p>Email · <code>{demoEmail}</code><br />Password · <code>{demoPwd}</code></p>
-        </div>
+        {showDemo && (
+          <div class="login__demo">
+            <strong>Demo credentials (dev only)</strong>
+            <p>Email · <code>{demoEmail}</code><br />Password · <code>{demoPwd}</code></p>
+          </div>
+        )}
 
         <p class="login__back"><a href="/">← Return to public website</a></p>
       </div>

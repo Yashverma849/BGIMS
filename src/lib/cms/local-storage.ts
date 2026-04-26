@@ -21,7 +21,7 @@ export const localStorageAdapter: CmsAdapter = {
     return readJSON<Application[]>(STORAGE_KEYS.applications, []);
   },
   saveApplication(app) {
-    const apps = this.listApplications();
+    const apps = readJSON<Application[]>(STORAGE_KEYS.applications, []);
     apps.push(app);
     writeJSON(STORAGE_KEYS.applications, apps);
     return app;
@@ -33,7 +33,7 @@ export const localStorageAdapter: CmsAdapter = {
     return readJSON<Enquiry[]>(STORAGE_KEYS.enquiries, []);
   },
   saveEnquiry(enq) {
-    const list = this.listEnquiries();
+    const list = readJSON<Enquiry[]>(STORAGE_KEYS.enquiries, []);
     list.unshift(enq);
     writeJSON(STORAGE_KEYS.enquiries, list);
     return enq;

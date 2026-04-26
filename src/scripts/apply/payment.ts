@@ -153,7 +153,14 @@ if (form) {
         capturedAt: result.capturedAt,
       },
     };
-    cms.saveApplication(application);
+
+    try {
+      await Promise.resolve(cms.saveApplication(application));
+    } catch (err) {
+      console.error('saveApplication failed', err);
+      if (procMsg) procMsg.textContent = 'Submission failed — please contact admissions@mmbgims.com';
+      return;
+    }
     track({
       name: 'payment_captured',
       programme: programmeRaw,

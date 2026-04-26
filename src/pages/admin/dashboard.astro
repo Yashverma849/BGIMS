@@ -1,6 +1,16 @@
 ---
 import AdminLayout from '~layouts/AdminLayout.astro';
 import { site } from '~lib/site';
+import { currentUser } from '~lib/auth/server';
+
+export const prerender = false;
+
+// Middleware has already verified the session before we get here, but
+// fetching the user lets us prefill the sidebar on the first paint.
+const user = await currentUser(Astro.cookies);
+const initial = (user?.email ?? 'D').charAt(0).toUpperCase();
+const role = user?.role ?? 'Director';
+const email = user?.email ?? 'director@mmbgims.com';
 ---
 
 <AdminLayout title="CMS · Dashboard — MM BGIMS" bodyClass="cms-body">
@@ -72,10 +82,10 @@ import { site } from '~lib/site';
 
       <div class="cms-sidebar__user">
         <div class="cms-user">
-          <div class="cms-user__avatar" id="userAvatar">D</div>
+          <div class="cms-user__avatar" id="userAvatar">{initial}</div>
           <div class="cms-user__info">
-            <strong id="userName">Director</strong>
-            <small id="userEmail">director@mmbgims.com</small>
+            <strong id="userName">{role}</strong>
+            <small id="userEmail">{email}</small>
           </div>
         </div>
         <button class="cms-user__signout" id="signOut">Sign out</button>
@@ -169,16 +179,11 @@ import { site } from '~lib/site';
 
         <div class="cms-panel">
           <header class="cms-panel__head">
-            <h3>Activity</h3>
-            <small>Last 24 hours</small>
+            <h3>Audit log</h3>
+            <small>Most recent first</small>
           </header>
-          <ul class="activity-list">
-            <li><time>09:42</time><span>New application received — <strong>MBA Banking &amp; Finance</strong> · payment completed via UPI</span></li>
-            <li><time>09:14</time><span>Enquiry from a Class XII candidate — interested in BMS programme</span></li>
-            <li><time>08:55</time><span>Director updated the <em>About</em> page — new chapter on 23rd cohort</span></li>
-            <li><time>Yesterday</time><span>Three new testimonials approved &amp; published</span></li>
-            <li><time>Yesterday</time><span>Faculty record updated — Dr. Aparna Shrotriya · publication added</span></li>
-            <li><time>Yesterday</time><span>Razorpay daily settlement reconciled — ₹1,17,180</span></li>
+          <ul class="activity-list" id="auditList">
+            <li class="recent-list__empty">Loading…</li>
           </ul>
         </div>
       </section>
@@ -504,6 +509,5 @@ import { site } from '~lib/site';
 </AdminLayout>
 
 <script>
-  import '~scripts/admin/auth-gate';
   import '~scripts/admin/dashboard';
 </script>

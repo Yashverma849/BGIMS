@@ -6,6 +6,11 @@ import CtaBanner from '~components/layout/CtaBanner.astro';
 import { getCollection } from 'astro:content';
 import { HOME_TESTIMONIALS } from '~lib/data/testimonials';
 import { HOME_MARQUEE_RECRUITERS } from '~lib/data/recruiters';
+import { contentRepo } from '~lib/db';
+
+// SSR so the Director's hero edits in /admin/dashboard land on the next
+// page load. Sub-ms DB read; cache via your CDN if traffic warrants it.
+export const prerender = false;
 
 const programmes = (await getCollection('programmes')).sort((a, b) => a.data.order - b.data.order);
 const allFaculty = await getCollection('faculty');
@@ -16,7 +21,15 @@ const facultyPreview = allFaculty
 const events = (await getCollection('events'))
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
   .slice(0, 3);
-const marquee = [...HOME_MARQUEE_RECRUITERS, ...HOME_MARQUEE_RECRUITERS]; // duplicate for seamless loop
+const marquee = [...HOME_MARQUEE_RECRUITERS, ...HOME_MARQUEE_RECRUITERS];
+
+const draft = await contentRepo.get('home_hero').catch(() => null);
+const heroH1 = draft?.h1 ?? "Where heritage meets tomorrow's leaders.";
+const heroLede = draft?.lede ??
+  "For over two decades, Maratha Mandir's Babasaheb Gawde Institute of Management Studies has shaped Mumbai's most distinguished minds in finance, strategy, and enterprise — pairing rigorous scholarship with the city's pulse for global commerce.";
+// Split the headline into words for the per-word stagger animation; the
+// "tomorrow's" word gets the italic-accent class for editorial emphasis.
+const heroWords = heroH1.split(/\s+/).filter(Boolean);
 ---
 
 <PublicLayout
@@ -61,19 +74,21 @@ const marquee = [...HOME_MARQUEE_RECRUITERS, ...HOME_MARQUEE_RECRUITERS]; // dup
       </div>
 
       <h1 class="hero__title">
-        <span class="word"><span>Where</span></span>
-        <span class="word"><span>heritage</span></span>
-        <br>
-        <span class="word"><span>meets</span></span>
-        <span class="word"><span><em>tomorrow's</em></span></span>
-        <br>
-        <span class="word"><span>leaders.</span></span>
+        {heroWords.map((word, i) => {
+          const isAccent = /tomorrow|tomorrow['’]s/i.test(word);
+          // Insert a line break after every 2 words to mirror the editorial layout.
+          const breakAfter = i > 0 && i % 2 === 1 && i < heroWords.length - 1;
+          return (
+            <>
+              <span class="word"><span set:html={isAccent ? `<em>${word}</em>` : word} /></span>
+              {breakAfter ? <br /> : ' '}
+            </>
+          );
+        })}
       </h1>
 
       <div class="hero__bottom reveal" data-delay="3">
-        <p class="hero__lead">
-          For over two decades, Maratha Mandir's Babasaheb Gawde Institute of Management Studies has shaped Mumbai's most distinguished minds in finance, strategy, and enterprise — pairing rigorous scholarship with the city's pulse for global commerce.
-        </p>
+        <p class="hero__lead">{heroLede}</p>
         <div class="hero__cta">
           <a href="/programs" class="btn btn--accent" data-magnetic>Explore Programs <span class="arrow">→</span></a>
           <a href="/about" class="btn btn--ghost">Our Story</a>

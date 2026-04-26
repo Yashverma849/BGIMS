@@ -85,6 +85,13 @@ import { CONTACT_DESKS, FAQ, GETTING_HERE } from '~lib/data/contact';
               <input type="checkbox" id="enq-consent" name="consent" required />
               <label for="enq-consent">I consent to be contacted by MM BGIMS regarding this enquiry.</label>
             </div>
+            <!-- Honeypot — humans don't see it; bots fill it; submission is rejected. -->
+            <div class="hp-field" aria-hidden="true">
+              <label>If you're a human, leave this empty
+                <input type="text" name="company_field" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
             <button type="submit" class="btn btn--dark btn--large" data-magnetic>Send Enquiry <span class="arrow">→</span></button>
             <p class="form-success" data-form-success>Thank you. Your enquiry has been received. We'll respond within one working day.</p>
           </form>

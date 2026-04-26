@@ -10,18 +10,26 @@ interface Props {
 const { event, index, delay } = Astro.props;
 const e = event.data;
 const num = String(index + 1).padStart(2, '0');
+const href = `/events/${e.id}`;
 ---
 
-<article class="ev-card reveal" data-cat={e.category} data-delay={delay}>
-  <div class={`ev-card__visual tone-${e.visualTone}`}>
-    <div class="ev-card__visual-num">№ {num}</div>
-    <svg viewBox="0 0 100 100" set:html={e.iconPath} />
-  </div>
-  <div class="ev-card__body">
-    <span class="ev-card__cat">{e.categoryLabel}</span>
-    <h3>{e.title}</h3>
-    <span class="ev-card__date">— {formatDate(e.date, { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-    <p class="ev-card__exc">{e.excerpt}</p>
-    <span class="ev-card__cta">Read account →</span>
-  </div>
-</article>
+<a href={href} class="ev-card-link" aria-label={`Read more about ${e.title}`}>
+  <article class="ev-card reveal" data-cat={e.category} data-delay={delay}>
+    <div class={`ev-card__visual tone-${e.visualTone}`}>
+      <div class="ev-card__visual-num">№ {num}</div>
+      <svg viewBox="0 0 100 100" set:html={e.iconPath} />
+    </div>
+    <div class="ev-card__body">
+      <span class="ev-card__cat">{e.categoryLabel}</span>
+      <h3>{e.title}</h3>
+      <span class="ev-card__date">— {formatDate(e.date, { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+      <p class="ev-card__exc">{e.excerpt}</p>
+      <span class="ev-card__cta">Read account →</span>
+    </div>
+  </article>
+</a>
+
+<style>
+  .ev-card-link { display: block; color: inherit; }
+  .ev-card-link:focus-visible { outline-offset: -2px; }
+</style>

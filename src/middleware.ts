@@ -1,32 +1,30 @@
 /**
- * Site-wide middleware.
+ * Site-wide middleware. Three jobs:
  *
- * Two responsibilities:
+ * 1. **Security headers** — CSP, HSTS, X-Frame, nosniff, Permissions-Policy.
+ *    Note: Astro middleware runs only for SSR routes; the server.mjs
+ *    wrapper re-applies the same headers on prerendered HTML so the local
+ *    self-hosted server is launch-grade. Vercel/Netlify use their own
+ *    config files for the same purpose.
  *
- * 1. **Security headers** — applied to every response. Content Security
- *    Policy is permissive enough for the institute's current needs (Google
- *    Fonts, OpenStreetMap embed, Razorpay checkout) but tight enough to
- *    block common XSS / clickjacking vectors.
+ * 2. **Auth gate** — protects /admin/* (excluding /admin/login) and
+ *    /api/admin/* by checking the session cookie. Unauthenticated requests
+ *    redirect to /admin/login (HTML) or return 401 JSON (API).
  *
- * 2. **Lightweight rate limiting** — only applied to /api/* routes. An
- *    in-memory token bucket per remote address is sufficient for a static
- *    site; for serious abuse, sit a real edge limiter (Cloudflare Turnstile,
- *    Vercel firewall) in front.
+ * 3. **Per-IP rate limit** — token bucket on /api/* (20 req/60s).
  */
 
 import { defineMiddleware } from 'astro:middleware';
+import { readSession } from '~lib/auth/session';
+import { isAdmin } from '~lib/auth/policies';
 
 const isProd = import.meta.env.PROD;
 
 const csp = [
   "default-src 'self'",
-  // 'unsafe-inline' on style-src is required because we set inline `style=""`
-  // attributes on a few elements (year-on-year ladder bar widths, etc).
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
-  // 'unsafe-inline' on script-src for inline JSON-LD; Astro hashes other
-  // hoisted scripts so they're already self-hosted.
   "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com",
   "frame-src https://www.openstreetmap.org https://api.razorpay.com https://checkout.razorpay.com",
   "connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com",
@@ -48,11 +46,8 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
 };
 
-// ───────── rate limiter ─────────
-interface Bucket {
-  tokens: number;
-  resetAt: number;
-}
+// ────────── rate limiter ──────────
+interface Bucket { tokens: number; resetAt: number }
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 20;
 const buckets = new Map<string, Bucket>();
@@ -71,7 +66,6 @@ function rateCheck(key: string): { ok: boolean; retryAfter: number } {
   return { ok: true, retryAfter: 0 };
 }
 
-// Periodically purge stale buckets so memory stays bounded under traffic.
 if (typeof setInterval === 'function') {
   setInterval(() => {
     const now = Date.now();
@@ -81,10 +75,40 @@ if (typeof setInterval === 'function') {
   }, RATE_WINDOW_MS).unref?.();
 }
 
+// ────────── auth gate ──────────
+function requiresAuth(pathname: string): boolean {
+  if (pathname.startsWith('/api/admin/')) return true;
+  if (pathname === '/admin/login' || pathname === '/admin/login/') return false;
+  if (pathname.startsWith('/admin')) return true;
+  return false;
+}
+
+function isHtmlPath(pathname: string): boolean {
+  return !pathname.startsWith('/api/');
+}
+
 export const onRequest = defineMiddleware(async (ctx, next) => {
-  const response = await next();
   const url = new URL(ctx.request.url);
 
+  // 1. Auth gate — short-circuits before any handler runs.
+  if (requiresAuth(url.pathname)) {
+    const session = await readSession(ctx.cookies);
+    if (!isAdmin(session)) {
+      if (isHtmlPath(url.pathname)) {
+        const nextParam = encodeURIComponent(url.pathname + url.search);
+        return new Response(null, {
+          status: 302,
+          headers: { location: `/admin/login?next=${nextParam}`, ...SECURITY_HEADERS },
+        });
+      }
+      return new Response(JSON.stringify({ error: 'unauthenticated' }), {
+        status: 401,
+        headers: { 'content-type': 'application/json', ...SECURITY_HEADERS },
+      });
+    }
+  }
+
+  // 2. Rate limit on /api/*.
   if (url.pathname.startsWith('/api/')) {
     const ip =
       ctx.request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
@@ -104,6 +128,7 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
     }
   }
 
+  const response = await next();
   for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
     response.headers.set(k, v);
   }
