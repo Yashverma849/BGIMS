@@ -5,7 +5,7 @@
   "type": "module",
   "description": "MM BGIMS — Heritage Reimagined. Astro + TypeScript institutional website.",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
