@@ -14,6 +14,8 @@ interface Props {
   eyebrow?: string;
   /** Optional descriptive paragraph. */
   body?: string;
+  /** Optional background image path (e.g. /mba-bf-bg.png). */
+  backgroundImage?: string;
 }
 
 const {
@@ -25,25 +27,40 @@ const {
   dark = false,
   eyebrow,
   body,
+  backgroundImage,
 } = Astro.props;
 ---
 
-<section class={`cta-banner${dark ? ' cta-banner--dark' : ''}`}>
-  <div class="container">
-    <div class="cta-banner__inner reveal">
-      <div>
-        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-        <h2 set:html={title} />
-        {body && <p>{body}</p>}
-      </div>
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href={primaryHref} class="btn btn--accent" data-magnetic>
-          {primaryLabel} <span class="arrow">→</span>
-        </a>
-        {secondaryHref && secondaryLabel && (
-          <a href={secondaryHref} class="btn btn--ghost">{secondaryLabel}</a>
-        )}
-      </div>
+<section
+  class:list={[
+    'cta-banner',
+    { 'cta-banner--dark': dark },
+    { 'cta-banner--image': backgroundImage },
+  ]}
+>
+  {backgroundImage && (
+    <>
+      <div
+        class="cta-banner__bg"
+        style={`background-image: url(${backgroundImage})`}
+        aria-hidden="true"
+      />
+      <div class="cta-banner__overlay" aria-hidden="true" />
+    </>
+  )}
+  <div class="cta-banner__inner reveal">
+    <div>
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h2 set:html={title} />
+      {body && <p>{body}</p>}
+    </div>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <a href={primaryHref} class="btn btn--accent" data-magnetic>
+        {primaryLabel} <span class="arrow">→</span>
+      </a>
+      {secondaryHref && secondaryLabel && (
+        <a href={secondaryHref} class="btn btn--ghost">{secondaryLabel}</a>
+      )}
     </div>
   </div>
 </section>

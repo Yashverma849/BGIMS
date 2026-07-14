@@ -1,0 +1,261 @@
+/* From Uiverse.io by Admin12121 - Adapted for MM BGIMS Website */
+
+/* Layout Updates to put all 4 cards in the same row with spaces */
+
+.programs__grid {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 2rem !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+@media (max-width: 1100px) {
+  .programs__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .programs__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}
+
+.program-card.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  cursor: pointer;
+  background: var(--bg-alt, #FFFCF7);
+  box-shadow: 0 0 6px 0 rgba(32, 32, 36, 0.12);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+  overflow: hidden;
+  padding: 2.25rem 1.75rem;
+  min-height: 380px; /* slightly taller to fit description comfortably */
+  isolation: isolate;
+  border-radius: 12px; /* curved edges */
+  border: 1px solid var(--line, rgba(26, 22, 20, 0.12));
+}
+
+/* Background image overlay on hover */
+.program-card.card .program-card__bg {
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.08);
+  z-index: -1;
+}
+
+/* Dark gradient to ensure high readability of text over background image */
+.program-card.card .program-card__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 10, 0.85) 0%, rgba(15, 12, 10, 0.95) 100%);
+  transition: opacity 0.5s ease;
+}
+
+/* Scoped container inside the card */
+.program-card.card .content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+/* Drawing line animation on top of card on hover */
+.program-card.card::before, 
+.program-card.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.program-card.card::before {
+  background: var(--gold, #B8965A); /* Rich brand gold accent */
+  width: 0;
+  opacity: 0;
+  transform: none; /* Reset main.css translateY(100%) */
+  transition: opacity 0s ease, width 0s ease;
+  transition-delay: 0.5s;
+  z-index: 10;
+}
+
+.program-card.card::after {
+  width: 100%;
+  background: transparent; /* Transparent since card has border-radius */
+  transition: width 0.5s ease;
+  z-index: 9;
+}
+
+/* Program Card Elements */
+.program-card.card .program-card__num.h6 {
+  font-family: var(--font-italic);
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: color 0.35s ease;
+}
+
+.program-card.card .program-card__title.logo {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.2vw, 2.4rem); /* refined sizing for 4-column layout */
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 1em; /* margin from user's CSS */
+  color: var(--ink-900);
+  letter-spacing: -0.02em;
+  transition: margin-bottom 0.35s ease, color 0.35s ease;
+}
+
+.program-card.card .program-card__title.logo em {
+  font-family: var(--font-italic);
+  font-style: normal;
+  color: var(--accent);
+  transition: color 0.4s var(--ease-elegant);
+}
+
+.program-card.card .program-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Align bottom */
+  margin-top: auto; /* push to the very bottom */
+  border-top: 1px solid var(--line, rgba(26, 22, 20, 0.12));
+  padding-top: 1rem;
+  transition: border-color 0.35s ease;
+}
+
+.program-card.card .program-card__footer-meta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Wrap gracefully if needed */
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.program-card.card .program-card__footer-meta span {
+  transition: color 0.35s ease;
+}
+
+.program-card.card .program-card__footer-meta .separator {
+  color: var(--accent);
+  opacity: 0.5;
+  transition: color 0.35s ease, opacity 0.35s ease;
+}
+
+/* Hover Content slide down reveal */
+.program-card.card .hover_content {
+  overflow: hidden;
+  max-height: 0;
+  transform: translateY(1rem);
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.program-card.card .hover_content p.program-card__desc {
+  margin: 1.5em 0 0;
+  color: var(--muted, #6E6E70);
+  line-height: 1.45em;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  opacity: 1; /* Reset opacity from main.css */
+  transition: color 0.35s ease;
+}
+
+.program-card.card .program-card__arrow {
+  position: static !important; /* override absolute position from main.css */
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--accent);
+  transition: transform 0.5s var(--ease-elegant), color 0.4s var(--ease-elegant);
+}
+
+/* Hover State */
+.program-card.card:hover {
+  box-shadow: var(--shadow-lg, 0 10px 20px 0 rgba(32, 32, 36, 0.12));
+  transform: translateY(-6px); /* Clean elevation that doesn't break the grid */
+  color: var(--cream-100) !important; /* Invert text to light cream when dark bg displays */
+  border-color: transparent;
+}
+
+.program-card.card:hover .program-card__bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.program-card.card:hover::before {
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.5s ease, width 0.5s ease;
+  transition-delay: 0s;
+}
+
+.program-card.card:hover::after {
+  width: 0;
+  opacity: 0;
+  transition: width 0s ease;
+}
+
+.program-card.card:hover .program-card__title.logo {
+  margin-bottom: 0.5em; /* Shift margin on hover from user's CSS */
+  color: var(--cream-100) !important;
+}
+
+.program-card.card:hover .program-card__title.logo em {
+  color: var(--brass-400) !important;
+}
+
+.program-card.card:hover .hover_content {
+  max-height: 12rem; /* Give enough room for descriptions */
+  transform: translateY(0);
+}
+
+.program-card.card:hover .program-card__num.h6 {
+  color: var(--brass-400) !important;
+}
+
+.program-card.card:hover .program-card__footer-meta {
+  color: var(--cream-400) !important;
+}
+
+.program-card.card:hover .program-card__footer-meta span {
+  color: var(--cream-400) !important;
+}
+
+.program-card.card:hover .program-card__footer-meta .separator {
+  color: var(--brass-400) !important;
+  opacity: 0.8;
+}
+
+.program-card.card:hover .program-card__footer {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.program-card.card:hover .hover_content p.program-card__desc {
+  color: var(--cream-200) !important;
+}
+
+.program-card.card:hover .program-card__arrow {
+  transform: translate(6px, -6px); /* translate works beautifully inside the flex item */
+  color: var(--brass-400) !important;
+}

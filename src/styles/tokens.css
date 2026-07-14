@@ -79,6 +79,12 @@
   --s-24: 6rem;
   --s-32: 8rem;
 
+  /* Section layout — equal minimal vertical rhythm site-wide */
+  --section-gutter: clamp(1rem, 3vw, 2.5rem);
+  --section-padding-y: var(--s-8);
+  --section-padding-y-mobile: var(--s-6);
+  --page-hero-padding-top: 7rem;
+
   /* Radius */
   --r-sm: 2px;
   --r-md: 4px;

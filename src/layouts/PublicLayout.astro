@@ -12,12 +12,13 @@ interface Props {
   description?: string;
   contactEmail?: string;
   hideNewsletter?: boolean;
+  navTheme?: 'light' | 'dark';
 }
-const { title, description, contactEmail, hideNewsletter } = Astro.props;
+const { title, description, contactEmail, hideNewsletter, navTheme = 'light' } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <Nav />
+  <Nav theme={navTheme} />
   <main id="main-content" tabindex="-1">
     <slot />
   </main>

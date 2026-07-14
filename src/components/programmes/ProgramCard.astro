@@ -8,16 +8,32 @@ interface Props {
 const { programme, delay } = Astro.props;
 const p = programme.data;
 const titleHtml = p.title.replace(/&/, '<em>&</em>').replace('Bachelor of Management', 'Bachelor of <em>Management</em>');
+
+const bgImages: Record<string, string> = {
+  'MBA-BF': '/mba-bf-bg.png',
+  'MMS': '/mms-bg.png',
+  'BMS': '/bms-bg.png',
+  'PHD': '/phd-bg.png'
+};
+const bgImage = bgImages[p.id] || '';
 ---
 
-<article class="program-card reveal" data-delay={delay}>
-  <div class="program-card__num">№ {p.numeral}</div>
-  <h3 class="program-card__title" set:html={titleHtml} />
-  <div class="program-card__meta">
-    <span>{p.duration}</span>
-    <span>{p.type}</span>
-    <span>{p.affiliation}</span>
+<article class="program-card card reveal" data-delay={delay} style={`--bg-image: url(${bgImage})`}>
+  <div class="program-card__bg"></div>
+  <div class="content">
+    <h3 class="program-card__title logo" set:html={titleHtml} />
+    <div class="hover_content">
+      <p class="program-card__desc">{p.blurb}</p>
+    </div>
+    <div class="program-card__footer">
+      <div class="program-card__footer-meta">
+        <span class="program-card__duration">{p.duration}</span>
+        <span class="separator">·</span>
+        <span>{p.type}</span>
+        <span class="separator">·</span>
+        <span>{p.affiliation}</span>
+      </div>
+      <span class="program-card__arrow">↗</span>
+    </div>
   </div>
-  <p class="program-card__desc">{p.blurb}</p>
-  <span class="program-card__arrow">↗</span>
 </article>
