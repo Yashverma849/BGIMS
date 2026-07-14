@@ -270,3 +270,5 @@ The original 12-page reference HTML build (the source of all design + copy) is p
 ---
 
 © 2026 — Maratha Mandir's Babasaheb Gawde Institute of Management Studies.
+#   B G I M S  
+ 
