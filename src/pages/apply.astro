@@ -12,20 +12,16 @@ const defaultFee = feeBreakdown(1500);
   description="Begin your application to MM BGIMS — MBA Banking & Finance, MMS, BMS and Ph.D. programmes. Mumbai Central campus."
   hideNewsletter
 >
-  <section class="apply-hero">
+  <section class="section section--contact-form">
     <div class="container">
-      <span class="eyebrow reveal">— Application · 2026 cohort</span>
-      <h1 class="reveal" data-delay="100">Begin <em class="italic-accent">your file</em>.</h1>
-      <p class="apply-hero__lede reveal" data-delay="200">
-        Five steps. About fifteen minutes. The application fee is ₹1,500 — paid securely through Razorpay at the end.
-      </p>
-    </div>
-  </section>
+      <div class="contact-dual">
+        <div class="contact-dual__form-card reveal">
+          <h2 class="contact-dual__heading">
+            Begin your <em>application.</em>
+          </h2>
 
-  <section class="apply-section">
-    <div class="container">
-      <div class="apply-wrap">
-        <ol class="stepper" id="stepper">
+          <div class="apply-wrap">
+            <ol class="stepper" id="stepper">
           <li class="stepper__item is-active" data-step="1"><span class="stepper__num">1</span><span class="stepper__label">Personal</span></li>
           <li class="stepper__item" data-step="2"><span class="stepper__num">2</span><span class="stepper__label">Academic</span></li>
           <li class="stepper__item" data-step="3"><span class="stepper__num">3</span><span class="stepper__label">Programme</span></li>
@@ -33,7 +29,7 @@ const defaultFee = feeBreakdown(1500);
           <li class="stepper__item" data-step="5"><span class="stepper__num">5</span><span class="stepper__label">Payment</span></li>
         </ol>
 
-        <form class="apply-form" id="applyForm" novalidate>
+        <form class="apply-form apply-form--panel" id="applyForm" novalidate>
           <!-- Step 1: Personal -->
           <div class="apply-step is-active" data-step="1">
             <header class="apply-step__head">
@@ -72,7 +68,7 @@ const defaultFee = feeBreakdown(1500);
 
             <div class="apply-step__nav">
               <span></span>
-              <button type="button" class="btn btn--dark btn--large" data-next="2">Continue <span class="arrow">→</span></button>
+              <button type="button" class="btn btn--accent btn--large contact-dual__submit" data-next="2">Continue <span class="arrow">→</span></button>
             </div>
           </div>
 
@@ -123,7 +119,7 @@ const defaultFee = feeBreakdown(1500);
 
             <div class="apply-step__nav">
               <button type="button" class="btn btn--ghost" data-prev="1">← Back</button>
-              <button type="button" class="btn btn--dark btn--large" data-next="3">Continue <span class="arrow">→</span></button>
+              <button type="button" class="btn btn--accent btn--large contact-dual__submit" data-next="3">Continue <span class="arrow">→</span></button>
             </div>
           </div>
 
@@ -164,7 +160,7 @@ const defaultFee = feeBreakdown(1500);
 
             <div class="apply-step__nav">
               <button type="button" class="btn btn--ghost" data-prev="2">← Back</button>
-              <button type="button" class="btn btn--dark btn--large" data-next="4">Continue <span class="arrow">→</span></button>
+              <button type="button" class="btn btn--accent btn--large contact-dual__submit" data-next="4">Continue <span class="arrow">→</span></button>
             </div>
           </div>
 
@@ -193,7 +189,7 @@ const defaultFee = feeBreakdown(1500);
 
             <div class="apply-step__nav">
               <button type="button" class="btn btn--ghost" data-prev="3">← Back</button>
-              <button type="button" class="btn btn--dark btn--large" data-next="5">Continue to Payment <span class="arrow">→</span></button>
+              <button type="button" class="btn btn--accent btn--large contact-dual__submit" data-next="5">Continue to Payment <span class="arrow">→</span></button>
             </div>
           </div>
 
@@ -283,12 +279,31 @@ const defaultFee = feeBreakdown(1500);
 
             <div class="apply-step__nav">
               <button type="button" class="btn btn--ghost" data-prev="4">← Back</button>
-              <button type="button" class="btn btn--accent btn--large" id="payNow" data-magnetic>
+              <button type="button" class="btn btn--accent btn--large contact-dual__submit" id="payNow" data-magnetic>
                 Pay <span id="payAmount">₹1,770</span> &amp; Submit <span class="arrow">→</span>
               </button>
             </div>
           </div>
         </form>
+          </div>
+        </div>
+
+        <aside class="contact-dual__visual reveal" data-delay="100">
+          <img
+            src="/heritage-campus.png"
+            alt="Maratha Mandir Annexe — MM BGIMS campus at Mumbai Central"
+            loading="lazy"
+            width="640"
+            height="800"
+          />
+          <div class="contact-dual__visual-overlay">
+            <span class="contact-dual__visual-eyebrow">MM BGIMS · 2026 cohort</span>
+            <h3 class="contact-dual__visual-title">Join Mumbai Central's next cohort.</h3>
+            <p class="contact-dual__visual-desc">
+              Five steps, about fifteen minutes. Application fee ₹1,500 — paid securely through Razorpay at the end.
+            </p>
+          </div>
+        </aside>
       </div>
     </div>
   </section>

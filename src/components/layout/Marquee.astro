@@ -1,0 +1,21 @@
+---
+interface Props {
+  items: readonly string[];
+  variant?: 'default' | 'dark';
+  duration?: number;
+}
+
+const { items, variant = 'default', duration = 60 } = Astro.props;
+const track = [...items, ...items];
+---
+
+<div
+  class:list={['marquee', { 'marquee--dark': variant === 'dark' }]}
+  style={`--marquee-duration: ${duration}s`}
+>
+  <div class="marquee__track">
+    {track.map((label) => (
+      <span class="marquee__item">{label}</span>
+    ))}
+  </div>
+</div>

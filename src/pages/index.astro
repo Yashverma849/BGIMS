@@ -9,10 +9,10 @@ import { HOME_MARQUEE_RECRUITERS } from '~lib/data/recruiters';
 
 const programmes = (await getCollection('programmes')).sort((a, b) => a.data.order - b.data.order);
 const allFaculty = await getCollection('faculty');
-const facultyPreview = allFaculty
+const facultyFeatured = allFaculty
   .filter((f) => f.data.type === 'director' || f.data.type === 'core')
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+  .sort((a, b) => a.data.order - b.data.order);
+const FACULTY_PREVIEW_LIMIT = 4;
 const events = (await getCollection('events'))
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
   .slice(0, 3);
@@ -139,7 +139,7 @@ const marquee = [...HOME_MARQUEE_RECRUITERS, ...HOME_MARQUEE_RECRUITERS];
   <!-- DIRECTOR'S NOTE -->
   <section id="director-note" class="director-note">
     <div class="director-note__inner">
-      <p class="director-note__label reveal">✦ A Word from the Director ✦</p>
+      <p class="director-note__label reveal">· A Word from the Director ·</p>
       <blockquote class="director-note__quote reveal" data-delay="1">
         "We do not <em class="italic-accent">teach</em> management here.<br>
         We <em class="italic-accent">cultivate</em> the temperament<br>that makes management <em class="italic-accent">possible</em>."
@@ -160,11 +160,19 @@ const marquee = [...HOME_MARQUEE_RECRUITERS, ...HOME_MARQUEE_RECRUITERS];
       <a href="/faculty" class="link-underline">Meet the faculty <span>→</span></a>
     </div>
 
-    <div class="people-grid">
-      {facultyPreview.map((p, i) => (
+    <div class="people-grid faculty-grid-expand" data-faculty-expand data-faculty-limit={FACULTY_PREVIEW_LIMIT}>
+      {facultyFeatured.map((p, i) => (
         <PersonCard person={p} delay={i} />
       ))}
     </div>
+
+    {facultyFeatured.length > FACULTY_PREVIEW_LIMIT && (
+      <div class="faculty-expand-actions">
+        <button type="button" class="btn btn--ghost" data-faculty-expand-btn aria-expanded="false">
+          Read more
+        </button>
+      </div>
+    )}
   </section>
 
   <!-- TESTIMONIALS -->

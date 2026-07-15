@@ -1,8 +1,8 @@
 ---
 /**
- * Footer with brand + newsletter, programme links, institute links, and the
- * primary visit/contact block. The contact email defaults to the admissions
- * desk; pages can pass `contactEmail` to override (placements/alumni pages).
+ * Footer with brand + newsletter, programme links, institute links, and visit
+ * / contact details. The contact email defaults to the admissions desk; pages
+ * can pass `contactEmail` to override.
  */
 import { site } from '~lib/site';
 
@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer>
-  <div class="container">
+  <div class="footer__inner">
     <div class="footer__top">
       <div class="footer__brand">
         <h4>{site.name}</h4>
@@ -54,10 +54,12 @@ const year = new Date().getFullYear();
 
       <div class="footer__contact">
         <h5>Visit</h5>
-        <p>
+        <p class="footer__contact-desc">
           {site.address.line1}<br />
           {site.address.line2}<br />
-          {site.address.line3}<br /><br />
+          {site.address.line3}
+        </p>
+        <p class="footer__contact-links">
           <a href={`tel:${site.phones.primary.tel}`}>{site.phones.primary.display}</a><br />
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
         </p>

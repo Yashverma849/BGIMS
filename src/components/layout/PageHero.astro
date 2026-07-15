@@ -11,6 +11,7 @@ interface Props {
   breadcrumb?: { href: string; label: string }[];
   variant?: 'split' | 'simple';
   ornament?: boolean;
+  bgImage?: string;
 }
 
 const {
@@ -20,10 +21,21 @@ const {
   breadcrumb,
   variant = 'split',
   ornament = false,
+  bgImage,
 } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class:list={['page-hero', { 'page-hero--image': bgImage }]}>
+  {bgImage && (
+    <>
+      <div
+        class="page-hero__bg"
+        style={`background-image: url(${bgImage})`}
+        aria-hidden="true"
+      />
+      <div class="page-hero__overlay" aria-hidden="true" />
+    </>
+  )}
   {breadcrumb && (
     <div class="breadcrumb reveal">
       {breadcrumb.map((b, i) => (

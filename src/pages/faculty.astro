@@ -9,6 +9,7 @@ const director = all.find((f) => f.data.type === 'director');
 const core = all
   .filter((f) => f.data.type === 'core')
   .sort((a, b) => a.data.order - b.data.order);
+const FACULTY_PREVIEW_LIMIT = 4;
 const visiting = all
   .filter((f) => f.data.type === 'visiting')
   .sort((a, b) => a.data.order - b.data.order);
@@ -21,23 +22,6 @@ const advisory = all
   title="Faculty — MM BGIMS"
   description="Meet the scholars, practitioners and visiting authorities who shape the BGIMS classroom."
 >
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow reveal">— Faculty</span>
-      <h1 class="reveal" data-delay="100">
-        Scholars, practitioners, <em class="italic-accent">and the occasional contrarian</em>.
-      </h1>
-      <p class="page-hero__lede reveal" data-delay="200">
-        Our classroom is a quiet rebellion against received wisdom. Every faculty member here has either built something, broken something, or written something that mattered — usually all three.
-      </p>
-    </div>
-    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
-      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
-      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
-    </svg>
-  </section>
-
   {director && (
     <section class="section">
       <div class="container">
@@ -48,7 +32,7 @@ const advisory = all
 
         <div class="director-feature reveal">
           <div class="director-feature__portrait">
-            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
               <rect width="400" height="500" fill="#3D0E10"/>
               <circle cx="200" cy="200" r="80" fill="#B8965A" opacity=".3"/>
               <circle cx="200" cy="200" r="80" stroke="#E5CFA3" stroke-width="1" fill="none"/>
@@ -83,9 +67,17 @@ const advisory = all
         <h2 class="reveal" data-delay="100">The standing <em class="italic-accent">company</em>.</h2>
       </div>
 
-      <div class="faculty-grid">
+      <div class="faculty-grid faculty-grid-expand" data-faculty-expand data-faculty-limit={FACULTY_PREVIEW_LIMIT}>
         {core.map((p, i) => <FacultyCard faculty={p} delay={i * 100} />)}
       </div>
+
+      {core.length > FACULTY_PREVIEW_LIMIT && (
+        <div class="faculty-expand-actions">
+          <button type="button" class="btn btn--ghost" data-faculty-expand-btn aria-expanded="false">
+            Read more
+          </button>
+        </div>
+      )}
     </div>
   </section>
 
@@ -99,14 +91,18 @@ const advisory = all
         </p>
       </div>
 
-      <div class="visiting-grid">
-        {visiting.map((v, i) => (
-          <div class="visiting-card reveal" data-delay={i * 50}>
-            <h4>{v.data.name}</h4>
-            <p>{v.data.bio}</p>
-            <small>Teaches: {v.data.teaches}</small>
+      <div class="visiting-carousel" data-visiting-carousel>
+        <div class="visiting-carousel__viewport" tabindex="0" aria-label="Visiting faculty carousel. Drag, scroll, or swipe to browse.">
+          <div class="visiting-carousel__track">
+            {visiting.map((v) => (
+              <div class="visiting-card visiting-carousel__slide reveal" data-visiting-slide>
+                <h4>{v.data.name}</h4>
+                <p>{v.data.bio}</p>
+                <small>Teaches: {v.data.teaches}</small>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   </section>
@@ -141,5 +137,10 @@ const advisory = all
     body="Prospective students may attend a Saturday lecture by appointment. Write to us a fortnight in advance."
     primaryHref="/contact"
     primaryLabel="Request a Visit"
+    backgroundImage="/hero-bg.png"
   />
 </PublicLayout>
+
+<script>
+  import '~scripts/visiting-carousel';
+</script>

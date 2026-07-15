@@ -44,6 +44,7 @@ export const site = {
     { href: '/programs', label: 'Programs' },
     { href: '/placements', label: 'Placements' },
     { href: '/faculty', label: 'Faculty' },
+    { href: '/faq', label: 'FAQ' },
     { href: '/contact', label: 'Contact' },
   ],
   footer: {
@@ -60,6 +61,7 @@ export const site = {
       { href: '/events', label: 'Events & News' },
       { href: '/alumni', label: 'Alumni' },
       { href: '/admissions', label: 'Admissions' },
+      { href: '/faq', label: 'FAQ' },
       { href: '/contact', label: 'Contact' },
       { href: '/apply', label: 'Apply' },
       // CMS Login intentionally hidden while auth is disabled. Re-add when

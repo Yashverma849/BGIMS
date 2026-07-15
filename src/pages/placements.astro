@@ -1,12 +1,15 @@
 ---
 import PublicLayout from '~layouts/PublicLayout.astro';
+import Marquee from '~components/layout/Marquee.astro';
 import {
   PLACEMENT_KPIS,
   TOP_PLACEMENTS_2024,
   SECTOR_DISTRIBUTION_2024,
   YEAR_ON_YEAR,
 } from '~lib/data/placements';
-import { MOSAIC_RECRUITERS } from '~lib/data/recruiters';
+import { HOME_MARQUEE_RECRUITERS } from '~lib/data/recruiters';
+
+const sectorMarquee = SECTOR_DISTRIBUTION_2024.map((s) => `${s.pct}% ${s.label}`);
 ---
 
 <PublicLayout
@@ -16,14 +19,18 @@ import { MOSAIC_RECRUITERS } from '~lib/data/recruiters';
 >
   <section class="placement-hero">
     <div class="container">
-      <span class="eyebrow reveal">— The Placement Record</span>
-      <h1 class="reveal" data-delay="1">
-        Twenty-three<br>cohorts.<br>
-        <em>One open door</em><br>after another.
-      </h1>
-      <p class="reveal" data-delay="2">
-        For more than two decades MM BGIMS has placed its graduates at the centre of Indian commerce — at trading desks, in treasury halls, on shop floors, and across the consulting circuits of South Mumbai. The numbers below describe the latest cohort, but the pattern is older.
-      </p>
+      <div class="placement-hero__inner">
+        <div class="placement-hero__title">
+          <span class="eyebrow reveal">— The Placement Record</span>
+          <h1 class="reveal" data-delay="1">
+            Twenty-three<br>cohorts.<br>
+            <em>One open door</em><br>after another.
+          </h1>
+        </div>
+        <p class="placement-hero__lead reveal" data-delay="2">
+          For more than two decades MM BGIMS has placed its graduates at the centre of Indian commerce — at trading desks, in treasury halls, on shop floors, and across the consulting circuits of South Mumbai. The numbers below describe the latest cohort, but the pattern is older.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -89,15 +96,8 @@ import { MOSAIC_RECRUITERS } from '~lib/data/recruiters';
           <h2 style="margin-top: 1rem;">Where the <em class="italic-accent" style="color: var(--accent);">Class of 2024</em> went.</h2>
         </div>
       </div>
-      <div class="sector-grid reveal">
-        {SECTOR_DISTRIBUTION_2024.map((s) => (
-          <div class="sector">
-            <div class="sector__num">{s.pct}<small>%</small></div>
-            <div class="sector__label" set:html={s.label.replace(/&/g, '&amp;')} />
-          </div>
-        ))}
-      </div>
     </div>
+    <Marquee items={sectorMarquee} duration={45} />
   </section>
 
   <section class="ladder">
@@ -136,27 +136,27 @@ import { MOSAIC_RECRUITERS } from '~lib/data/recruiters';
           A non-exhaustive list of organisations that have hired our graduates in the past five years.
         </p>
       </div>
-
-      <div class="rec-grid reveal">
-        {MOSAIC_RECRUITERS.map((r) => (
-          <div class="rec-cell">{r.prefix} <em>{r.em}</em></div>
-        ))}
-      </div>
     </div>
+    <Marquee items={HOME_MARQUEE_RECRUITERS} variant="dark" duration={55} />
   </section>
 
-  <section class="recruiters-section" style="padding: var(--section-padding-y) var(--section-gutter); background: var(--cream-200); border-top: 1px solid var(--line);">
-    <div class="container-tight">
-      <div class="reveal" style="text-align: center;">
+  <section class="hiring-partners">
+    <div
+      class="hiring-partners__bg"
+      style="background-image: url(/hero-bg.png)"
+      aria-hidden="true"
+    />
+    <div class="hiring-partners__overlay" aria-hidden="true" />
+    <div class="container-tight hiring-partners__inner">
+      <div class="reveal hiring-partners__content">
         <span class="eyebrow">— For Hiring Partners</span>
-        <h2 style="margin: 1rem 0 1.5rem; max-width: 22ch; margin-inline: auto;">
-          Looking to <em class="italic-accent" style="color: var(--accent);">hire</em> from the
-          <em class="italic-accent" style="color: var(--accent);">2026</em> cohort?
+        <h2>
+          Looking to <em>hire</em> from the <em>2026</em> cohort?
         </h2>
-        <p style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--ink-700); max-width: 56ch; margin: 0 auto 2.5rem; line-height: 1.6;">
+        <p>
           Our placement office invites firms to participate in summer internships, live projects, and final placement drives. The Director of Placements responds within one business day.
         </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <div class="hiring-partners__actions">
           <a href="/contact" class="btn btn--accent" data-magnetic>Connect with our office <span class="arrow">→</span></a>
           <a href="#" class="btn btn--ghost">Download brochure</a>
         </div>

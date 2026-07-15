@@ -1,7 +1,6 @@
 ---
 /**
- * Top navigation. Active link is computed from `Astro.url.pathname` so we
- * never hard-code an "active" class per page.
+ * Floating pill navigation (header-2 pattern). Active link from pathname.
  */
 import { site } from '~lib/site';
 
@@ -17,7 +16,7 @@ const isActive = (href: string): boolean => {
 };
 ---
 
-<nav class={`nav nav--theme-${theme}`}>
+<div class="nav-shell">
   <div class="nav-topbar">
     <div class="nav-topbar__inner">
       <div class="nav-topbar__left">
@@ -29,13 +28,13 @@ const isActive = (href: string): boolean => {
       </div>
       <div class="nav-topbar__right">
         <a href="tel:+919619510513" class="nav-topbar__link">
-          <svg class="nav-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="nav-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
           <span>+91-9619510513</span>
         </a>
         <a href="mailto:admission@mmbgims.com" class="nav-topbar__link">
-          <svg class="nav-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="nav-topbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
@@ -45,26 +44,69 @@ const isActive = (href: string): boolean => {
     </div>
   </div>
 
-  <div class="nav__row">
-    <a href="/" class="nav__logo">
-      <span class="nav__logo-mark">B</span>
-      <span class="nav__logo-text">
-        <span>MM BGIMS</span>
-        <small>Est. 2002 · Mumbai</small>
-      </span>
-    </a>
-    <ul class="nav__menu">
-      {site.navMain.map((item) => (
-        <li><a href={item.href} class={isActive(item.href) ? 'active' : ''}>{item.label}</a></li>
-      ))}
-    </ul>
-    <div class="nav__cta">
-      <a href="/apply" class={`btn btn--accent${isActive('/apply') ? ' active' : ''}`} data-magnetic>
-        Apply <span class="arrow">→</span>
-      </a>
-      <button class="nav__hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+  <div class="nav-wrap">
+    <header class={`nav nav--theme-${theme}`}>
+      <nav class="nav__bar" aria-label="Main navigation">
+        <a href="/" class="nav__logo">
+          <span class="nav__logo-mark">B</span>
+          <span class="nav__logo-text">
+            <span>{site.name}</span>
+            <small>Est. {site.established} · {site.city}</small>
+          </span>
+        </a>
+
+        <div class="nav__links">
+          {site.navMain.map((item) => (
+            <a href={item.href} class:list={['nav__link', { active: isActive(item.href) }]}>
+              {item.label}
+            </a>
+          ))}
+          <a href="/apply" class="nav__btn nav__btn--primary" data-magnetic>
+            Apply <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <button
+          type="button"
+          class="nav__toggle"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="nav-panel"
+        >
+          <svg
+            class="nav__toggle-icon"
+            viewBox="0 0 32 32"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path class="nav__toggle-path" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
+            <path d="M7 16 27 16" />
+          </svg>
+        </button>
+      </nav>
+
+      <div class="nav__panel" id="nav-panel" aria-hidden="true">
+        <div class="nav__panel-inner">
+          <ul class="nav__panel-links">
+            {site.navMain.map((item) => (
+              <li>
+                <a href={item.href} class:list={['nav__panel-link', { active: isActive(item.href) }]}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="nav__panel-actions">
+            <a href="/apply" class="nav__btn nav__btn--primary nav__btn--block" data-magnetic>
+              Apply <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   </div>
-</nav>
+</div>

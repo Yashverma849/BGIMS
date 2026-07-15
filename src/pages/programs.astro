@@ -1,8 +1,8 @@
 ---
 import PublicLayout from '~layouts/PublicLayout.astro';
 import PageHero from '~components/layout/PageHero.astro';
-import CtaBanner from '~components/layout/CtaBanner.astro';
 import { getCollection } from 'astro:content';
+import '~styles/programs-slider.css';
 
 const programmes = (await getCollection('programmes')).sort((a, b) => a.data.order - b.data.order);
 
@@ -26,69 +26,278 @@ const titleHtml = (s: string): string =>
     breadcrumb={[{ href: '/', label: 'MM BGIMS' }, { href: '/programs', label: 'Programs' }]}
   />
 
-  {programmes.map((p) => {
-    const d = p.data;
-    return (
-      <div class="program-detail">
-        <div class="container" style="display: contents;">
-          <div class="program-detail__sidebar reveal">
-            <span class="program-num">{d.numeral}.</span>
-            <span class="eyebrow">{d.eyebrow}</span>
-            <h2 style="margin-top: 1rem;" set:html={titleHtml(d.title)} />
-            <div style="margin-top: 1.5rem;">
-              {d.tags.map((t) => <span class="program-detail__tag">{t}</span>)}
-            </div>
-          </div>
-          <div class="reveal" data-delay="1">
-            <p class="lead" style="margin-bottom: 2rem;">{d.lead}</p>
-            <p>{d.body}</p>
-
-            <dl style="margin-top: 2.5rem;">
-              <div class="spec-row"><dt>Duration</dt><dd>{d.duration}</dd></div>
-              <div class="spec-row"><dt>Eligibility</dt><dd>{d.eligibility}</dd></div>
-              <div class="spec-row"><dt>Intake</dt><dd>{d.intake}</dd></div>
-              <div class="spec-row"><dt>Tuition</dt><dd>{d.tuitionLine}</dd></div>
-              {d.specialisations && (
-                <div class="spec-row"><dt>Specialisations</dt><dd>{d.specialisations}</dd></div>
-              )}
-            </dl>
-
-            {d.curriculum && (
-              <>
-                <h4 style="margin: 3rem 0 1rem; font-family: var(--font-display); font-weight: 500; font-size: 1.4rem;">A glimpse of the curriculum</h4>
-                <div class="curriculum-grid">
-                  {d.curriculum.map((c) => (
-                    <div class="curriculum-grid__item">
-                      <div class="label">{c.label}</div>
-                      <h5>{c.title}</h5>
-                      <p>{c.body}</p>
-                    </div>
-                  ))}
+  <section class="programs-slider-section" aria-label="Academic Programmes Showcase">
+    <div class="programs-slider-viewport">
+      <div class="programs-slider-track" id="sliderTrack">
+        
+        <!-- Course Slides -->
+        {programmes.map((p, index) => {
+          const d = p.data;
+          const slideIndex = index;
+          const bgImages = {
+            'MBA-BF': '/mba-bf-bg.png',
+            'MMS': '/mms-bg.png',
+            'BMS': '/bms-bg.png',
+            'PHD': '/phd-bg.png'
+          };
+          const bgImage = bgImages[d.id] || '';
+          
+          return (
+            <div class={`programs-slide${slideIndex === 0 ? ' is-active' : ''}`} data-slide-index={slideIndex}>
+              <div class="programs-slide__bg" style={`background-image: url(${bgImage})`}></div>
+              <div class="programs-slide__overlay"></div>
+              <div class="programs-slide__container">
+                <div class="programs-slide__main">
+                <!-- Left Panel -->
+                <div class="programs-slide__left">
+                  <span class="programs-slide__eyebrow">{d.eyebrow}</span>
+                  <h2 class="programs-slide__title" set:html={titleHtml(d.title)} />
+                  <div class="programs-slide__tags">
+                    {d.tags.map((t) => <span class="programs-slide__tag">{t}</span>)}
+                  </div>
+                  <p class="programs-slide__lead">{d.lead}</p>
+                  
+                  <div class="programs-slide__actions">
+                    {d.id === 'PHD' ? (
+                      <a href="/contact" class="btn btn--accent" data-magnetic>Enquire about Ph.D. <span class="arrow">→</span></a>
+                    ) : (
+                      <>
+                        <a href="/apply" class="btn btn--accent" data-magnetic>Apply for {d.shortName.split(' ')[0]} <span class="arrow">→</span></a>
+                        <a href="/admissions" class="btn btn--ghost">Admission Process</a>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </>
-            )}
 
-            <div style="margin-top: 2.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              {d.id === 'PHD' ? (
-                <a href="/contact" class="btn btn--accent" data-magnetic>Enquire about Ph.D. <span class="arrow">→</span></a>
-              ) : (
-                <>
-                  <a href="/apply" class="btn btn--accent" data-magnetic>Apply for {d.shortName.split(' ')[0]} <span class="arrow">→</span></a>
-                  <a href="/admissions" class="btn btn--ghost">Admission Process</a>
-                </>
-              )}
+                <!-- Right Panel — specs only -->
+                <div class="programs-slide__right">
+                  <div class="programs-slide__specs">
+                    <div class="programs-slide__spec-row">
+                      <div class="programs-slide__spec-label">Duration</div>
+                      <div class="programs-slide__spec-value">{d.duration}</div>
+                    </div>
+                    <div class="programs-slide__spec-row">
+                      <div class="programs-slide__spec-label">Eligibility</div>
+                      <div class="programs-slide__spec-value">{d.eligibility}</div>
+                    </div>
+                    <div class="programs-slide__spec-row">
+                      <div class="programs-slide__spec-label">Intake</div>
+                      <div class="programs-slide__spec-value">{d.intake}</div>
+                    </div>
+                    <div class="programs-slide__spec-row">
+                      <div class="programs-slide__spec-label">Tuition</div>
+                      <div class="programs-slide__spec-value">{d.tuitionLine}</div>
+                    </div>
+                    {d.specialisations && (
+                      <div class="programs-slide__spec-row">
+                        <div class="programs-slide__spec-label">Specialisations</div>
+                        <div class="programs-slide__spec-value">{d.specialisations}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  })}
+          );
+        })}
 
-  <CtaBanner
-    title={`Find the<br>programme that<br><em>fits you</em>.`}
-    primaryHref="/admissions"
-    primaryLabel="How to Apply"
-    secondaryHref="/contact"
-    secondaryLabel="Speak to Admissions"
-  />
+      </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="slider-arrow slider-arrow--prev" id="prevBtn" aria-label="Previous Slide">
+      <svg viewBox="0 0 24 24">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+    <button class="slider-arrow slider-arrow--next" id="nextBtn" aria-label="Next Slide">
+      <svg viewBox="0 0 24 24">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </button>
+
+    <!-- Slide Indicators & Progress bars -->
+    <div class="slider-controls">
+      <div class="slider-dots">
+        {programmes.map((p, index) => {
+          const d = p.data;
+          const slideIndex = index;
+          const label = d.shortName.split(' ')[0]; // E.g. "MBA", "MMS", "BMS", "Ph.D."
+          return (
+            <div class={`slider-dot-wrapper${slideIndex === 0 ? ' is-active' : ''}`} data-index={slideIndex}>
+              <button class="slider-dot" aria-label={`Slide ${slideIndex + 1}: ${d.title}`}>
+                <span class="slider-dot-progress"></span>
+              </button>
+              <span class="slider-dot-label">{label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
 </PublicLayout>
+
+<script>
+  // Initialize slider interaction when loaded on client
+  const track = document.getElementById('sliderTrack') as HTMLElement;
+  const slides = Array.from(document.querySelectorAll('.programs-slide')) as HTMLElement[];
+  const wrappers = Array.from(document.querySelectorAll('.slider-dot-wrapper')) as HTMLElement[];
+  const prevBtn = document.getElementById('prevBtn') as HTMLElement;
+  const nextBtn = document.getElementById('nextBtn') as HTMLElement;
+
+  if (track && slides.length > 0) {
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    const slideDuration = 6000; // 6 seconds auto-rotation
+    let progressStartTime = 0;
+    let progressElapsedTime = 0;
+    let progressAnimationId: number | null = null;
+    let isHovered = false;
+
+    // Slide transition
+    const goToSlide = (index: number) => {
+      // Handle index wrapping
+      if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+
+      // Animate track translation
+      track.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
+
+      // Update active classes on slides
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === currentIndex);
+      });
+
+      // Update indicators
+      wrappers.forEach((wrapper, i) => {
+        wrapper.classList.toggle('is-active', i === currentIndex);
+        const progress = wrapper.querySelector('.slider-dot-progress') as HTMLElement;
+        if (progress) {
+          progress.style.width = '0%';
+        }
+      });
+
+      // Reset progress timing
+      progressStartTime = Date.now();
+      progressElapsedTime = 0;
+    };
+
+    // Progress Bar Animation
+    const animateProgressBar = () => {
+      if (isHovered) {
+        // Pause timer: update start time so elapsed time does not advance
+        progressStartTime = Date.now() - progressElapsedTime;
+      } else {
+        progressElapsedTime = Date.now() - progressStartTime;
+        
+        // Update width of active progress dot
+        const activeWrapper = wrappers[currentIndex];
+        if (activeWrapper) {
+          const progress = activeWrapper.querySelector('.slider-dot-progress') as HTMLElement;
+          if (progress) {
+            const pct = Math.min((progressElapsedTime / slideDuration) * 100, 100);
+            progress.style.width = `${pct}%`;
+          }
+        }
+
+        // Check if duration met
+        if (progressElapsedTime >= slideDuration) {
+          goToSlide(currentIndex + 1);
+        }
+      }
+      progressAnimationId = requestAnimationFrame(animateProgressBar);
+    };
+
+    // Start Auto Rotation
+    const startTimer = () => {
+      progressStartTime = Date.now() - progressElapsedTime;
+      if (!progressAnimationId) {
+        progressAnimationId = requestAnimationFrame(animateProgressBar);
+      }
+    };
+
+    // Event Listeners for Next / Prev
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+      });
+    }
+
+    // Event Listeners for Indicators
+    wrappers.forEach((wrapper) => {
+      wrapper.addEventListener('click', () => {
+        const index = parseInt(wrapper.getAttribute('data-index') || '0', 10);
+        goToSlide(index);
+      });
+    });
+
+    // Hover detection to Pause/Resume
+    const sliderSection = document.querySelector('.programs-slider-section');
+    if (sliderSection) {
+      sliderSection.addEventListener('mouseenter', () => {
+        isHovered = true;
+      });
+      sliderSection.addEventListener('mouseleave', () => {
+        isHovered = false;
+        progressStartTime = Date.now() - progressElapsedTime;
+      });
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      const sliderSectionElement = document.querySelector('.programs-slider-section');
+      if (sliderSectionElement) {
+        const rect = sliderSectionElement.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isVisible) {
+          if (e.key === 'ArrowLeft') {
+            goToSlide(currentIndex - 1);
+          } else if (e.key === 'ArrowRight') {
+            goToSlide(currentIndex + 1);
+          }
+        }
+      }
+    });
+
+    // Swipe Support (Touch Devices)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50;
+
+    if (sliderSection) {
+      sliderSection.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      sliderSection.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const distance = touchEndX - touchStartX;
+        if (Math.abs(distance) > minSwipeDistance) {
+          if (distance > 0) {
+            goToSlide(currentIndex - 1);
+          } else {
+            goToSlide(currentIndex + 1);
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Initialize first slide and start progress animation
+    goToSlide(0);
+    startTimer();
+  }
+</script>
+

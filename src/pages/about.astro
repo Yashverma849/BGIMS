@@ -3,45 +3,130 @@ import PublicLayout from '~layouts/PublicLayout.astro';
 import PageHero from '~components/layout/PageHero.astro';
 import CtaBanner from '~components/layout/CtaBanner.astro';
 import { GOVERNING_BODY, MILESTONES, COMPASS, CAMPUS_FEATURES } from '~lib/data/about';
+
+const services = [
+  {
+    id: 'beginning',
+    number: '01',
+    title: 'The Beginning',
+    heading: 'Founded in 2002 under the Maratha Mandir Trust — older than the Republic.',
+    description: 'When the institute opened its doors in the corridors of the Maratha Mandir Annexe at Mumbai Central, the country was still finding its post-liberalisation feet. India needed managers — but more than that, it needed a generation of practitioners who understood the marriage of tradition and ambition that defines our commerce. To build a school close enough to the markets to be useful, distant enough from fashion to be wise.',
+    image: '/heritage-campus.png'
+  },
+  {
+    id: 'discipline',
+    number: '02',
+    title: 'The Discipline',
+    heading: 'A philosophy of teaching classical in rigour and contemporary in concern.',
+    description: 'Management education is not a vocational programme. It is a humanistic enterprise — concerned, finally, with the question of how we live and work together. Our curricula are structured with hard quantitative foundations, case-driven application, and the slow reckoning with ethics and ambiguity that distinguishes a manager.',
+    image: '/about-bg.png'
+  },
+  {
+    id: 'tomorrow',
+    number: '03',
+    title: 'The Tomorrow',
+    heading: 'A campus, curriculum, and community equal to the next two decades of commerce.',
+    description: 'As India approaches its centenary as a republic, the demands placed on our managers will grow complex. We are responding with a renewed Banking & Finance MBA, a doctoral programme that publishes in leading journals, and partnerships with universities in Singapore, London, and Boston.',
+    image: '/hero-bg.png'
+  },
+  {
+    id: 'mms',
+    number: '04',
+    title: 'MMS Programme',
+    heading: 'Our flagship Master of Management Studies post-graduate course.',
+    description: 'A two-year full-time post-graduate program designed to develop critical thinkers, strategic decision makers, and ethical leaders who are ready to face the dynamic challenges of global commerce and industrial management.',
+    image: '/mms-bg.png'
+  },
+  {
+    id: 'banking',
+    number: '05',
+    title: 'Banking & Finance',
+    heading: 'Specialised financial systems learning built with RBI practitioners.',
+    description: 'Designed in collaboration with veteran banking practitioners to prepare graduates for leadership roles in capital markets, treasury management, commercial banking, and institutional financial analysis.',
+    image: '/mba-bf-bg.png'
+  },
+  {
+    id: 'research',
+    number: '06',
+    title: 'Doctoral Research',
+    heading: 'Advancing management science and business scholarship.',
+    description: 'Our Ph.D. program is designed for scholars who aim to conduct cutting-edge research in finance, strategy, and organizational behavior, contributing directly to academic literature and boardroom practice.',
+    image: '/phd-bg.png'
+  }
+];
 ---
 
 <PublicLayout
   title="About — MM BGIMS"
   description="A heritage of Indian management excellence — the story of Maratha Mandir's Babasaheb Gawde Institute of Management Studies."
+  navTheme="dark"
 >
   <PageHero
     eyebrow="Our Heritage"
     title={`Twenty-three years<br>of <em>quiet</em><br>excellence.`}
     lead="At MM BGIMS, we measure ourselves not by rankings or rhetoric, but by the trajectories of the women and men who have walked through our halls — and by the seriousness with which we hold ourselves to the work of management education."
     breadcrumb={[{ href: '/', label: 'MM BGIMS' }, { href: '/about', label: 'About' }]}
+    bgImage="/about-hero-bg.png"
   />
 
-  <section>
-    <div class="container-tight">
-      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 6rem;">
-        <span class="eyebrow" style="display: block;">Chapter 01<br>The Beginning</span>
-        <div>
-          <h2 style="margin-bottom: 2rem;">Founded in 2002 under the Maratha Mandir Trust — an institution itself older than the Republic.</h2>
-          <p class="lead">When the institute opened its doors in the corridors of the Maratha Mandir Annexe at Mumbai Central, the country was still finding its post-liberalisation feet. India needed managers — but more than that, it needed a generation of practitioners who understood the marriage of tradition and ambition that defines our commerce.</p>
-          <p>The vision was singular: to build a school close enough to the markets to be useful, distant enough from fashion to be wise. From a single MMS programme, we have grown to four flagship offerings — but the founding instinct has not changed.</p>
-        </div>
-      </div>
+  <section class="services-section">
+    <div class="services-bg-container">
+      <div class="services-bg-overlay"></div>
+      {services.map((s, i) => (
+        <div
+          class={`service-bg-item ${i === 0 ? 'is-active' : ''}`}
+          style={`background-image: url(${s.image});`}
+          data-bg-index={i}
+          aria-hidden="true"
+        ></div>
+      ))}
+    </div>
 
-      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 6rem;">
-        <span class="eyebrow" style="display: block;">Chapter 02<br>The Discipline</span>
-        <div>
-          <h2 style="margin-bottom: 2rem;">A philosophy of teaching that is <em class="italic-accent" style="color: var(--accent);">classical</em> in its rigour and <em class="italic-accent" style="color: var(--accent);">contemporary</em> in its concerns.</h2>
-          <p class="lead">We believe management education is not a vocational programme. It is a humanistic enterprise — concerned, finally, with the question of how we live and work together. Our curricula are deliberately structured: hard quantitative foundations, then case-driven application, then the slow reckoning with ethics and ambiguity that distinguishes a manager from a calculator.</p>
-          <p>Our faculty teach with the temperament of practitioners. Our visiting faculty arrive from the boardrooms of Reliance, the trading desks of HDFC, and the law offices of Cyril Amarchand. The classroom is our laboratory — and the laboratory takes itself seriously.</p>
+    <div class="container">
+      <div class="services-grid">
+        <!-- Left column: stacked text panels -->
+        <div class="services-left">
+          {services.map((s, i) => (
+            <div
+              class={`service-text-panel ${i === 0 ? 'is-active' : ''}`}
+              id={`panel-${s.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${s.id}`}
+              aria-hidden={i === 0 ? 'false' : 'true'}
+              data-panel-index={i}
+            >
+              <div class="service-text-content">
+                <span class="eyebrow">Chapter {s.number}</span>
+                <h3>{s.heading}</h3>
+                <p>{s.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
 
-      <div class="reveal" style="display: grid; grid-template-columns: 1fr 3fr; gap: 4rem; margin-bottom: 4rem;">
-        <span class="eyebrow" style="display: block;">Chapter 03<br>The Tomorrow</span>
-        <div>
-          <h2 style="margin-bottom: 2rem;">Looking forward — to a campus, a curriculum, and a community equal to the next two decades of Indian commerce.</h2>
-          <p class="lead">As India approaches its centenary as a republic, the demands placed on our managers will only grow more complex. We are responding — with a renewed Banking & Finance MBA, a doctoral programme that publishes in the world's leading journals, and partnerships with universities in Singapore, London, and Boston.</p>
-          <p>But the ambition is constant: to graduate men and women who, when their hour comes, are equipped to meet it.</p>
+        <!-- Right column: header + tab list -->
+        <div class="services-right">
+          <div class="service-grid-header">
+            <h2>Our Foundations</h2>
+            <p>Select a chapter to explore our heritage, discipline, and flagship academic offerings.</p>
+          </div>
+
+          <div class="service-tab-list" role="tablist" aria-label="Services and Chapters">
+            {services.map((s, i) => (
+              <button
+                class={`service-tab ${i === 0 ? 'is-active' : ''}`}
+                id={`tab-${s.id}`}
+                role="tab"
+                aria-selected={i === 0 ? 'true' : 'false'}
+                aria-controls={`panel-${s.id}`}
+                data-tab-index={i}
+                tabindex={i === 0 ? '0' : '-1'}
+              >
+                <span class="service-tab-number">{s.number}</span>
+                <span class="service-tab-title">{s.title}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -86,20 +171,72 @@ import { GOVERNING_BODY, MILESTONES, COMPASS, CAMPUS_FEATURES } from '~lib/data/
     </div>
   </section>
 
-  <section style="background: var(--ink-900); color: var(--cream-100);">
+  <section style="background: var(--ink-900); color: var(--cream-100); overflow: hidden;">
     <div class="container">
       <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
         <span class="eyebrow" style="color: var(--brass-400);">A Brief Chronology</span>
         <h2 style="margin-top: 1rem; color: var(--cream-100);">Twenty-three years, in <em class="italic-accent" style="color: var(--brass-400);">milestones</em>.</h2>
       </div>
-      <div class="timeline">
-        {MILESTONES.map((m, i) => (
-          <div class="timeline__item reveal" data-delay={i}>
-            <div class="timeline__year">{m.year}</div>
-            <h4 style="color: var(--cream-100);" set:html={m.title} />
-            <p style="color: var(--cream-300); font-family: var(--font-serif);">{m.body}</p>
-          </div>
-        ))}
+
+      <div class="zigzag-timeline-wrapper">
+        <!-- SVG Zigzag Road (Desktop only, hidden on mobile) -->
+        <div class="zigzag-timeline-line-container" aria-hidden="true">
+          <svg class="zigzag-svg" viewBox="0 0 100 1000" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="road-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="var(--accent, #a32a2a)" />
+                <stop offset="50%" stop-color="var(--brass-400, #c5a880)" />
+                <stop offset="100%" stop-color="var(--accent, #a32a2a)" />
+              </linearGradient>
+            </defs>
+            <!-- Background Road Track (dashed) -->
+            <path
+              class="zigzag-path-bg"
+              d="M 50 0 L 40 100 L 60 260 L 40 420 L 60 580 L 40 740 L 60 900 L 50 1000"
+              fill="none"
+              stroke="rgba(255, 255, 255, 0.08)"
+              stroke-width="4"
+              stroke-dasharray="8 6"
+            />
+            <!-- Active/Drawn Road Track (solid gradient) -->
+            <path
+              class="zigzag-path-active"
+              id="zigzag-path-active"
+              d="M 50 0 L 40 100 L 60 260 L 40 420 L 60 580 L 40 740 L 60 900 L 50 1000"
+              fill="none"
+              stroke="url(#road-gradient)"
+              stroke-width="5"
+            />
+          </svg>
+        </div>
+
+        <!-- Milestones list -->
+        <div class="zigzag-nodes-container">
+          {MILESTONES.map((m, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <div
+                class={`zigzag-node ${isLeft ? 'is-left' : 'is-right'}`}
+                data-index={i}
+              >
+                <!-- Dot that aligns with the road bend -->
+                <div class="zigzag-dot-wrapper">
+                  <div class="zigzag-dot"></div>
+                </div>
+
+                <!-- Connector line from dot to card -->
+                <div class="zigzag-connector"></div>
+
+                <!-- Card content -->
+                <div class="zigzag-card">
+                  <span class="zigzag-year">{m.year}</span>
+                  <h4 class="zigzag-title" style="color: var(--cream-100);" set:html={m.title} />
+                  <p class="zigzag-body" style="color: var(--cream-300); font-family: var(--font-serif);">{m.body}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   </section>
@@ -129,5 +266,140 @@ import { GOVERNING_BODY, MILESTONES, COMPASS, CAMPUS_FEATURES } from '~lib/data/
     primaryLabel="Visit the Campus"
     secondaryHref="/apply"
     secondaryLabel="Begin Application"
+    backgroundImage="/cta-bg.png"
   />
 </PublicLayout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  // Register ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize interactive tabs
+  const tabs = document.querySelectorAll('.service-tab');
+  const panels = document.querySelectorAll('.service-text-panel');
+  const bgItems = document.querySelectorAll('.service-bg-item');
+
+  function setActiveTab(index: number) {
+    tabs.forEach((tab, i) => {
+      const isCurrent = i === index;
+      tab.classList.toggle('is-active', isCurrent);
+      tab.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+      tab.setAttribute('tabindex', isCurrent ? '0' : '-1');
+    });
+
+    panels.forEach((panel, i) => {
+      const isCurrent = i === index;
+      panel.classList.toggle('is-active', isCurrent);
+      panel.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
+    });
+
+    bgItems.forEach((bg, i) => {
+      bg.classList.toggle('is-active', i === index);
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    // Click event
+    tab.addEventListener('click', () => {
+      setActiveTab(index);
+    });
+
+    // Keyboard navigation
+    tab.addEventListener('keydown', (e: any) => {
+      let targetIndex = -1;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        targetIndex = (index + 1) % tabs.length;
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        targetIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (e.key === 'Home') {
+        targetIndex = 0;
+      } else if (e.key === 'End') {
+        targetIndex = tabs.length - 1;
+      }
+
+      if (targetIndex !== -1) {
+        e.preventDefault();
+        (tabs[targetIndex] as HTMLElement).focus();
+        setActiveTab(targetIndex);
+      }
+    });
+  });
+
+  // GSAP Entrance Animations
+  gsap.fromTo('.services-bg-container', 
+    { autoAlpha: 0 }, 
+    {
+      autoAlpha: 1,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.services-section',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
+  gsap.fromTo(['.service-grid-header', '.service-tab'],
+    { autoAlpha: 0, y: 20 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.08,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.services-section',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
+  // Zigzag Timeline Path Drawing (Desktop)
+  const path = document.querySelector('#zigzag-path-active') as SVGPathElement;
+  if (path) {
+    const pathLength = path.getTotalLength();
+    path.style.strokeDasharray = `${pathLength}`;
+    path.style.strokeDashoffset = `${pathLength}`;
+
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.zigzag-timeline-wrapper',
+        start: 'top 50%',
+        end: 'bottom 65%',
+        scrub: 1
+      }
+    });
+  }
+
+  // Active state scroll trigger for individual nodes (Desktop and Mobile)
+  const nodes = document.querySelectorAll('.zigzag-node');
+  const lineContainer = document.querySelector('.zigzag-timeline-line-container') as HTMLElement;
+
+  nodes.forEach((node, i) => {
+    ScrollTrigger.create({
+      trigger: node,
+      start: 'top 65%', // trigger active class when node enters 65% of viewport
+      end: 'bottom 20%',
+      onEnter: () => {
+        node.classList.add('is-active');
+        if (lineContainer) {
+          lineContainer.style.setProperty('--mobile-progress', `${(i / (nodes.length - 1)) * 100}%`);
+        }
+      },
+      onLeaveBack: () => {
+        node.classList.remove('is-active');
+        if (lineContainer) {
+          lineContainer.style.setProperty('--mobile-progress', `${Math.max(0, ((i - 1) / (nodes.length - 1)) * 100)}%`);
+        }
+      },
+      toggleActions: 'play reverse play reverse'
+    });
+  });
+</script>

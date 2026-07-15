@@ -7,6 +7,7 @@
  * Each behaviour guards on element presence so this single import is safe to
  * run unconditionally from BaseLayout.
  */
+import '~scripts/marquee';
 
 function pageLoader(): void {
   window.addEventListener('load', () => {
@@ -35,29 +36,45 @@ function scrollProgress(): void {
 function stickyNav(): void {
   const nav = document.querySelector<HTMLElement>('.nav');
   if (!nav) return;
-  window.addEventListener(
-    'scroll',
-    () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    },
-    { passive: true },
-  );
+  const onScroll = (): void => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function navPanelOffset(): void {
+  const nav = document.querySelector<HTMLElement>('.nav');
+  if (!nav) return;
+  const update = (): void => {
+    document.documentElement.style.setProperty('--nav-mobile-panel-top', `${nav.getBoundingClientRect().bottom}px`);
+  };
+  update();
+  window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('scroll', update, { passive: true });
 }
 
 function mobileMenu(): void {
-  const burger = document.querySelector<HTMLElement>('.nav__hamburger');
-  const menu = document.querySelector<HTMLElement>('.nav__menu');
-  if (!burger || !menu) return;
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('open');
-    menu.classList.toggle('open');
+  const toggle = document.querySelector<HTMLElement>('.nav__toggle');
+  const panel = document.querySelector<HTMLElement>('.nav__panel');
+  const nav = document.querySelector<HTMLElement>('.nav');
+  if (!toggle || !panel) return;
+
+  const setOpen = (open: boolean): void => {
+    toggle.classList.toggle('open', open);
+    panel.classList.toggle('open', open);
+    nav?.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
+    document.body.classList.toggle('nav-menu-open', open);
+  };
+
+  toggle.addEventListener('click', () => setOpen(!panel.classList.contains('open')));
+  panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) setOpen(false);
   });
-  menu.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => {
-      burger.classList.remove('open');
-      menu.classList.remove('open');
-    }),
-  );
 }
 
 function smoothAnchors(): void {
@@ -193,14 +210,39 @@ function animateTypewriter(queue: { node: Text; fullText: string }[]): void {
   typeNextChar();
 }
 
+function facultyExpand(): void {
+  document.querySelectorAll<HTMLElement>('[data-faculty-expand]').forEach((grid) => {
+    const limit = parseInt(grid.getAttribute('data-faculty-limit') || '4', 10);
+    if (grid.children.length <= limit) return;
+
+    const section = grid.closest('section') ?? grid.parentElement;
+    const btn = section?.querySelector<HTMLButtonElement>('[data-faculty-expand-btn]');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const expanded = grid.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+      btn.textContent = expanded ? 'Show less' : 'Read more';
+
+      if (expanded) {
+        grid.querySelectorAll<HTMLElement>('.reveal:not(.visible)').forEach((el) => {
+          el.classList.add('visible');
+        });
+      }
+    });
+  });
+}
+
 export function boot(): void {
   pageLoader();
   scrollProgress();
   stickyNav();
+  navPanelOffset();
   mobileMenu();
   smoothAnchors();
   magneticButtons();
   initTypewriters();
+  facultyExpand();
 }
 
 boot();

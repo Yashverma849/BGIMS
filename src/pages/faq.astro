@@ -1,0 +1,49 @@
+---
+import PublicLayout from '~layouts/PublicLayout.astro';
+import CtaBanner from '~components/layout/CtaBanner.astro';
+import { FAQ } from '~lib/data/faq';
+---
+
+<PublicLayout
+  title="FAQ — MM BGIMS"
+  description="Frequently asked questions about admissions, accommodation, programmes, placements and accreditations at MM BGIMS, Mumbai."
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow reveal">— Frequently asked</span>
+      <h1 class="reveal" data-delay="100">A few <em class="italic-accent">common questions</em>.</h1>
+      <p class="page-hero__lede reveal" data-delay="200">
+        Quick answers on admissions, campus life, programmes and placements. Still unsure? Write to us — we reply within a working day.
+      </p>
+    </div>
+    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
+      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
+    </svg>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="faq-list">
+        {FAQ.map((f, i) => (
+          <details class="faq-item reveal" data-delay={i * 50}>
+            <summary>{f.q}<span class="faq-item__icon">+</span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    eyebrow="— Still have a question?"
+    title="Write to the <em>right desk</em>."
+    body="Admissions, placements or general enquiries — we'll route your note and respond within one working day."
+    primaryHref="/contact"
+    primaryLabel="Contact us"
+    secondaryHref="/apply"
+    secondaryLabel="Apply now"
+    backgroundImage="/hero-bg.png"
+  />
+</PublicLayout>
