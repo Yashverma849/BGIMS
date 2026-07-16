@@ -25,7 +25,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     );
   }
 
-  await applicationsRepo.insert(parsed.data);
+  await applicationsRepo.insert({
+    ...parsed.data,
+    documents: json.documents,
+  });
   await auditRepo.record({
     actorId: null,
     actorEmail: parsed.data.personal.email,

@@ -33,11 +33,13 @@ interface ResolvedUrl {
 let _warned = false;
 
 function resolveUrl(): ResolvedUrl {
-  const raw = process.env.DATABASE_URL;
+  const raw = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
   const onServerless =
     process.env.VERCEL === '1' || !!process.env.VERCEL_ENV || !!process.env.NETLIFY;
 
-  if (raw && (raw.startsWith('libsql://') || raw.startsWith('https://'))) {
+  const isSupabase = raw && raw.includes('supabase.co');
+
+  if (raw && !isSupabase && (raw.startsWith('libsql://') || raw.startsWith('https://'))) {
     return { url: raw, kind: 'remote' };
   }
 
@@ -78,7 +80,7 @@ export function getDb() {
   const { url, kind } = resolveUrl();
   _client = createClient({
     url,
-    authToken: process.env.DATABASE_AUTH_TOKEN,
+    authToken: import.meta.env.DATABASE_AUTH_TOKEN || process.env.DATABASE_AUTH_TOKEN,
   });
   _db = drizzle(_client, { schema });
 

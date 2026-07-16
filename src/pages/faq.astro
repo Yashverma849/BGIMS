@@ -1,6 +1,5 @@
 ---
 import PublicLayout from '~layouts/PublicLayout.astro';
-import CtaBanner from '~components/layout/CtaBanner.astro';
 import { FAQ } from '~lib/data/faq';
 ---
 
@@ -8,42 +7,55 @@ import { FAQ } from '~lib/data/faq';
   title="FAQ — MM BGIMS"
   description="Frequently asked questions about admissions, accommodation, programmes, placements and accreditations at MM BGIMS, Mumbai."
 >
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow reveal">— Frequently asked</span>
-      <h1 class="reveal" data-delay="100">A few <em class="italic-accent">common questions</em>.</h1>
-      <p class="page-hero__lede reveal" data-delay="200">
-        Quick answers on admissions, campus life, programmes and placements. Still unsure? Write to us — we reply within a working day.
-      </p>
-    </div>
-    <svg class="page-hero__ornament" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width=".5" fill="none" opacity=".3"/>
-      <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width=".5" fill="none" opacity=".4"/>
-      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width=".5" fill="none" opacity=".5"/>
-    </svg>
-  </section>
+  <section class="faq-new-section">
 
-  <section class="section">
+    <!-- Right orange blob decorator -->
+    <div class="faq-decor faq-decor--right" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scale(1.8); transform-origin: right center;">
+        <path d="M30 10 C 60 5, 90 20, 90 48 C 90 76, 50 95, 25 80 C 5 65, 5 18, 30 10 Z" fill="#ffb85c" fill-opacity="0.9"/>
+      </svg>
+    </div>
+
     <div class="container">
-      <div class="faq-list">
-        {FAQ.map((f, i) => (
-          <details class="faq-item reveal" data-delay={i * 50}>
-            <summary>{f.q}<span class="faq-item__icon">+</span></summary>
-            <p>{f.a}</p>
-          </details>
-        ))}
+      <h1 class="faq-new-title reveal">Frequently<br><em>asked questions</em></h1>
+      
+      <div class="faq-new-grid">
+        <!-- Left: Accordion list -->
+        <div class="faq-new-left">
+          <div class="faq-new-list">
+            {FAQ.map((f, i) => (
+              <details class="faq-new-item reveal" data-delay={i * 50}>
+                <summary class="faq-new-summary">
+                  <span class="faq-new-question">{f.q}</span>
+                  <span class="faq-new-icon">+</span>
+                </summary>
+                <div class="faq-new-answer">
+                  <p>{f.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Right: CTA Card -->
+        <div class="faq-new-right reveal" data-delay="150">
+          <div class="faq-cta-card">
+            <div class="faq-cta-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+              </svg>
+            </div>
+            <h3 class="faq-cta-card__title">Do you have more questions?</h3>
+            <p class="faq-cta-card__text">
+              Our admissions team and academic coordinators are here to assist. Connect with us directly for any customized query.
+            </p>
+            <a href="mailto:admission@mmbgims.com" class="faq-cta-card__btn">
+              Shoot a Direct Mail
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-
-  <CtaBanner
-    eyebrow="— Still have a question?"
-    title="Write to the <em>right desk</em>."
-    body="Admissions, placements or general enquiries — we'll route your note and respond within one working day."
-    primaryHref="/contact"
-    primaryLabel="Contact us"
-    secondaryHref="/apply"
-    secondaryLabel="Apply now"
-    backgroundImage="/hero-bg.png"
-  />
 </PublicLayout>
+

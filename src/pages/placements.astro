@@ -9,7 +9,6 @@ import {
 } from '~lib/data/placements';
 import { HOME_MARQUEE_RECRUITERS } from '~lib/data/recruiters';
 
-const sectorMarquee = SECTOR_DISTRIBUTION_2024.map((s) => `${s.pct}% ${s.label}`);
 ---
 
 <PublicLayout
@@ -88,16 +87,25 @@ const sectorMarquee = SECTOR_DISTRIBUTION_2024.map((s) => `${s.pct}% ${s.label}`
     </div>
   </section>
 
-  <section class="sectors">
+  <section class="sectors-split">
     <div class="container">
-      <div class="section-header reveal">
-        <div>
+      <div class="sectors-split__grid">
+        <div class="sectors-split__left reveal">
           <span class="eyebrow">— Sector Distribution</span>
           <h2 style="margin-top: 1rem;">Where the <em class="italic-accent" style="color: var(--accent);">Class of 2024</em> went.</h2>
         </div>
+        <div class="sectors-split__right reveal" data-delay="1">
+          <div class="sectors-carousel">
+            {SECTOR_DISTRIBUTION_2024.map((item, idx) => (
+              <div class={`sector-slide ${idx === 0 ? 'active' : ''}`} data-index={idx}>
+                <div class="sector-slide__pct" data-target={item.pct}>0%</div>
+                <div class="sector-slide__label">of graduates placed in {item.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
-    <Marquee items={sectorMarquee} duration={45} />
   </section>
 
   <section class="ladder">
@@ -164,7 +172,76 @@ const sectorMarquee = SECTOR_DISTRIBUTION_2024.map((s) => `${s.pct}% ${s.label}`
     </div>
   </section>
 </PublicLayout>
-
 <script>
   import '~scripts/counters';
+
+  // Sector carousel transition logic
+  const slides = document.querySelectorAll('.sector-slide');
+  
+  if (slides.length > 0) {
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    const intervalTime = 5000; // 5 seconds
+    
+    // Counting animation function
+    function animateValue(element: HTMLElement, start: number, end: number, duration: number) {
+      let startTimestamp: number | null = null;
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // Easing: ease-out-quart
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const currentValue = Math.floor(eased * (end - start) + start);
+        element.textContent = `${currentValue}%`;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          element.textContent = `${end}%`;
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Trigger animation for the first active slide on load
+    const firstPct = slides[0].querySelector('.sector-slide__pct') as HTMLElement;
+    if (firstPct) {
+      const targetVal = parseInt(firstPct.getAttribute('data-target') || '0', 10);
+      animateValue(firstPct, 0, targetVal, 1200);
+    }
+    
+    function showNextSlide() {
+      if (totalSlides <= 1) return;
+      
+      const currentSlide = slides[currentIndex];
+      
+      // Calculate next index
+      currentIndex = (currentIndex + 1) % totalSlides;
+      const nextSlide = slides[currentIndex];
+      
+      // Phase 1: Set exit class on current slide
+      currentSlide.classList.remove('active');
+      currentSlide.classList.add('exit');
+      
+      // Phase 2: Set active class on next slide
+      nextSlide.classList.remove('exit');
+      nextSlide.classList.add('active');
+      
+      // Phase 3: Trigger count animation on the next slide's percentage
+      const nextPct = nextSlide.querySelector('.sector-slide__pct') as HTMLElement;
+      if (nextPct) {
+        const targetVal = parseInt(nextPct.getAttribute('data-target') || '0', 10);
+        animateValue(nextPct, 0, targetVal, 1200);
+      }
+      
+      // Phase 4: Clean up exit class after the transition finishes (0.8s matches transition duration in CSS)
+      setTimeout(() => {
+        currentSlide.classList.remove('exit');
+      }, 800);
+    }
+    
+    // Periodically run slide transition if we have multiple slides
+    if (totalSlides > 1) {
+      setInterval(showNextSlide, intervalTime);
+    }
+  }
 </script>
