@@ -538,6 +538,9 @@
 .ladder__bar-fill {
   height: 100%; background: linear-gradient(90deg, var(--accent) 0%, var(--brass-500) 100%);
   border-radius: 2px; transform-origin: left;
+  transform: scaleX(0);
+}
+.ladder__row.visible .ladder__bar-fill {
   animation: scaleX 1.4s var(--ease-out) both;
 }
 @keyframes scaleX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
